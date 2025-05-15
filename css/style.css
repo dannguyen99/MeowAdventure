@@ -1,6 +1,10 @@
 /* css/style.css */
 body {
-    font-family: 'Press Start 2P', cursive; /* Consistent font */
+    font-family: "Sour Gummy", sans-serif; /* NEW GLOBAL FONT */
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400; /* Default weight for body text in scenes */
+    /* font-variation-settings: "wdth" 100; */ /* Optional, usually default */
     color: #333;
     margin: 0;
     padding: 0;
@@ -8,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f2f5; /* Consistent outer background */
+    background-color: #f0f2f5;
     overflow: hidden;
 }
 
@@ -85,32 +89,43 @@ body {
 /* Dialogue Box Area */
 #dialogue-box-container {
     position: absolute;
-    bottom: 20px; /* Position from bottom of 600px high #game-container */
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 60px); /* Takes full width minus some padding (e.g., 30px each side) */
-    max-width: 840px;
+    width: calc(100% - 60px);
+    max-width: 840px; /* Max width within the 900px game container */
     z-index: 10;
 }
 
+
 #dialogue-box {
-    background-color: rgba(45, 52, 54, 0.9); /* Darker, semi-transparent */
-    color: #dfe6e9; /* Light text */
-    border: 4px solid #f6e58d; /* Yellowish border like example */
-    border-radius: 10px; /* Slightly larger radius */
-    padding: 12px 18px; /* Adjust padding */
-    max-height: 150px; /* Max height for dialogue, adjust as needed */
+    background-color: rgba(45, 52, 54, 0.9);
+    color: #dfe6e9;
+    border: 4px solid #f6e58d;
+    border-radius: 10px;
+    padding: 10px 20px; /* Increased padding slightly for more space */
+    max-height: 160px; /* Slightly increased max-height if needed for larger text */
     overflow-y: auto;
     text-align: left;
     box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.8em; /* Adjust for readability */
-    line-height: 1.5; /* Better line spacing */
+    font-family: "Sour Gummy", sans-serif;
+    font-weight: 500; /* Current weight */
+
+    /* --- INCREASE FONT SIZE HERE --- */
+    font-size: 18px;   /* PREVIOUSLY: 0.8em. Let's try 1em first.
+                          You can also use px, e.g., 18px or 20px.
+                          Adjust this value until it looks good. */
+    /* --- END INCREASE FONT SIZE --- */
+
+    line-height: 1.7; /* PREVIOUSLY: 1.5. Adjust if needed for better readability with new size */
 }
 
-#dialogue-text strong {
+#dialogue-text strong { /* Character names */
+    font-weight: 700; /* Bolder for character names */
     color: #f6e58d;
-    margin-right: 5px;
+    margin-right: 8px; /* Slightly more space after character name */
+    /* If character names also appear too small, you could add: */
+    /* font-size: 1.05em; /* Makes character name slightly larger than dialogue text */
 }
 
 #navigation { /* For next scene button, etc. */
@@ -119,9 +134,8 @@ body {
     right: 25px;
     z-index: 11;
 }
-
 #next-scene-button {
-    font-family: 'Press Start 2P', cursive;
+    font-family: "Sour Gummy", sans-serif;
     padding: 10px 18px;
     font-size: 0.85em;
     background-color: #f6e58d;
@@ -136,7 +150,8 @@ body {
 
 /* Optional: Sound toggle button for game scenes (if you want one on every page) */
 #scene-sound-toggle {
-    font-family: 'Arial', sans-serif;
+    font-family: "Sour Gummy", sans-serif;
+    font-weight: 600; /* Semi-bold for buttons */
     position: absolute;
     top: 20px; /* Example: top right corner for scenes */
     right: 20px;
