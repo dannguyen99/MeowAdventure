@@ -4,172 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meow Adventure - Start</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: "Sour Gummy", sans-serif; /* Global font application */
+            font-family: "Sour Gummy", sans-serif;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f2f5;
+            /* The overall page background, less important if #start-box covers it */
+            background-color: #f0f2f5; /* Fallback or edge color */
         }
 
-        #start-box {
+        #start-box { /* This is the 900x600 game area */
             width: 900px;
             height: 600px;
-            padding: 30px;
-            background-color: #ffe0b2; /* This is the light peach/tan from your screenshot */
-            border: 8px solid #604030; /* Darker brown border from screenshot */
-            border-radius: 25px;       /* More rounded corners from screenshot */
-            box-shadow: 0 0 0 5px #8c6d52, /* Inner shadow border, slightly lighter brown */
-                        0 8px 20px rgba(0,0,0,0.25); /* Softer outer shadow */
-            position: relative;
+            background-image: url('images/Back1.png'); /* MAIN BACKGROUND IMAGE */
+            background-size: cover;                   /* Ensure it covers the area */
+            background-position: center center;       /* Center the image */
+            /* Optional: If you want a very subtle color overlay on the image for mood */
+            background-blend-mode: overlay;
+            background-color: rgba(250, 243, 224, 0.45); /* Very light yellowish tint, low opacity */
+
+            /* Optional: Keep the border for the game area on the start screen */
+            border: 8px solid #6d4c41;
+            border-radius: 20px;
+            box-shadow: 0 0 0 5px #a1887f, 0 6px 18px rgba(0,0,0,0.3);
+
+            position: relative; /* For sound button and absolute positioning if needed */
             display: flex;
-            align-items: center;
-            gap: 30px; /* Increased gap slightly */
-            overflow: hidden;
+            flex-direction: column;   /* Stack items vertically */
+            align-items: center;      /* Center items horizontally */
+            justify-content: center;  /* Distribute items vertically */
+            padding: 30px;            /* Overall padding within the box */
             box-sizing: border-box;
+            text-align: center;
         }
 
-        /* Left Column for Logo */
-        #logo-column {
-            flex: 0 0 280px; /* Adjust width for logo column in larger box */
-            height: 100%;
+        #game-logo-container {
+            width: 180px; /* Desired width of the circular area */
+            height: 180px; /* Desired height (same as width for circle) */
+            background-color: white;
+            border-radius: 50%; /* Make it circular */
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        #game-logo {
-            max-width: 100%;
-            max-height: 85%;
-            object-fit: contain;
-            image-rendering: pixelated;
-            background-color: #fff;
-            border: 4px solid #a1887f;
-            border-radius: 10px;
-            padding: 15px; /* Adjust padding */
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-        }
-
-        /* Right Column for Text and Button */
-        #text-column {
-            flex: 1;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Align text to the left */
-            padding-left: 25px; /* More padding from the logo */
+            /* Padding removed from here to let the image define its shape within the circle */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px; /* Space below the logo */
+            overflow: hidden; /* Important for circular mask on potentially non-square image */
         }
 
-        #title-container {
-            position: relative;
-            display: inline-block; /* So sparkles are relative to text width */
-            margin-bottom: 20px; /* Increased space below title */
+        #game-logo-container img {
+            /* The image should scale to fit, but not distort.
+               If logo is not square, 'contain' is good. If it's meant to fill, 'cover' might work.
+               For a non-square logo in a circle, some parts might be clipped or there will be whitespace. */
+            max-width: 90%; /* e.g. image takes 90% of the circle's diameter */
+            max-height: 90%;
+            object-fit: contain;
         }
 
-        #text-column h1 { /* Game Title */
-            font-family: "Sour Gummy", sans-serif; /* Ensure it's applied */
-            font-size: 3.5em;  /* INCREASED: Significantly larger title, e.g., ~56px if base is 16px */
-            font-weight: 700;  /* BOLD: Make title prominent */
-            color: #4a2c2a;    /* Darker brown for title text from screenshot */
-            margin: 0;
-            line-height: 1.2;  /* Adjust line height for larger font */
-            letter-spacing: 0.5px; /* Optional: slight letter spacing if font feels too tight */
-        }
-
-        .sparkle {
-            position: absolute;
-            width: 5px; /* Adjust sparkle size if needed */
-            height: 5px;
-            background-color: #ffb6c1; /* Light pink sparkles from screenshot */
-            border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        #text-column p.subtitle { /* Subtitle text */
+        #title-text {
             font-family: "Sour Gummy", sans-serif;
-            font-size: 1.4em;  /* INCREASED: Larger subtitle, e.g., ~22px */
-            font-weight: 500;  /* MEDIUM: Clearer than regular for this font */
-            color: #5c3c38;    /* Slightly lighter brown for subtitle from screenshot */
-            margin-top: 0px; /* Reduced space from title */
-            margin-bottom: 35px; /* Increased space before button */
-            line-height: 1.5;
+            font-size: 6em; /* Adjust for desired size with subtitle */
+            font-weight: 700;
+            color: #4a2c2a;
+            text-shadow: 0 0 12px rgba(255, 100, 100, 0.8), /* Adjusted glow */
+                         0 0 22px rgba(255, 100, 100, 0.6);
+            margin-bottom: 5px; /* Reduced margin as subtitle is below */
+            line-height: 1;
         }
 
-        #start-button { /* Start Button */
+        #subtitle-text {
             font-family: "Sour Gummy", sans-serif;
-            font-size: 1.5em;  /* INCREASED: Larger button text, e.g., ~24px */
-            font-weight: 600;  /* SEMI-BOLD: Make button text stand out */
-            color: #4a2c2a;    /* Darker brown text on button */
-            background-color: #f5e6d3; /* Light creamy color for button background from screenshot */
-            border: 3px solid #604030; /* Darker brown border for button */
-            border-radius: 12px; /* More rounded button corners */
-            padding: 12px 35px; /* INCREASED: More padding for larger text */
+            font-size: 1.5em; /* Adjust size for subtitle */
+            font-weight: 500;
+            color: #5d4037; /* Slightly lighter brown for subtitle */
+            margin-bottom: 35px; /* Space below subtitle before button */
+        }
+
+        #start-button {
+            font-family: "Sour Gummy", sans-serif;
+            font-size: 1.7em;
+            font-weight: 600;
+            color: #fffaf0;
+            background-color: #795548;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 3px 0 0 #8c6d52, /* Button "depth" shadow */
-                        inset 0 1px 2px rgba(255,255,255,0.3); /* Subtle inner highlight */
-            transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
-            text-transform: uppercase; /* START (all caps like screenshot) */
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease, transform 0.1s ease;
         }
         #start-button:hover {
-             background-color: #fff3e0; /* Slightly lighter on hover */
+             background-color: #8d6e63;
              transform: translateY(-2px);
-             box-shadow: 0 5px 0 0 #8c6d52, inset 0 1px 2px rgba(255,255,255,0.3);
         }
         #start-button:active {
-            background-color: #f0eadf;
-            transform: translateY(1px);
-            box-shadow: 0 1px 0 0 #8c6d52, inset 0 1px 2px rgba(255,255,255,0.3);
+            background-color: #6d4c41;
+            transform: translateY(0px);
         }
 
         #sound-toggle-button {
-            font-family: 'Arial', sans-serif; /* Keep system font for icon clarity */
+            font-family: 'Arial', sans-serif;
             position: absolute;
             bottom: 25px;
             right: 25px;
-            width: 42px; /* Slightly larger icon */
-            height: 42px;
-            background-color: #d3b8ae; /* Tan background for sound icon from screenshot */
-            color: #604030; /* Dark brown icon symbol */
-            border: 3px solid #604030; /* Dark brown border */
+            width: 40px;
+            height: 40px;
+            background-color: rgba(200, 183, 166, 0.7); /* Slightly more transparent */
+            color: #6d4c41;
+            border: 3px solid #6d4c41;
             border-radius: 50%;
-            font-size: 1.3em;
+            font-size: 1.2em;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2), 0 2px 3px rgba(0,0,0,0.2); /* Inner highlight and outer shadow */
+            box-shadow: inset 0 0 0 2px rgba(224, 212, 200, 0.7);
             z-index: 10;
         }
          #sound-toggle-button:hover {
-            background-color: #e0c8bf;
+            background-color: rgba(215, 204, 200, 0.85);
         }
     </style>
 </head>
 <body>
     <div id="start-box">
-        <div id="logo-column">
+        <div id="game-logo-container">
             <img id="game-logo" src="images/Logo/Logo.jpg" alt="Meow Adventure Logo">
         </div>
-        <div id="text-column">
-            <div id="title-container">
-                <h1>Meow Adventure</h1>
-            </div>
-            <p class="subtitle">Help a lost kitten find its way home!</p>
-            <button id="start-button" data-nextscene="scene01.html">Start</button>
-        </div>
+        <div id="title-text">MEOW ADVENTURE</div>
+        <div id="subtitle-text">Help a lost kitten find its way home!</div>
+        <button id="start-button" data-nextscene="scene01.html">START</button>
         <button id="sound-toggle-button">🔇</button>
     </div>
 
@@ -178,21 +151,44 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-        // Your existing JavaScript for the start page
-        // The GSAP sparkle animation code should still work fine,
-        // as it calculates positions based on the #title-container's dimensions.
-        // If sparkles look off, you might adjust their random positioning multipliers slightly.
         $(document).ready(function() {
+            // --- Sound logic (keep as is) ---
+            // ... (Your existing sound logic) ...
+
             const $startButton = $('#start-button');
-            const $soundToggleButton = $('#sound-toggle-button');
-            const mainBgMusic = $('#main-bg-music')[0];
+            const $gameLogoContainer = $('#game-logo-container');
+            const $titleText = $('#title-text');
+            const $subtitleText = $('#subtitle-text'); // Get subtitle element
+            const $soundToggleButton = $('#sound-toggle-button'); // Ensure sound button is targeted for exit animation
+
+            $startButton.on('click', function() {
+                // ... (click sound, play music, sessionStorage logic - keep as is) ...
+
+                // GSAP exit animation for new elements
+                const tl = gsap.timeline({
+                    onComplete: function() { window.location.href = $startButton.data('nextscene'); }
+                });
+                tl.to([$gameLogoContainer, $titleText, $subtitleText, $startButton], { // Add subtitle to exit animation
+                    autoAlpha: 0,
+                    y: -25, // Slight upward movement
+                    duration: 0.3,
+                    stagger: 0.08, // Adjust stagger timing
+                    ease: "power1.in"
+                });
+                 tl.to($soundToggleButton, {autoAlpha: 0, duration: 0.2}, "<0.1"); // Fade out sound button slightly offset
+            });
+
+            // GSAP Intro Animations
+            gsap.from($gameLogoContainer, { duration: 0.8, y: -60, autoAlpha: 0, ease: "bounce.out", delay: 0.3 });
+            gsap.from($titleText, {duration: 0.9, scale: 0.4, autoAlpha:0, ease:"back.out(1.3)", delay: 0.5});
+            gsap.from($subtitleText, {duration: 0.7, y: 30, autoAlpha:0, ease:"power2.out", delay: 0.8}); // Animate subtitle
+            gsap.from($startButton, { duration: 0.7, y: 40, autoAlpha: 0, ease: "power2.out", delay: 1.0 });
+            gsap.from($soundToggleButton, { duration: 0.6, autoAlpha: 0, scale:0.2, ease:"back.out(1.7)", delay: 1.3 });
+
+            // ... (window.onbeforeunload, sound logic - keep as is) ...
+             const mainBgMusic = $('#main-bg-music')[0]; // define these for sound logic
             const clickSound = $('#click-sound')[0];
-            const $titleContainer = $('#title-container');
-            const $gameLogo = $('#game-logo');
-            const $textColumnChildren = $('#text-column > *').not('#title-container').not($soundToggleButton);
-
             let isMuted = localStorage.getItem('meowAdventureMuted') !== 'false';
-
             function updateSoundButtonUI() { $soundToggleButton.text(isMuted ? '🔇' : '🔊'); }
             function applyMuteStateToAudioElements() {
                 if (mainBgMusic) mainBgMusic.muted = isMuted;
@@ -205,75 +201,30 @@
                 }
             }
             function pauseMainMusic() { if (mainBgMusic && !mainBgMusic.paused) mainBgMusic.pause(); }
-
             if (mainBgMusic) mainBgMusic.volume = 0.2;
             if (clickSound) clickSound.volume = 0.5;
             applyMuteStateToAudioElements();
             updateSoundButtonUI();
-
             $soundToggleButton.on('click', function() {
-                isMuted = !isMuted;
-                applyMuteStateToAudioElements();
-                updateSoundButtonUI();
-                saveSoundPreference();
+                isMuted = !isMuted; applyMuteStateToAudioElements(); updateSoundButtonUI(); saveSoundPreference();
                 if (!isMuted) {
                     playMainMusic();
                     if (clickSound) {
-                        clickSound.muted = false;
-                        clickSound.currentTime = 0;
+                        clickSound.muted = false; clickSound.currentTime = 0;
                         clickSound.play().catch(e => console.warn("Click sound error for toggle: ", e))
                                    .finally(() => { if (clickSound) clickSound.muted = isMuted; });
                     }
                 } else { pauseMainMusic(); }
             });
-
-            $startButton.on('click', function() {
-                if (!isMuted && clickSound) {
-                    clickSound.currentTime = 0;
-                    clickSound.play().catch(e => console.warn("Click sound error on start: ", e));
-                }
-                playMainMusic();
-                sessionStorage.setItem('meowAdventureMuted', isMuted);
-                if (mainBgMusic && !mainBgMusic.paused && !isMuted) {
-                    sessionStorage.setItem('musicTime', mainBgMusic.currentTime);
-                    sessionStorage.setItem('musicSrc', mainBgMusic.src);
-                    sessionStorage.setItem('musicPlaying', 'true');
-                } else { sessionStorage.setItem('musicPlaying', 'false'); }
-                gsap.to('#start-box', {
-                    autoAlpha: 0, scale: 0.9, duration: 0.4, ease: "power1.in",
-                    onComplete: function() { window.location.href = $startButton.data('nextscene'); }
-                });
-            });
-
-            const numSparkles = 12;
-            for (let i = 0; i < numSparkles; i++) { $titleContainer.append('<div class="sparkle"></div>'); }
-            const $sparkles = $('.sparkle');
-            gsap.delayedCall(0.05, () => {
-                gsap.set($sparkles, {
-                    x: () => gsap.utils.random(-$titleContainer.outerWidth() * 0.1, $titleContainer.outerWidth() * 1.1), // Adjusted multipliers for better spread
-                    y: () => gsap.utils.random(-$titleContainer.outerHeight() * 0.3, $titleContainer.outerHeight() * 1.1),
-                    scale: () => gsap.utils.random(0.6, 1.2) // Slightly larger sparkles
-                });
-                gsap.to($sparkles, {
-                    opacity: gsap.utils.random(0.5, 1.0, true), duration: 0.5, // More visible
-                    stagger: { each: 0.13, repeat: -1, yoyo: true, ease: "sine.inOut" },
-                    scale: () => gsap.utils.random(0.4, 0.9), delay: 0.5 // Start sooner
-                });
-            });
-
-            gsap.from($gameLogo.parent(), { duration: 0.8, x: -120, opacity: 0, ease: "power2.out", delay: 0.1 }); // Animate logo-column
-            gsap.from($titleContainer, {duration: 0.7, x: 80, opacity:0, ease:"power2.out", delay: 0.3});
-            gsap.from($('#text-column p.subtitle'), {duration: 0.6, x: 70, opacity:0, ease:"power2.out", delay: 0.5});
-            gsap.from($startButton, {duration: 0.6, y: 50, opacity:0, ease:"back.out(1.4)", delay: 0.7});
-            gsap.from($soundToggleButton, { duration: 0.6, opacity: 0, scale:0.3, ease:"back.out(1.7)", delay: 0.9 });
-
-            $(window).on('beforeunload', function() {
+             $(window).on('beforeunload', function() {
                 saveSoundPreference();
                 if (mainBgMusic && !mainBgMusic.paused && !isMuted) {
                     sessionStorage.setItem('musicTime', mainBgMusic.currentTime);
                     sessionStorage.setItem('musicSrc', mainBgMusic.src);
                     sessionStorage.setItem('musicPlaying', 'true');
-                } else { sessionStorage.setItem('musicPlaying', 'false'); }
+                } else {
+                    sessionStorage.setItem('musicPlaying', 'false');
+                }
             });
         });
     </script>
