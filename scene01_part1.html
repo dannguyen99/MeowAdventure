@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - Ch 1, Part 1: Awakening</title> <!-- Updated Title -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <!-- Background Image - starts with kitten sleeping -->
+        <img id="scene-background" src="images/Back1_Kittenn.png" alt="Kitten sleeping on porch">
+
+        <div id="animation-layer">
+            <!-- Kitten Sprite (initially hidden, uses images/Kitten.png when awake) -->
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
+            <!-- Butterfly Sprite -->
+            <img id="butterfly-sprite" src="images/Butterfly Animation/Butterfly 1.png" alt="Butterfly" style="opacity:0; display:none;">
+        </div>
+
+        <div id="dialogue-box-container">
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+        </div>
+        <button id="scene-sound-toggle">🔇</button> <!-- Starts with muted icon -->
+
+        <div id="navigation">
+            <!-- This button now navigates to part 2 -->
+            <button id="next-scene-button" style="display:none;" data-nextscene="scene01_part2.html">Continue</button>
+        </div>
+        
+    </div>
+
+    <audio id="bg-music-scene1" src="audio/peaceful_intro.mp3" loop></audio>
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="meow-sound" src="audio/kitten_meow_surprise.mp3"></audio>
+    <audio id="butterfly-flutter-sound" src="audio/butterfly_flutter.mp3" loop></audio>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/scene01_part1.js"></script>
+
+    <!-- Source Attribution -->
+</body>
+</html>
