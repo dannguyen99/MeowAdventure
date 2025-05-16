@@ -184,3 +184,11 @@ body {
     /* Ensure a smooth transition for all properties */
     transition: transform 1s ease-out, opacity 1s ease-out, filter 1s ease-out;
 }
+
+/* --- SCENE 1 PART 3 Specifics for #kitten-sprite --- */
+.scene-01-part3-lost #kitten-sprite {
+    width: 20%; /* May appear smaller, more lost */
+    left: 40%;
+    bottom: 37%;
+    transform: translateX(-50%);
+}

@@ -49,7 +49,7 @@ $(document).ready(function() {
                 if ($butterflySprite.data('animationTween')) $butterflySprite.data('animationTween').kill();
                 animateGameSprite($butterflySprite, butterflyFrames, 0.1);
 
-                gsap.set($kittenSprite, { scale: 1.2 }); // Kitten larger for chase
+                gsap.set($kittenSprite, { scale: 2 }); // Kitten larger for chase
 
                 if ($kittenSprite.data('animationTween')) $kittenSprite.data('animationTween').kill();
                 animateGameSprite($kittenSprite, kittenRunFrames, 0.07);
@@ -65,19 +65,17 @@ $(document).ready(function() {
                 });
 
                 // --- MODIFIED CHASE PARAMETERS FOR FULL SCREEN WIDTH ---
-                const butterflyWidth = $butterflySprite.width();
-                const kittenWidth = $kittenSprite.width() * 1.2; // Account for scale
 
                 // Starting positions: Off-screen right
                 // GSAP's x/y are relative to the element's CSS left/top.
                 // So, to place them off-screen right, their CSS 'left' could be '100%' or gameContainerWidth.
                 // We will set their initial X position using GSAP to be off-screen right.
-                gsap.set($butterflySprite, { x: gameContainerWidth - 150 }); // Butterfly's left edge at right screen edge
+                gsap.set($butterflySprite, { x: gameContainerWidth - 200 }); // Butterfly's left edge at right screen edge
                 gsap.set($kittenSprite, { x: gameContainerWidth }); // Kitten starts further right, effectively "behind" butterfly
 
                 // Target for exiting: Off-screen left
-                const targetXButterfly = -gameContainerWidth + 150; // Butterfly's right edge off left screen
-                const targetXKitten = -gameContainerWidth + 300;     // Kitten's right edge off left screen
+                const targetXButterfly = -gameContainerWidth; // Butterfly's right edge off left screen
+                const targetXKitten = -gameContainerWidth + 200;     // Kitten's right edge off left screen
 
                 // Gap between butterfly (leading) and kitten (chasing) is effectively set by their start X and speed
                 // We want butterfly to be visually ahead.
