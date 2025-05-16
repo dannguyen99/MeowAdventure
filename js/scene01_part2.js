@@ -1,5 +1,7 @@
 // js/scene01_part2.js
 $(document).ready(function() {
+    const $gameContainer = $('#game-container'); // Assuming this is your 900px wide container
+    const gameContainerWidth = $gameContainer.width(); // Get actual width
     // Scene-specific DOM elements if needed for unique actions
     const $sceneBackground = $('#scene-background');
     const $kittenSprite = $('#kitten-sprite');
@@ -62,62 +64,55 @@ $(document).ready(function() {
                     }
                 });
 
-                // --- MODIFIED CHASE PARAMETERS ---
-                const butterflyInitialXCss = parseFloat($butterflySprite.css('left')); // Get initial CSS left position
-                const kittenInitialXCss = parseFloat($kittenSprite.css('left'));
+                // --- MODIFIED CHASE PARAMETERS FOR FULL SCREEN WIDTH ---
+                const butterflyWidth = $butterflySprite.width();
+                const kittenWidth = $kittenSprite.width() * 1.2; // Account for scale
 
-                // Butterfly leads to the LEFT. Kitten is to its RIGHT.
-                // Gap between butterfly (leading) and kitten (chasing)
-                const chaseGap = 180; // INCREASED GAP: Was implicitly butterflyLeadAmount, now more explicit and larger
+                // Starting positions: Off-screen right
+                // GSAP's x/y are relative to the element's CSS left/top.
+                // So, to place them off-screen right, their CSS 'left' could be '100%' or gameContainerWidth.
+                // We will set their initial X position using GSAP to be off-screen right.
+                gsap.set($butterflySprite, { x: gameContainerWidth - 150 }); // Butterfly's left edge at right screen edge
+                gsap.set($kittenSprite, { x: gameContainerWidth }); // Kitten starts further right, effectively "behind" butterfly
 
-                // How far they run to the LEFT across the screen
-                // Needs to be enough to take them off-screen from their starting positions
-                const chaseDistanceToLeft = 800; // Adjust this based on stage width and starting pos
+                // Target for exiting: Off-screen left
+                const targetXButterfly = -gameContainerWidth + 150; // Butterfly's right edge off left screen
+                const targetXKitten = -gameContainerWidth + 300;     // Kitten's right edge off left screen
+
+                // Gap between butterfly (leading) and kitten (chasing) is effectively set by their start X and speed
+                // We want butterfly to be visually ahead.
 
                 const verticalVariance = 30;
+                const chaseDuration = 6.5; // INCREASED DURATION for full screen travel
                 // --- END MODIFIED CHASE PARAMETERS ---
 
                 tl.add("startChase")
-                    // Butterfly quickly moves to its starting chase position (further left)
+                    // Sprites are already set off-screen right by gsap.set above.
+                    // No initial "positioning" tween needed here unless you want a slight delay or stagger.
+
+                    .add("mainChase") // Can start immediately or with a slight delay after dialogue
+                    // Butterfly moves from off-screen right to off-screen left
                     .to($butterflySprite, {
-                        // x is relative to its current CSS position.
-                        // If kitten starts at 300px, butterfly target is 300 - 180 = 120px
-                        // So, x needs to be butterfly_target - butterfly_current_css_pos
-                        x: (kittenInitialXCss - chaseGap) - butterflyInitialXCss,
-                        y: `random(-${verticalVariance / 2}, ${verticalVariance / 2})`,
-                        duration: 0.7,
-                        ease: "power1.out"
-                    }, "startChase")
-
-                    // Kitten makes a small initial dash to the left
-                    .to($kittenSprite, {
-                        x: "-=30", // Small initial movement TO THE LEFT
-                        duration: 0.4,
-                        ease: "power1.out"
-                    }, "startChase+=0.2") // Kitten starts slightly after
-
-                    .add("mainChase", "+=0.1")
-
-                    // Butterfly moves across the screen TO THE LEFT
-                    .to($butterflySprite, {
-                        x: `-=${chaseDistanceToLeft}`, // Move left by chaseDistance
+                        x: targetXButterfly,
                         y: `random(-${verticalVariance}, ${verticalVariance})`,
-                        duration: 3.5,
-                        ease: "none"
+                        duration: chaseDuration,
+                        ease: "none" // Linear movement
                     }, "mainChase")
 
-                    // Kitten chases across the screen TO THE LEFT
+                    // Kitten chases from off-screen right to off-screen left
+                    // It starts further right, so it will appear to be chasing
                     .to($kittenSprite, {
-                        x: `-=${chaseDistanceToLeft}`, // Kitten also moves left by chaseDistance
+                        x: targetXKitten,
                         y: `random(-${verticalVariance}, ${verticalVariance})`,
-                        duration: 3.5,
+                        duration: chaseDuration, // Same duration to maintain relative positions
                         ease: "none"
-                    }, "mainChase") // Kitten and Butterfly move simultaneously
+                    }, "mainChase") // Start at the same time as butterfly
 
-                    // Fade them out as they approach the LEFT edge
-                    // Start fading when they are about 75-80% through their run
-                    .to($butterflySprite, { autoAlpha: 0, duration: 0.7, ease: "power1.in" }, `mainChase+=${3.5 * 0.75}`)
-                    .to($kittenSprite, { autoAlpha: 0, duration: 0.7, ease: "power1.in" }, `mainChase+=${3.5 * 0.75}`);
+                    // No explicit fade-out needed if they travel completely off-screen
+                    // unless you want them to fade before fully exiting.
+                    // If they are fully off-screen, autoAlpha:0 isn't strictly necessary.
+                    // However, good practice to hide them once done.
+                    .set([$butterflySprite, $kittenSprite], { autoAlpha: 0 }, `+=${chaseDuration}`); // Hide after they've gone
 
             },
             endPart: true
@@ -139,9 +134,6 @@ $(document).ready(function() {
         onSceneReady: function() {
             console.log("Scene 01 Part 2 is ready!");
             gsap.set([$kittenSprite, $butterflySprite], { autoAlpha: 1, display:'block', scale: 1 });
-             // Flip sprites horizontally if they are facing right by default
-            // gsap.set($kittenSprite, { scaleX: -1 });    // Flip kitten to face left
-            // gsap.set($butterflySprite, { scaleX: -1 }); // Flip butterfly to face left
         }
     };
     // Initialize the scene using the common framework
