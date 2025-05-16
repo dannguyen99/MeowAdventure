@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - Ch 2, Minigame: Acorn Hunt</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container" class="scene-02-minigame-acorn-hunt"> <!-- Scene specific class -->
+        <img id="scene-background" src="images/Lv1.jpg" alt="Forest for Acorn Hunt">
+
+        <div id="animation-layer">
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
+            <img id="squirrel-sprite" src="images/Squirrel.png" alt="Squirrel" style="opacity:0; display:none;">
+
+            <!-- Hint Arrow -->
+            <img id="hint-arrow" src="images/UI/HintArrow.png" alt="Hint Arrow" style="opacity:0; display:none; position:absolute; z-index:5;">
+
+            <!-- Clickable Hiding Spots (will be divs positioned over the background) -->
+            <div class="hiding-spot" id="spot-bush1" data-acorn-id="1"></div>
+            <div class="hiding-spot" id="spot-rocks" data-acorn-id="2"></div>
+            <div class="hiding-spot" id="spot-treebase" data-acorn-id="3"></div>
+            <div class="hiding-spot" id="spot-bush2"></div> <!-- Decoy -->
+            <div class="hiding-spot" id="spot-log"></div>   <!-- Decoy -->
+            <!-- Add more spots as needed (some with acorns, some decoys) -->
+
+            <!-- Found Acorns (will appear on click) -->
+            <img class="found-acorn" id="acorn-1" src="images/Chestnut.png" alt="Acorn" style="opacity:0; display:none; position:absolute; z-index:3;">
+            <img class="found-acorn" id="acorn-2" src="images/Chestnut.png" alt="Acorn" style="opacity:0; display:none; position:absolute; z-index:3;">
+            <img class="found-acorn" id="acorn-3" src="images/Chestnut.png" alt="Acorn" style="opacity:0; display:none; position:absolute; z-index:3;">
+        </div>
+
+        <!-- UI Elements -->
+        <div id="acorn-ui-container">
+            <p>Acorns Found: <span id="acorns-found-count">0</span> / 3</p>
+        </div>
+
+        <div id="dialogue-box-container" style="opacity:0;">
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+        </div>
+
+        <button id="scene-sound-toggle">🔇</button>
+
+        <div id="navigation">
+            <button id="next-scene-button" style="display:none;" data-nextscene="scene02_outro.html">Great!</button>
+        </div>
+    </div>
+
+    <audio id="bg-music-scene2" src="audio/magic_forest.mp3" loop></audio>
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="squirrel-chatter-sound" src="audio/squirrel.mp3"></audio>
+    <audio id="meow-curious-sound" src="audio/kitten_meow_surprise.mp3"></audio>
+    <audio id="acorn-found-sound" src="audio/item_found.mp3"></audio>
+    <audio id="rustle-decoy-sound" src="audio/crow-sfx.mp3"></audio>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-dialogue.js"></script>
+    <script src="js/game-animations.js"></script>
+    <script src="js/game-navigation.js"></script>
+    <script src="js/game-main.js"></script>
+    <script src="js/scene02_minigame.js"></script> <!-- NEW JS FILE -->
+
+    <!-- Source Attribution -->
+</body>
+</html>
