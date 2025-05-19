@@ -203,10 +203,8 @@ body {
 
 .scene-02-forest-intro #squirrel-sprite {
     width: 45%; /* Adjust size */
-    /* Example: Positioned on a tree branch or area where it will jump down from */
     bottom: 25%;
     left: 45%;
-    /* opacity:0; display:none; set by HTML & JS */
 }
 
 .scene-02-minigame-acorn-hunt #kitten-sprite {
@@ -292,4 +290,18 @@ body {
     /* Optional: visual feedback for searched spots */
     /* opacity: 0.7; */
     /* border: 2px dashed grey; */
+}
+
+.scene-02-forest-outro #kitten-sprite {
+    width: 40%;
+    left: 20%; /* Example position, watching the squirrel */
+    bottom: 25%;
+    transform: translateX(-50%);
+}
+
+
+.scene-02-forest-outro #squirrel-sprite {
+    width: 45%; /* Adjust size */
+    bottom: 25%;
+    left: 45%;
 }
