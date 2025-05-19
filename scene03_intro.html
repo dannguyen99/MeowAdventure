@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - Ch 3, Intro: The Rushing Stream</title> <!-- Updated Title -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container" class="scene-03-stream-intro"> <!-- Scene specific class -->
+        <img id="scene-background" src="images/Lv2.png" alt="Wide Rushing Stream">
+
+        <div id="animation-layer">
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten at Stream" style="opacity:0; display:none;">
+            <img id="frog-sprite" src="images/Frog.png" alt="Frog" style="opacity:0; display:none;">
+        </div>
+
+        <div id="dialogue-box-container" style="opacity:0;">
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+        </div>
+
+        <button id="scene-sound-toggle">🔇</button>
+
+        <div id="navigation">
+            <button id="next-scene-button" style="display:none;" data-nextscene="scene03_riddle.html">Accept Riddle</button>
+        </div>
+    </div>
+
+    <!-- Audio: Stream sounds, new music if desired -->
+    <audio id="bg-music-scene3" src="audio/golden-forest-with-birds-and-running-stream-sounds-171319.mp3" loop></audio>
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="meow-worried-sound" src="audio/kitten_meow_surprise.mp3"></audio> <!-- New worried meow -->
+    <audio id="frog-croak-sound" src="audio/frog-85649.mp3"></audio>
+    <audio id="water-splash-sound" src="audio/fill-water-192164.mp3"></audio> <!-- For frog appearing -->
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- COMMON GAME SCRIPTS -->
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-dialogue.js"></script>
+    <script src="js/game-animations.js"></script>
+    <script src="js/game-navigation.js"></script>
+    <script src="js/game-main.js"></script>
+
+    <script src="js/scene03_intro.js"></script> <!-- NEW JS FILE -->
+
+    <!-- Source Attribution -->
+</body>
+</html>

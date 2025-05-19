@@ -193,34 +193,29 @@ body {
     transform: translateX(-50%);
 }
 
-.scene-02-forest-intro #kitten-sprite {
-    width:40%; /* Kitten might appear a bit smaller in vast forest */
-    left: 20%;  /* Example: Entering from the left */
-    bottom: 25%;
-    transform: translateX(-50%);
-    /* opacity:0; display:none; set by HTML & JS */
-}
-
-.scene-02-forest-intro #squirrel-sprite {
-    width: 45%; /* Adjust size */
-    bottom: 25%;
-    left: 45%;
-}
-
-.scene-02-minigame-acorn-hunt #kitten-sprite {
+/* Combined styles for kitten-sprite in Scene 02 parts */
+.scene-02-forest-intro #kitten-sprite,
+.scene-02-minigame-acorn-hunt #kitten-sprite,
+.scene-02-forest-outro #kitten-sprite {
     width: 40%;
-    left: 20%; /* Example position, watching the squirrel */
+    left: 20%;
     bottom: 25%;
     transform: translateX(-50%);
+    /* opacity:0; display:none; set by HTML & JS */
 }
 
-.scene-02-minigame-acorn-hunt #squirrel-sprite {
-    width: 45%; /* Adjust size */
-    /* Example: Positioned on a tree branch or area where it will jump down from */
+/* Combined styles for squirrel-sprite in Scene 02 parts */
+.scene-02-forest-intro #squirrel-sprite,
+.scene-02-minigame-acorn-hunt #squirrel-sprite,
+.scene-02-forest-outro #squirrel-sprite {
+    width: 45%;
     bottom: 25%;
     left: 45%;
     /* opacity:0; display:none; set by HTML & JS */
 }
+
+
+
 /* Acorn Items - to be positioned absolutely where they are "found" */
 .scene-02-minigame-acorn-hunt #hint-arrow {
     width: 80px; /* Adjust size */
@@ -271,37 +266,64 @@ body {
     /* Position will be set by JS to match the clicked spot */
 }
 
-/* Acorn UI */
-#acorn-ui-container {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    z-index: 10;
+/* Scene 03 - Stream Intro */
+.scene-03-stream-riddle #kitten-sprite,
+.scene-03-stream-intro #kitten-sprite {
+    width: 20%;
+    left: 68%;
+    bottom: 25%; 
+    transform: scaleX(-1);
+
 }
 
-/* Class for searched/disabled spots */
-.hiding-spot.searched {
-    cursor: default;
-    /* Optional: visual feedback for searched spots */
-    /* opacity: 0.7; */
-    /* border: 2px dashed grey; */
+.scene-03-stream-riddle #frog-sprite,
+.scene-03-stream-intro #frog-sprite {
+    width: 15%;
+    bottom: 20%;
+    left: 5%;
+    transform: scaleX(-1);
 }
 
-.scene-02-forest-outro #kitten-sprite {
-    width: 40%;
-    left: 20%; /* Example position, watching the squirrel */
-    bottom: 25%;
-    transform: translateX(-50%);
+.scene-03-stream-riddle #riddle-container {
+    width: 70%; /* Or a fixed width like 500px */
+    max-width: 550px;
+    /* Inline styles in HTML already set text-align, position, etc. */
 }
 
+.scene-03-stream-riddle #riddle-text-display {
+    line-height: 1.5;
+    margin-bottom: 25px; /* Space before answer choices */
+    font-weight: 600; /* Make riddle text a bit bolder */
+}
 
-.scene-02-forest-outro #squirrel-sprite {
-    width: 45%; /* Adjust size */
-    bottom: 25%;
-    left: 45%;
+.scene-03-stream-riddle #answer-choices-container button {
+    font-family: "Sour Gummy", sans-serif; /* Use game font */
+    font-size: 1em; /* Adjust as needed */
+    font-weight: 500;
+    background-color: #ffe0b2; /* Light peach/yellow */
+    color: #5d4037; /* Dark brown text */
+    border: 3px solid #6d4c41; /* Dark brown border */
+    border-radius: 8px;
+    padding: 10px 18px;
+    margin: 8px;
+    cursor: pointer;
+    min-width: 150px; /* Ensure buttons have some width */
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.scene-03-stream-riddle #answer-choices-container button:hover {
+    background-color: #fff3e0; /* Lighter hover */
+    transform: translateY(-1px);
+}
+
+.scene-03-stream-riddle #answer-choices-container button:active {
+    transform: translateY(0px);
+}
+
+.scene-03-stream-riddle #answer-choices-container button.disabled {
+    background-color: #e0e0e0; /* Greyed out */
+    color: #999999;
+    border-color: #b0b0b0;
+    cursor: not-allowed;
+    opacity: 0.7;
 }

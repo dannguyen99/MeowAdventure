@@ -58,6 +58,20 @@ function showGameNavigationButton() {
     }
 }
 
+function proceedToNextDialogueItem() {
+    // This function is called programmatically to advance to the next dialogue item,
+    // for example, after an event like answering a riddle correctly.
+    // It bypasses the dialogueClickEnabled check that advanceDialogue uses for screen clicks.
+    if (currentDialogueIdx < currentDialogueItems.length - 1) {
+        currentDialogueIdx++;
+        showNextDialogue();
+    } else {
+        console.warn("proceedToNextDialogueItem called, but no more items to advance to or already at the end.");
+        // If it's the last item and has endScene/endPart, showNextDialogue would have handled
+        // calling animateDialogueTextAndProceed, which in turn calls showGameNavigationButton.
+    }
+}
+
 function advanceDialogue() { // Called by scene's click handler
     if (dialogueClickEnabled && $navButtonElement && !$navButtonElement.is(':visible')) {
         if (currentDialogueIdx < currentDialogueItems.length - 1) {
