@@ -14,10 +14,10 @@ function preloadGameImages(urls, callback) {
 function initializeSceneFramework(sceneSpecificData) {
     // Unpack scene specific data
     const {
-        dialogues,
+        dialogues, // This is the scene's initial dialogue array
         imagesToPreload,
-        audioSelectors = {}, // e.g., { bgMusic: '#bg-music-scene1', click: '#click-sound', ... }
-        onSceneReady // A callback function from the scene-specific JS to run after preloading
+        audioSelectors = {},
+        onSceneReady
     } = sceneSpecificData;
 
     // Collect audio elements based on selectors
@@ -32,8 +32,10 @@ function initializeSceneFramework(sceneSpecificData) {
     if (typeof initializeSoundState === 'function') {
         initializeSoundState('#scene-sound-toggle', collectedAudioElements);
     }
-    if (typeof initializeDialogueSystem === 'function') {
-        initializeDialogueSystem(dialogues, '#dialogue-text', '#dialogue-box-container', '#next-scene-button');
+    if (window.gameDialogueSystem && typeof window.gameDialogueSystem.init === 'function') {
+        window.gameDialogueSystem.init(dialogues, '#dialogue-text', '#dialogue-box-container', '#next-scene-button');
+    } else {
+        console.error("gameDialogueSystem.init function not found!");
     }
 
     // Setup common navigation handler (if the button exists)
@@ -46,23 +48,25 @@ function initializeSceneFramework(sceneSpecificData) {
 
     // Setup scene click for dialogue advancement
     const $gameCont = $('#game-container');
-    if ($gameCont.length && typeof advanceDialogue === 'function') {
+    if ($gameCont.length && window.gameDialogueSystem && typeof window.gameDialogueSystem.advance === 'function') {
         $gameCont.off('click').on('click', function(e) {
             if ($(e.target).is('button') || $(e.target).closest('button').length) return;
-            advanceDialogue();
+            window.gameDialogueSystem.advance(); // Call the system's advance method
         });
     }
 
 
     // Preload images and then run scene-specific setup
     preloadGameImages(imagesToPreload, () => {
-        // Standard scene intro animations
         gsap.fromTo('#scene-background', {autoAlpha:0}, { duration: 0.7, autoAlpha: 1, ease: "power1.out", onComplete: () => {
-            if (typeof showNextDialogue === 'function') { // from game-dialogue.js
-                showNextDialogue(); // Display first dialogue
+            // START THE DIALOGUE SYSTEM for the scene
+            if (window.gameDialogueSystem && typeof window.gameDialogueSystem.showNext === 'function') {
+                window.gameDialogueSystem.showNext(); // Display first dialogue
+            } else {
+                console.error("gameDialogueSystem.showNext function not found to start dialogues!");
             }
             if (onSceneReady && typeof onSceneReady === 'function') {
-                onSceneReady(); // Call scene-specific logic after common setup
+                onSceneReady();
             }
         }});
     });

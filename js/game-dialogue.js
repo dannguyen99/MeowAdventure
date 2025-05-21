@@ -1,86 +1,116 @@
 // js/game-dialogue.js
-let currentDialogueItems = [];
-let currentDialogueIdx = 0;
-let dialogueClickEnabled = false;
-let $dialogueTxtElement, $dialogueBoxEl, $navButtonElement; // Set by scene
 
-function initializeDialogueSystem(dialoguesArray, textSelector, boxSelector, navButtonSelector) {
-    currentDialogueItems = dialoguesArray;
-    currentDialogueIdx = 0;
-    dialogueClickEnabled = false; // Start disabled until first dialogue is shown
-    $dialogueTxtElement = $(textSelector);
-    $dialogueBoxEl = $(boxSelector);
-    $navButtonElement = $(navButtonSelector); // e.g., #next-scene-button
+// Make these jQuery objects accessible if needed by other functions within this file,
+// but the core logic will be in the gameDialogueSystem object.
+let $dialogueTextElement, $dialogueBoxElement, $navButtonElement;
 
-    // Initial setup for dialogue box (e.g., start hidden)
-    gsap.set($dialogueBoxEl, { autoAlpha: 0 });
-}
+window.gameDialogueSystem = {
+    items: [],          // Array to hold all dialogue items for the current scene
+    currentIndex: 0,    // Index of the current dialogue item to be shown
+    clickEnabled: false, // Whether clicking the game container advances dialogue
 
-function showNextDialogue() {
-    dialogueClickEnabled = false;
-    if (currentDialogueIdx < currentDialogueItems.length) {
-        const currentItem = currentDialogueItems[currentDialogueIdx];
-        animateDialogueTextAndProceed(currentItem);
-        if (!currentItem.endPart && !currentItem.endScene) { // Adjusted condition
-             $dialogueBoxEl.css('cursor', 'pointer');
-        } else {
-             $dialogueBoxEl.css('cursor', 'default');
+    // Call this from your scene-specific JS (via initializeSceneFramework in game-main.js)
+    init: function(dialoguesArray, textSelector, boxSelector, navButtonSelector) {
+        this.items = dialoguesArray ? [...dialoguesArray] : []; // Use a copy
+        this.currentIndex = 0;
+        this.clickEnabled = false; // Start with clicks disabled
+
+        $dialogueTextElement = $(textSelector);
+        $dialogueBoxElement = $(boxSelector);
+        $navButtonElement = $(navButtonSelector);
+
+        if (!$dialogueTextElement.length || !$dialogueBoxElement.length) {
+            console.error("Dialogue system: Required text or box elements not found.");
+            return;
         }
-    }
-}
 
-function animateDialogueTextAndProceed(dialogueItem) {
-    let fullText = (dialogueItem.character ? `<strong>${dialogueItem.character}:</strong> ` : "") + dialogueItem.text;
-    $dialogueTxtElement.html(fullText);
+        // Initial setup for dialogue box (e.g., start hidden)
+        gsap.set($dialogueBoxElement, { autoAlpha: 0 });
+        if ($navButtonElement.length) {
+            gsap.set($navButtonElement, { autoAlpha: 0, display: 'none' });
+        }
+        console.log("Game Dialogue System Initialized with", this.items.length, "items.");
+    },
 
-    let boxFadeDur = ($dialogueBoxEl.css('opacity') === '0') ? 0.3 : 0.1;
-    gsap.to($dialogueBoxEl, { autoAlpha: 1, duration: boxFadeDur, onComplete: () => {
-        gsap.fromTo($dialogueTxtElement, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, onComplete: () => {
-            if (dialogueItem.sfx && typeof playGameSfx === 'function') playGameSfx(dialogueItem.sfx); // Use global SFX player
+    // Call this to show the first dialogue or the next one after an advance
+    showNext: function() {
+        this.clickEnabled = false; // Disable clicks while new dialogue is appearing
+        if (this.currentIndex < this.items.length) {
+            const currentItem = this.items[this.currentIndex];
+            this._animateTextAndProceed(currentItem); // Use a private helper
 
-            if (dialogueItem.action) {
-                dialogueItem.action(() => {
-                    dialogueClickEnabled = true;
-                    if (dialogueItem.endPart || dialogueItem.endScene) showGameNavigationButton();
-                });
+            if (!currentItem.endPart && !currentItem.endScene) {
+                 $dialogueBoxElement.css('cursor', 'pointer');
             } else {
-                dialogueClickEnabled = true;
-                if (dialogueItem.endPart || dialogueItem.endScene) showGameNavigationButton();
+                 $dialogueBoxElement.css('cursor', 'default');
             }
-        }});
-    }});
-}
-
-function showGameNavigationButton() {
-    $dialogueBoxEl.css('cursor', 'default');
-    if ($navButtonElement && $navButtonElement.length) {
-        gsap.to($navButtonElement, { autoAlpha: 1, duration: 0.3, delay: 0.05, onStart: () => $navButtonElement.show() });
-    }
-}
-
-function proceedToNextDialogueItem() {
-    // This function is called programmatically to advance to the next dialogue item,
-    // for example, after an event like answering a riddle correctly.
-    // It bypasses the dialogueClickEnabled check that advanceDialogue uses for screen clicks.
-    if (currentDialogueIdx < currentDialogueItems.length - 1) {
-        currentDialogueIdx++;
-        showNextDialogue();
-    } else {
-        console.warn("proceedToNextDialogueItem called, but no more items to advance to or already at the end.");
-        // If it's the last item and has endScene/endPart, showNextDialogue would have handled
-        // calling animateDialogueTextAndProceed, which in turn calls showGameNavigationButton.
-    }
-}
-
-function advanceDialogue() { // Called by scene's click handler
-    if (dialogueClickEnabled && $navButtonElement && !$navButtonElement.is(':visible')) {
-        if (currentDialogueIdx < currentDialogueItems.length - 1) {
-            if (typeof playGameSfx === 'function') { // Check if click sound function exists
-                 const clickSfx = sceneAudioElements.find(audio => audio && audio.id === 'click-sound');
-                 if (clickSfx) playGameSfx(clickSfx);
-            }
-            currentDialogueIdx++;
-            showNextDialogue();
+        } else {
+            console.log("No more dialogue items to show.");
+            this.clickEnabled = false; // No more items, no more clicks
         }
+    },
+
+    _animateTextAndProceed: function(dialogueItem) { // Underscore indicates private-like helper
+        let fullText = (dialogueItem.character ? `<strong>${dialogueItem.character}:</strong> ` : "") + dialogueItem.text;
+        $dialogueTextElement.html(fullText);
+
+        let boxFadeDur = ($dialogueBoxElement.css('opacity') === '0' || this.currentIndex === 0) ? 0.3 : 0.1;
+
+        gsap.to($dialogueBoxElement, { autoAlpha: 1, duration: boxFadeDur, onComplete: () => {
+            gsap.fromTo($dialogueTextElement, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, onComplete: () => {
+                // Use global playGameSfx if available
+                if (dialogueItem.sfx && typeof playGameSfx === 'function') {
+                    playGameSfx(dialogueItem.sfx);
+                }
+
+                if (dialogueItem.action) {
+                    dialogueItem.action(() => { // Action's callback
+                        this.clickEnabled = true;
+                        if (dialogueItem.endPart || dialogueItem.endScene) this.showNavButton();
+                    });
+                } else {
+                    this.clickEnabled = true;
+                    if (dialogueItem.endPart || dialogueItem.endScene) this.showNavButton();
+                }
+            }});
+        }});
+    },
+
+    showNavButton: function() {
+        $dialogueBoxElement.css('cursor', 'default');
+        if ($navButtonElement && $navButtonElement.length) {
+            gsap.to($navButtonElement, { autoAlpha: 1, duration: 0.3, delay: 0.05, onStart: () => $navButtonElement.show() });
+        }
+    },
+
+    // Call this when the game container is clicked
+    advance: function() {
+        if (this.clickEnabled && $navButtonElement && !$navButtonElement.is(':visible')) {
+            if (this.currentIndex < this.items.length - 1) { // If there's a NEXT item
+                // Play click sound using global function
+                if (typeof playGameSfx === 'function') {
+                     const clickSfx = sceneAudioElements.find(audio => audio && audio.id === 'click-sound'); // Assumes sceneAudioElements is global from game-audio.js
+                     if (clickSfx) playGameSfx(clickSfx);
+                }
+                this.currentIndex++;
+                this.showNext();
+            } else if (this.items[this.currentIndex] && (this.items[this.currentIndex].endPart || this.items[this.currentIndex].endScene)) {
+                // It's the last item that should show a button, do nothing on click here, button handles it
+            }
+        }
+    },
+
+    // Method for other scripts to add dialogues (e.g., riddle success)
+    addDialogueItems: function(newItemsArray) {
+        if (Array.isArray(newItemsArray)) {
+            this.items.push(...newItemsArray);
+            console.log("Added new dialogue items. Total items:", this.items.length);
+        }
+    },
+
+    // Optional: if you need to jump to a specific dialogue (less common for linear stories)
+    setCurrentIndexAndShow: function(idx) {
+        this.currentIndex = Math.max(0, Math.min(idx, this.items.length - 1));
+        this.showNext();
     }
-}
+};
