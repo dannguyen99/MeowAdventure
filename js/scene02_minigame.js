@@ -161,23 +161,34 @@ $(document).ready(function () {
         // Bring back Kitten and Squirrel (add a slightly longer delay to let acorns fade)
         gsap.to([$kittenSprite, $squirrelSprite], { autoAlpha: 1, duration: 0.8, delay: 0.6 });
 
-        // Add success dialogue
-        // Ensure currentDialogueItems is accessible here or passed if defined outside
-        currentDialogueItems.push(
-            { text: "You found them all! Thank you so much, little kitten!", character: "Squirrel", sfx: $(audioSelectors.squirrelChatter)[0], endPart: true }
-        );
-        // Adjust index to point to the dialogue *before* the newly added one,
-        // so advanceDialogue() picks up the new one.
-        currentDialogueIdx = currentDialogueItems.length - 2;
+        // Add success dialogue using the gameDialogueSystem
+        if (window.gameDialogueSystem && typeof window.gameDialogueSystem.addDialogueItems === 'function') {
+            const successDialogue = [
+                { text: "You found them all! Thank you so much, little kitten!", character: "Squirrel", sfx: squirrelChatterSound, endPart: true }
+            ];
+            window.gameDialogueSystem.addDialogueItems(successDialogue);
 
-        // Call advanceDialogue from game-dialogue.js after a delay for visual sync
-        gsap.delayedCall(1.0, () => { // Delay allows characters to fully appear before dialogue
-            if (typeof advanceDialogue === 'function') {
-                advanceDialogue();
-            } else {
-                console.error("advanceDialogue function not found. Ensure game-dialogue.js is loaded and correct.");
-            }
-        });
+            // Set the dialogue system's current index to the first of the newly added dialogues.
+            // The new items are at the end of the gameDialogueSystem.items array.
+            const newDialogueStartIndex = window.gameDialogueSystem.items.length - successDialogue.length;
+            
+            // Call a method to show this newly added dialogue after a delay
+            gsap.delayedCall(1.0, () => { // Delay allows characters to fully appear before dialogue
+                if (typeof window.gameDialogueSystem.setCurrentIndexAndShow === 'function') {
+                    window.gameDialogueSystem.setCurrentIndexAndShow(newDialogueStartIndex);
+                } else if (typeof window.gameDialogueSystem.showNext === 'function') {
+                    // Fallback if setCurrentIndexAndShow isn't available, assumes showNext will pick up correctly
+                    // after currentIndex is manually set (though setCurrentIndexAndShow is preferred)
+                    window.gameDialogueSystem.currentIndex = newDialogueStartIndex;
+                    window.gameDialogueSystem.showNext();
+                } else {
+                    console.error("Dialogue system methods (setCurrentIndexAndShow or showNext) not found.");
+                }
+            });
+
+        } else {
+            console.error("gameDialogueSystem not properly set up for adding dialogues.");
+        }
     }
 
 

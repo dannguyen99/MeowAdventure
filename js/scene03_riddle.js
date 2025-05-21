@@ -62,6 +62,7 @@ $(document).ready(function() {
             }
         },
         {
+            
             text: "Here’s your first riddle:", // Updated to reflect first riddle
             character: "Frog", sfx: frogCroakSound,
             action: function(callback) {
@@ -103,10 +104,10 @@ $(document).ready(function() {
 
         const $button = $(event.currentTarget);
         const isCorrect = $button.data('correct');
-        playGameSfx($(audioSelectors.click)[0]);
+        playGameSfx($(audioSelectors.click)[0]); // MODIFIED HERE
 
         if (isCorrect) {
-            playGameSfx(correctAnswerSound);
+            playGameSfx(correctAnswerSound); // MODIFIED HERE
             $button.css('background-color', '#a5d6a7');
             $('#answer-choices-container button').addClass('disabled').prop('disabled', true); // Disable all for this question
 
@@ -118,18 +119,19 @@ $(document).ready(function() {
                     $riddleContainer.css('display', 'none'); // Hide old riddle before showing new one
                     gsap.delayedCall(0.5, () => {
                         showRiddleUI(); // Show the next riddle
-                        // The "Hmm… What could it be?" dialogue action in sceneDialogues should set canAnswerRiddle = true
-                        // For now, let's re-enable it after a slight delay if the above doesn't cover it.
-                        // It's better if the dialogue system itself handles enabling interaction for the next step.
-                        // The current setup for "Hmm... what could it be?" sets canAnswerRiddle = true.
-                        // When showRiddleUI is called, it populates new buttons.
-                        // The dialogue "Hmm... what could it be?" is still the current one in gameDialogueSystem.
-                        // We need to ensure canAnswerRiddle is true for the *new* riddle.
-                        // The original "Hmm... what could it be?" action sets canAnswerRiddle = true.
-                        // showRiddleUI itself sets canAnswerRiddle = false initially, then the dialogue action sets it true.
-                        // This might be a bit convoluted.
-                        // For now, explicitly setting it true for the next riddle after it's shown.
-                        gsap.delayedCall(0.8, () => { canAnswerRiddle = true; });
+                        // Ensure the dialogue system re-shows its current dialogue item
+                        // (which should be "Hmm... What could it be?").
+                        // This overwrites temporary feedback from any previous incorrect answer
+                        // and also triggers the action associated with the "Hmm..." dialogue,
+                        // which sets canAnswerRiddle = true.
+                        if (window.gameDialogueSystem && typeof window.gameDialogueSystem.showNext === 'function') {
+                            window.gameDialogueSystem.showNext(); 
+                        } else {
+                            console.error("gameDialogueSystem.showNext() not found for refreshing dialogue.");
+                            // If gameDialogueSystem.showNext() is unavailable, the action to set canAnswerRiddle might not run.
+                            // This would be a fallback, but the primary solution relies on showNext().
+                            canAnswerRiddle = true; 
+                        }
                     });
                 }});
             } else {
@@ -158,7 +160,7 @@ $(document).ready(function() {
                 }});
             }
         } else { // Incorrect Answer
-            playGameSfx(wrongAnswerSound);
+            playGameSfx(wrongAnswerSound); // MODIFIED HERE
             $button.addClass('disabled').prop('disabled', true); // Disable only this wrong button
 
             // Show feedback directly in dialogue box
@@ -166,15 +168,12 @@ $(document).ready(function() {
             if ($dialogueText && $dialogueText.length) { // Ensure $dialogueText is valid
                 $dialogueText.html(`<strong>Frog:</strong> ${tempFeedbackText}`);
                 gsap.fromTo($dialogueText, {autoAlpha:0, y:10},{autoAlpha:1, y:0, duration:0.3});
-                if (frogCroakSound) playGameSfx(frogCroakSound);
+                if (frogCroakSound) playGameSfx(frogCroakSound); // MODIFIED HERE
             } else { console.error("$dialogueText not found for incorrect feedback."); }
 
 
             gsap.delayedCall(1.5, () => {
                 canAnswerRiddle = true; // Allow trying other options for the *same* question
-                // Re-display the "Kitten thinking" or current riddle prompt if needed
-                // This could be done by calling gameDialogueSystem.showCurrent() or similar if it exists.
-                // For now, the riddle UI remains, and only the wrong button is disabled.
             });
         }
     }

@@ -268,7 +268,8 @@ body {
 
 /* Scene 03 - Stream Intro */
 .scene-03-stream-riddle #kitten-sprite,
-.scene-03-stream-intro #kitten-sprite {
+.scene-03-stream-intro #kitten-sprite,
+.scene-03-stream-crossing #kitten-sprite {
     width: 20%;
     left: 68%;
     bottom: 25%; 
@@ -277,7 +278,8 @@ body {
 }
 
 .scene-03-stream-riddle #frog-sprite,
-.scene-03-stream-intro #frog-sprite {
+.scene-03-stream-intro #frog-sprite,
+.scene-03-stream-crossing #frog-sprite {
     width: 15%;
     bottom: 20%;
     left: 5%;
