@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - Ch 4, Challenge: Gem Match!</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gem-match.css"> <!-- NEW CSS file for minigame -->
+</head>
+<body>
+    <div id="game-container" class="scene-04-gem-challenge">
+        <img id="scene-background" src="images/MeadowPath.png" alt="Meadow Path for Gem Challenge">
+
+        <div id="animation-layer">
+            <!-- Characters positioned around the grid -->
+            <img id="fierce-dog-sprite" src="images/FierceDog.png" alt="Fierce Dog" style="opacity:0; display:none;">
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
+            <img id="fluffy-dog-sprite" src="images/FluffyDog.png" alt="Fluffy Dog" style="opacity:0; display:none;">
+
+            <!-- Gem Matching Game Area -->
+            <div id="gem-match-game-area">
+                <div id="fierce-dog-strength-ui" style="display:none;">
+                    <p>Fierce Dog's Resolve:</p>
+                    <div id="strength-bar-container">
+                        <div id="strength-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div id="gem-grid-container">
+                    <!-- Grid cells will be populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <div id="dialogue-box-container" style="opacity:0;"> <!-- For pre/post game dialogue -->
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+        </div>
+
+        <button id="scene-sound-toggle">🔇</button>
+
+        <div id="navigation">
+            <!-- Next scene button triggered by JS after winning -->
+            <button id="next-scene-button" style="display:none;" data-nextscene="scene04_victory.html">Victory!</button>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bg-music-scene4-challenge" src="audio/puzzle_tense_loop.mp3" loop></audio>
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio> <!-- General UI -->
+    <audio id="gem-swap-sound" src="audio/gem_swap.wav"></audio>
+    <audio id="gem-match-sound" src="audio/gem_match_success.wav"></audio>
+    <audio id="gem-no-match-sound" src="audio/gem_swap_fail.wav"></audio>
+    <audio id="gem-fall-sound" src="audio/gems_fall.wav"></audio>
+    <audio id="dog-weaken-sound" src="audio/enemy_hit.wav"></audio> <!-- When Fierce Dog's strength drops -->
+    <audio id="kitten-win-sound" src="audio/level_complete_jingle.wav"></audio>
+    <!-- Dialogue sounds for characters (re-use existing or add new) -->
+    <audio id="meow-determined-sound" src="audio/kitten_meow_focused.wav"></audio>
+    <audio id="fluffy-dog-cheer-sound" src="audio/dog_bark_happy_short.wav"></audio>
+    <audio id="fierce-dog-frustrated-sound" src="audio/dog_growl_short_frustrated.wav"></audio>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-dialogue.js"></script>
+    <script src="js/game-animations.js"></script>
+    <script src="js/game-navigation.js"></script>
+    <script src="js/game-main.js"></script>
+
+    <script src="js/gem-match-logic.js"></script> <!-- NEW JS for game logic -->
+    <script src="js/scene04_challenge.js"></script> <!-- Scene setup and integration -->
+
+    <!-- Source Attribution -->
+</body>
+</html>

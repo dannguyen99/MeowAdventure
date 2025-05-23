@@ -345,3 +345,24 @@ body {
     cursor: not-allowed;
     opacity: 0.7;
 }
+
+.scene-04-meadow-intro #kitten-sprite {
+    width: 18%;
+    left: 55%;  /* Moved to right side */
+    bottom: 28%; /* Same height as fluffy dog */
+    transform: translateX(-50%);
+}
+
+.scene-04-meadow-intro #fluffy-dog-sprite {
+    width: 28%; /* Dogs are larger */
+    left: 75%;   /* Right side, but to the left of kitten */
+    bottom: 13%; /* Same height as kitten */
+    transform: translate(-50%, -50%) scaleX(-1); /* Facing kitten */
+}
+
+.scene-04-meadow-intro #fierce-dog-sprite {
+    width: 30%;
+    left: 25%; /* Moved to left side */
+    bottom: 20%; /* Slightly different height for variation */
+    transform: translate(-50%, -50%);
+}
