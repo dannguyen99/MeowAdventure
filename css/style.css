@@ -124,6 +124,22 @@ body {
     line-height: 1.7; /* PREVIOUSLY: 1.5. Adjust if needed for better readability with new size */
 }
 
+/* Acorn Hunt UI - Ensure it's above other elements like sound toggle */
+#acorn-ui-container {
+    position: relative; /* Establishes a stacking context */
+    z-index: 21;        /* Higher than the sound toggle button (assumed z-index 20) */
+    /* Add any existing or desired styling for #acorn-ui-container below */
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #f6e58d;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #dialogue-text strong { /* Character names */
     font-weight: 700; /* Bolder for character names */
     color: #f6e58d;

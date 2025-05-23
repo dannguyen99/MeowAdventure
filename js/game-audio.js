@@ -6,12 +6,37 @@ let $soundToggleButtonElement = null; // To be set by the scene
 // These would be defined in each scene's HTML and then potentially passed here or discovered
 let sceneAudioElements = []; // e.g., [bgMusic, clickSoundEffect, meowSound, ...]
 
-function initializeSoundState(toggleButtonSelector, audioElementsArray) {
+// Publicly accessible audio elements (if needed by other modules)
+window.gameAudio = {
+    bgMusic: null,
+    clickSound: null,
+    // Add other common sounds if they need to be globally accessible
+};
+
+function initializeSoundState(toggleButtonSelector, audioElementsArray, commonSoundSelectors = {}) {
     $soundToggleButtonElement = $(toggleButtonSelector);
     sceneAudioElements = audioElementsArray.filter(Boolean);
 
     gameIsMuted = sessionStorage.getItem('meowAdventureMuted') === 'true' ||
                    (sessionStorage.getItem('meowAdventureMuted') === null && localStorage.getItem('meowAdventureMuted') !== 'false');
+
+    // Assign common sounds to window.gameAudio
+    if (commonSoundSelectors.bgMusic) {
+        const bgMusicEl = $(commonSoundSelectors.bgMusic)[0];
+        if (bgMusicEl) {
+            window.gameAudio.bgMusic = bgMusicEl;
+        } else {
+            console.warn(`Background music element not found for selector: ${commonSoundSelectors.bgMusic}`);
+        }
+    }
+    if (commonSoundSelectors.clickSound) {
+        const clickSoundEl = $(commonSoundSelectors.clickSound)[0]; // Ensure [0] is used
+        if (clickSoundEl) {
+            window.gameAudio.clickSound = clickSoundEl;
+        } else {
+            console.warn(`Click sound element not found for selector: ${commonSoundSelectors.clickSound}`);
+        }
+    }
 
     // Apply volumes before attempting to play
     sceneAudioElements.forEach(audioEl => {
@@ -113,10 +138,26 @@ function applyGameMuteState() {
 }
 
 function playGameSfx(soundElement, loop = false) {
-    if (soundElement && !gameIsMuted) {
-        soundElement.currentTime = 0;
-        soundElement.loop = loop;
-        soundElement.play().catch(e=>console.warn("SFX error for " + soundElement.id, e));
+    if (!soundElement) {
+        // console.warn("playGameSfx called with null or undefined soundElement.");
+        return;
+    }
+    // Ensure it's a DOM element, not a jQuery object
+    const audioEl = soundElement instanceof jQuery ? soundElement[0] : soundElement;
+
+    if (gameIsMuted) {
+        // console.log("Game is muted, SFX not played:", audioEl ? audioEl.id || audioEl.src : 'unknown sound');
+        return;
+    }
+
+    if (audioEl && typeof audioEl.play === 'function') {
+        audioEl.loop = loop;
+        audioEl.currentTime = 0; // Rewind to start
+        audioEl.play().catch(error => {
+            console.warn(`SFX error for ${audioEl.id || audioEl.src}:`, error);
+        });
+    } else {
+        console.warn("playGameSfx: Provided soundElement is not a playable audio element or is missing.", soundElement); // Log original soundElement for clarity
     }
 }
 

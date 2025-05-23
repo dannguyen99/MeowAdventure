@@ -72,8 +72,8 @@ window.gameDialogueSystem = {
                 gsap.fromTo($dialogueTextElement, { autoAlpha: 0, y: 10 }, {
                     autoAlpha: 1, y: 0, duration: 0.4, onComplete: () => {
                         // Use global playGameSfx if available
-                        if (dialogueItem.sfx && typeof playGameSfxById === 'function') {
-                            playGameSfxById(dialogueItem.sfx);
+                        if (dialogueItem.sfx && typeof playGameSfx === 'function') { // MODIFIED HERE
+                            playGameSfx(dialogueItem.sfx);                         // MODIFIED HERE
                         }
 
                         if (dialogueItem.action) {
@@ -103,8 +103,8 @@ window.gameDialogueSystem = {
         if (this.clickEnabled && $navButtonElement && !$navButtonElement.is(':visible')) {
             if (this.currentIndex < this.items.length - 1) { // If there's a NEXT item
                 // Play click sound using global function
-                if (typeof playGameSfxById === 'function') {
-                    playGameSfxById('click-sound');
+                if (typeof playGameSfx === 'function') {
+                    playGameSfx('click-sound');
                 }
                 this.currentIndex++;
                 this.showNext();
