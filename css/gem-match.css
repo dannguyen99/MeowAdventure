@@ -1,0 +1,128 @@
+/* css/gem-match.css */
+
+#gem-match-game-area {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* background-color: rgba(0,0,0,0.1); /* Optional: slight bg for game area */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10; /* Above characters if needed, or characters positioned around it */
+}
+
+#fierce-dog-strength-ui {
+    width: 250px; /* Or percentage */
+    margin-bottom: 15px;
+    text-align: center;
+    color: #fff; /* Assuming dark background for UI if on top of scene */
+    background-color: rgba(0,0,0,0.5);
+    padding: 5px;
+    border-radius: 5px;
+}
+#fierce-dog-strength-ui p {
+    margin: 0 0 5px 0;
+    font-size: 0.9em;
+}
+#strength-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #555;
+    border: 2px solid #333;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#strength-bar-fill {
+    width: 100%; /* Starts full */
+    height: 100%;
+    background-color: #e74c3c; /* Red */
+    transition: width 0.5s ease-out;
+}
+
+
+#gem-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, var(--gem-cell-size, 70px)); /* CSS Variable for size */
+    grid-template-rows: repeat(3, var(--gem-cell-size, 70px));
+    gap: var(--gem-gap, 5px); /* CSS Variable for gap */
+    background-image: url('../images/GemBoard.png'); /* If you have a single board image */
+    background-size: contain; /* Or cover, or specific dimensions */
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: var(--gem-gap, 5px); /* Match gap if board has internal padding */
+    /* If not using a single board image, style the container: */
+    /* background-color: rgba(10, 80, 90, 0.6); */
+    /* border: 3px solid #0c4a52; */
+    /* border-radius: 8px; */
+    /* box-shadow: inset 0 0 10px rgba(0,0,0,0.5); */
+}
+
+.gem-cell {
+    width: var(--gem-cell-size, 70px);
+    height: var(--gem-cell-size, 70px);
+    background-image: url('../images/EmptySlot.png'); /* Your empty slot image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* For positioning gems inside */
+}
+
+.gem-item {
+    width: 85%; /* Slightly smaller than cell to show slot behind */
+    height: 85%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: grab;
+    position: absolute; /* For easy swapping and falling animations */
+    transition: transform 0.2s ease-out; /* For selection wiggle/pulse */
+}
+.gem-item.selected {
+    transform: scale(1.15);
+    /* box-shadow: 0 0 10px 3px gold; */
+}
+.gem-item.matched {
+    animation: pulseAndFade 0.7s forwards;
+}
+.gem-item.hint-gem { /* For hint system if you implement one */
+    animation: pulseHint 1s infinite ease-in-out;
+}
+
+@keyframes pulseAndFade {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(0.8); opacity: 0; }
+}
+@keyframes pulseHint {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* CSS for character positions around the grid */
+.scene-04-gem-challenge #fierce-dog-sprite {
+    width: 25%; /* Adjust as needed */
+    left: 15%;
+    bottom: 20%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.scene-04-gem-challenge #kitten-sprite {
+    width: 16%;
+    left: 85%;
+    bottom: 15%;
+    transform: translate(-50%, -50%) scaleX(-1); /* Facing grid */
+    z-index: 1;
+}
+.scene-04-gem-challenge #fluffy-dog-sprite {
+    width: 22%;
+    left: 88%;
+    bottom: 35%; /* Slightly behind/above kitten */
+    transform: translate(-50%, -50%) scaleX(-1); /* Facing grid */
+    z-index: 0;
+}
