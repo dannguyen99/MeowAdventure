@@ -6,13 +6,13 @@ $(document).ready(function() {
     const $strengthBarFill = $('#strength-bar-fill');
     const $strengthUiContainer = $('#fierce-dog-strength-ui');
 
-    const MAX_DOG_STRENGTH = 10; // Example: 10 matches to win
+    const MAX_DOG_STRENGTH = 15; // Increased for 5x5 grid - more matches needed
     let currentDogStrength = MAX_DOG_STRENGTH;
 
-    const audioSelectors = { /* ... include all needed from HTML ... */
+    const audioSelectors = {
         bgMusic: '#bg-music-scene4-challenge',
         click: '#click-sound',
-        gemSwap: '#gem-swap-sound', // These specific sounds are handled by gem-match-logic.js
+        gemSwap: '#gem-swap-sound',
         gemMatch: '#gem-match-sound',
         gemNoMatch: '#gem-no-match-sound',
         gemFall: '#gem-fall-sound',
@@ -22,32 +22,27 @@ $(document).ready(function() {
         fluffyCheer: '#fluffy-dog-cheer-sound',
         fierceFrustrated: '#fierce-dog-frustrated-sound'
     };
-    // Get audio elements for scene-specific dialogue/events
+
     const meowDeterminedSound = $(audioSelectors.meowDetermined)[0];
     const fluffyCheerSound = $(audioSelectors.fluffyCheer)[0];
     const fierceFrustratedSound = $(audioSelectors.fierceFrustrated)[0];
     const dogWeakenSound = $(audioSelectors.dogWeaken)[0];
     const kittenWinSound = $(audioSelectors.kittenWin)[0];
 
-
     const sceneDialogues = [
-        { text: "It’s a puzzle game! You have to match three identical gems to weaken him. If you win, he’ll let us go.", character: "Fluffy Dog", sfx: fluffyCheerSound /* or a neutral bark */ },
-        { text: "But I’ve never played this before… Can I really win?", character: "Kitten", sfx: meowDeterminedSound /* was meow-scared, now more determined */},
-        { text: "Don’t worry! You’re smart! Just focus, and you’ll be fine!", character: "Fluffy Dog", sfx: fluffyCheerSound },
-        { text: "Well? Do you dare accept the challenge?", character: "Fierce Dog", sfx: fierceFrustratedSound /* or a bark */},
-        { text: "Alright! I’ll play!", character: "Kitten", sfx: meowDeterminedSound },
-        { text: "Good! Let’s begin!", character: "Fierce Dog", sfx: fierceFrustratedSound /* or a growl */ ,
+        { text: "Welcome to the Gem Crystal Challenge! Match 3 or more gems in a row to weaken my resolve!", character: "Fierce Dog", sfx: fierceFrustratedSound },
+        { text: "It's a bigger puzzle this time! You need to make strategic matches to win.", character: "Fluffy Dog", sfx: fluffyCheerSound },
+        { text: "I can do this! I just need to think carefully about each move.", character: "Kitten", sfx: meowDeterminedSound },
+        { text: "Good luck! You'll need it!", character: "Fierce Dog", sfx: fierceFrustratedSound,
             action: function(callback) {
-                // Start the gem matching game
-                $strengthUiContainer.css('display', 'block'); // Show strength bar
+                $strengthUiContainer.css('display', 'block');
                 gsap.from($strengthUiContainer, {autoAlpha:0, y:-20, duration:0.5});
                 initializeGemMatch('#gem-grid-container', handleGemMatches, handlePlayerMove);
-                // No callback needed here, game is now player-controlled
-                // Dialogue system will be paused until game ends.
-                // We might need to hide the dialogue box if it's still visible.
+                
                 if (window.gameDialogueSystem && $dialogueBoxElement && $dialogueBoxElement.css('opacity') !== '0') {
                      gsap.to($dialogueBoxElement, {autoAlpha:0, duration:0.3});
                 }
+                callback();
             }
         }
     ];
@@ -57,72 +52,109 @@ $(document).ready(function() {
         gsap.to($strengthBarFill, { width: percentage + "%", duration: 0.3 });
     }
 
-    function handleGemMatches(numMatches) { // Called by gem-match-logic.js
-        console.log(`Matched ${numMatches} sets of gems!`);
-        currentDogStrength -= numMatches; // Or some other scoring
+    function handleGemMatches(numMatchSets) {
+        console.log(`Player made ${numMatchSets} match sets!`);
+        
+        // More strategic scoring - bigger matches are worth more
+        let damage = numMatchSets;
+        if (numMatchSets >= 2) damage += 1; // Bonus for multiple matches
+        if (numMatchSets >= 3) damage += 1; // Extra bonus for cascades
+        
+        currentDogStrength -= damage;
         if (currentDogStrength < 0) currentDogStrength = 0;
         updateStrengthBar();
+        
         if (typeof playGameSfx === 'function' && dogWeakenSound) playGameSfx(dogWeakenSound);
 
-        // Optional: Fierce dog sprite reacts (e.g., slight shake, expression change)
-        gsap.fromTo($fierceDogSprite, {x:-3},{x:3, duration:0.08, repeat:3, yoyo:true, ease:"sine.inOut"});
-
+        // Dog reaction animation
+        const intensity = Math.min(damage * 2, 8);
+        gsap.fromTo($fierceDogSprite, 
+            {x: -intensity}, 
+            {x: intensity, duration: 0.06, repeat: 5, yoyo: true, ease: "sine.inOut"}
+        );
 
         if (currentDogStrength <= 0) {
             winGame();
         } else {
-            // Optional: Mid-game encouragement/taunts based on strength
-            if (currentDogStrength < MAX_DOG_STRENGTH / 2 && Math.random() < 0.3) { // If less than half strength and random chance
-                // Briefly show a dialogue pop-up, not using main system for this
-                showTemporaryDialogue("Fluffy Dog: Keep going, Kitten! You’re almost there!", fluffyCheerSound);
+            // Encourage player based on progress
+            const progressPercent = (MAX_DOG_STRENGTH - currentDogStrength) / MAX_DOG_STRENGTH;
+            if (progressPercent >= 0.5 && progressPercent < 0.6 && Math.random() < 0.4) {
+                showTemporaryDialogue("Fluffy Dog: You're halfway there! Keep going!", fluffyCheerSound);
+            } else if (progressPercent >= 0.8 && Math.random() < 0.3) {
+                showTemporaryDialogue("Fierce Dog: Impossible! How are you so good at this?", fierceFrustratedSound);
             }
         }
     }
 
-    function handlePlayerMove(wasMatch) { // Called by gem-match-logic.js
-        console.log("Player made a move. Was match:", wasMatch);
-        // Could update a moves counter here if you add one
+    function handlePlayerMove(wasMatch) {
+        console.log("Player made a move. Match result:", wasMatch);
+        
+        // Optional: Add move counter or other game mechanics here
+        if (!wasMatch && Math.random() < 0.1) { // Occasional encouragement on failed moves
+            showTemporaryDialogue("Fluffy Dog: Think about which gems to match next!", fluffyCheerSound);
+        }
     }
 
     function showTemporaryDialogue(text, sfx) {
         const $tempDialogue = $('<div class="temp-ingame-dialogue"></div>').html(text);
-        $('#game-container').append($tempDialogue); // Style .temp-ingame-dialogue in CSS
-        gsap.fromTo($tempDialogue, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.4, onComplete:()=>{
-            if(sfx && typeof playGameSfx === 'function') playGameSfx(sfx);
-            gsap.to($tempDialogue, {autoAlpha:0, y:-10, duration:0.4, delay:2, onComplete:()=>$tempDialogue.remove()});
-        }});
+        $('#game-container').append($tempDialogue);
+        gsap.fromTo($tempDialogue, 
+            {autoAlpha:0, y:20}, 
+            {autoAlpha:1, y:0, duration:0.4, onComplete:()=>{
+                if(sfx && typeof playGameSfx === 'function') playGameSfx(sfx);
+                gsap.to($tempDialogue, {autoAlpha:0, y:-10, duration:0.4, delay:2.5, onComplete:()=>$tempDialogue.remove()});
+            }}
+        );
     }
 
+    window.showTemporaryDialogue = showTemporaryDialogue;
 
     function winGame() {
-        console.log("Kitten WINS!");
+        console.log("Kitten WINS the 5x5 Gem Challenge!");
         if (typeof playGameSfx === 'function' && kittenWinSound) playGameSfx(kittenWinSound);
-        // Disable gem grid interaction from gem-match-logic.js (e.g., by setting a flag there)
-        isSwapping = true; // Prevent further gem clicks in gem-match-logic.js
 
-        // Add winning dialogues to the main dialogue system
+        if (typeof window.disableGemMatchGame === 'function') {
+            window.disableGemMatchGame();
+        }
+
+        gsap.to(['#gem-grid-container', '#fierce-dog-strength-ui'], {
+            autoAlpha: 0,
+            scale: 0.8,
+            duration: 0.6,
+            delay: 0.3,
+            ease: "power2.in"
+        });
+
         if (window.gameDialogueSystem) {
+            if ($dialogueBoxElement && $dialogueBoxElement.css('opacity') === '0') {
+                 gsap.to($dialogueBoxElement, {autoAlpha:1, duration:0.3, delay: 0.8});
+            }
+
             window.gameDialogueSystem.addDialogueItems([
-                { text: "No… Impossible! How are you winning?!", character: "Fierce Dog", sfx: fierceFrustratedSound },
-                { text: "I did it!", character: "Kitten", sfx: meowDeterminedSound /* or happy meow */ },
-                { text: "Hmph… You’re good. Fine, go! But don’t come back here again!", character: "Fierce Dog", sfx: fierceFrustratedSound,
+                { text: "Incredible! You mastered the 5x5 crystal challenge! I admit defeat!", character: "Fierce Dog", sfx: fierceFrustratedSound },
+                { text: "I did it! That was challenging but so satisfying!", character: "Kitten", sfx: meowDeterminedSound },
+                { text: "You're truly skilled! I'm proud to call you my friend!", character: "Fluffy Dog", sfx: fluffyCheerSound },
+                { text: "Fine... you've earned safe passage. But don't expect it to be this easy next time!", character: "Fierce Dog", sfx: fierceFrustratedSound,
                     action: function(cb) {
-                        gsap.to($fierceDogSprite, { autoAlpha: 0, x: "-=50px", duration: 0.8, ease: "power1.in", onComplete: cb });
+                        gsap.to($fierceDogSprite, { 
+                            autoAlpha: 0, x: "-=100px", y: "+=20px", 
+                            duration: 1.0, ease: "power2.in", onComplete: cb 
+                        });
                     }
                 },
-                // This will trigger the "Victory!" button defined in HTML
-                { text: "You did great! I knew you could do it!", character: "Fluffy Dog", sfx: fluffyCheerSound, endScene: true }
+                { text: "Let's continue our adventure! I feel more confident now!", character: "Kitten", sfx: meowDeterminedSound, endScene: true }
             ]);
-            // Start showing these new dialogues
-            window.gameDialogueSystem.advance(); // Call advance to show the first of the new items
+            
+            gsap.delayedCall(1.0, () => {
+                 window.gameDialogueSystem.advance();
+            });
         }
     }
 
-
-    const imagesForThisScene = [ /* ... images for background, characters, and ALL GEMS + SLOTS ... */
+    const imagesForThisScene = [
         'images/Gem_background.jpeg', 'images/Kitten.png', 'images/FluffyDog.png', 'images/FierceDog.png',
-        'images/EmptySlot.png', 'images/GemBoard.png', // If used
-        ...GEM_TYPES.map(gemFile => `images/gems/${gemFile}`) // Assuming gems are in images/gems/
+        'images/Gem Boxes.png',
+        ...(window.GEM_TYPES || []).map(gemFile => `images/Gems/${gemFile}`)
     ].filter(Boolean);
 
     const sceneData = {
@@ -130,10 +162,9 @@ $(document).ready(function() {
         imagesToPreload: imagesForThisScene,
         audioSelectors: audioSelectors,
         onSceneReady: function() {
-            console.log("Scene 04 Challenge is ready!");
-            // Position characters (initial state)
+            console.log("Scene 04 Challenge (5x5) is ready!");
             gsap.set([$fierceDogSprite, $kittenSprite, $fluffyDogSprite], { autoAlpha: 1, display: 'block' });
-            updateStrengthBar(); // Initialize bar display
+            updateStrengthBar();
         }
     };
 
