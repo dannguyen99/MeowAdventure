@@ -203,7 +203,8 @@ body {
 
 /* --- SCENE 1 PART 3 Specifics for #kitten-sprite --- */
 .scene-01-part3-lost #kitten-sprite {
-    width: 20%; /* May appear smaller, more lost */
+    width: 20%;
+
     left: 40%;
     bottom: 37%;
     transform: translateX(-50%);
@@ -365,4 +366,96 @@ body {
     left: 25%; /* Moved to left side */
     bottom: 20%; /* Slightly different height for variation */
     transform: translate(-50%, -50%);
+}
+
+.scene-04-meadow-victory #fierce-dog-sprite {
+    width: 35%;
+    left: 20%;
+    bottom: 0%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.scene-04-meadow-victory #kitten-sprite {
+    width: 20%;
+    left: 80%;
+    bottom: 15%;
+    transform: translate(-50%, -50%) scaleX(-1);
+    z-index: 1;
+}
+
+.scene-04-meadow-victory #fluffy-dog-sprite {
+    width: 40%;
+    left: 82%;
+    bottom: 10%;
+    transform: translate(-50%, -50%) scaleX(-1);
+    z-index: 0;
+}
+
+/* Scene Background Element */
+#scene-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Scene 05 Tower Intro Positioning */
+.scene-05-tower-intro {
+    background-image: url('../images/Lv4.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.scene-05-tower-intro #clock-sprite {
+    width: 30%;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.scene-05-tower-intro #kitten-sprite {
+    width: 25%;
+    left: 15%;
+    bottom: 0%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.scene-05-tower-intro #fluffy-dog-sprite {
+    width: 35%;
+    left: 35%;
+    bottom: 0%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.scene-05-tower-intro #owl-sprite {
+    width: 35%;
+    left: 85%;
+    bottom: 15%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+/* Running animation frames positioning */
+.scene-05-tower-intro #kitten-running-frames img,
+.scene-05-tower-intro #dog-running-frames img {
+    position: absolute;
+    width: 18%;
+    left: 25%;
+    bottom: 25%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    z-index: 1;
+}
+
+.scene-05-tower-intro #dog-running-frames img {
+    width: 25%;
+    left: 35%;
+    bottom: 20%;
 }
