@@ -462,17 +462,8 @@ body {
 
 /* Scene 05 Oak Tree Gear Hunt */
 .scene-05-gear-oak {
-    background-image: url('../images/Lv4.jpeg');
     background-size: cover;
     background-position: center;
-}
-
-.scene-05-gear-oak #oak-tree-sprite {
-    width: 50%;
-    left: 50%;
-    bottom: 15%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
 }
 
 .scene-05-gear-oak #kitten-sprite {

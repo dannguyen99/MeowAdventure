@@ -14,9 +14,12 @@
 <body>
     <div id="game-container" class="scene-05-gear-oak">
         <div id="scene-background" style="opacity:0;"></div>
+        <!-- ADD THE MISSING OAK TREE BACKGROUND -->
+        <div id="oak-tree-background" style="opacity:0; background-image: url('images/Lv4_OakTree.png'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
         
         <div id="animation-layer">
-            <img id="oak-tree-sprite" src="images/Lv4_OakTree.png" alt="Oak Tree" style="opacity:0; display:none;">
+            <!-- Remove the oak tree sprite since it's now the background -->
+            <!-- <img id="oak-tree-sprite" src="images/Lv4_OakTree.png" alt="Oak Tree" style="opacity:0; display:none;"> -->
             <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
             <img id="fluffy-dog-sprite" src="images/FluffyDog.png" alt="Fluffy Dog" style="opacity:0; display:none;">
             <img id="gear-sprite" src="images/Gear.png" alt="Gear" style="opacity:0; display:none;">
