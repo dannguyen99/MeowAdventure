@@ -574,3 +574,177 @@ body {
     font-size: 16px;
     color: #ffeb3b;
 }
+
+.scene-05-gear-nest #kitten-sprite {
+    width: 18%;
+    left: 30%;
+    bottom: 10%; /* Lower on screen to look up */
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.scene-05-gear-nest #fluffy-dog-sprite {
+    width: 25%;
+    left: 45%;
+    bottom: 8%; /* Lower on screen */
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.scene-05-gear-nest #starling-sprite {
+    width: 20%; /* Smaller bird */
+    left: 60%;
+    top: 25%; /* Higher up in the tree */
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.scene-05-gear-nest #gear-sprite {
+    width: 6%; /* Smaller gear */
+    z-index: 4; /* Above other characters when falling/caught */
+    /* Position will be set by JS */
+}
+
+/* Riddle UI for Scene 05 Gear Nest (similar to Scene 03) */
+.scene-05-gear-nest #riddle-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    text-align: center;
+    width: 70%;
+    max-width: 500px;
+    z-index: 20; /* Ensure it's above other elements */
+    color: white;
+}
+
+.scene-05-gear-nest #riddle-text-display {
+    font-size: 1.5em; /* Adjusted from 1.8em */
+    margin-bottom: 20px;
+    line-height: 1.4;
+    font-family: 'Sour Gummy', cursive;
+}
+
+.scene-05-gear-nest #answer-choices-container button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    font-size: 1.1em; /* Adjusted from 1.2em */
+    background-color: #5c6bc0; /* Indigo variant */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: 'Sour Gummy', cursive;
+}
+
+.scene-05-gear-nest #answer-choices-container button:hover:not(.disabled) {
+    background-color: #7986cb; /* Lighter Indigo */
+    transform: translateY(-2px);
+}
+
+.scene-05-gear-nest #answer-choices-container button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.scene-05-gear-nest #answer-choices-container button.correct {
+    background-color: #66bb6a; /* Green for correct */
+}
+
+.scene-05-gear-nest #answer-choices-container button.incorrect {
+    background-color: #ef5350; /* Red for incorrect */
+}
+
+/* Scene 05 Gear Stream */
+.scene-05-gear-stream {
+    /* Background handled by #stream-scene-background */
+}
+
+.scene-05-gear-stream #kitten-sprite {
+    width: 17%;
+    left: 25%;
+    bottom: 15%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.scene-05-gear-stream #fluffy-dog-sprite {
+    width: 24%;
+    left: 40%;
+    bottom: 12%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.scene-05-gear-stream #otter-sprite {
+    width: 15%;
+    left: 65%; /* Near the water edge */
+    bottom: 20%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.scene-05-gear-stream #gear-sprite {
+    width: 6%;
+    z-index: 4;
+    /* Position set by JS */
+}
+
+/* Fishing Mini-Game UI */
+.scene-05-gear-stream #fishing-game-container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(100, 150, 200, 0.85); /* Watery blue */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+    z-index: 20;
+    color: white;
+    font-family: 'Sour Gummy', cursive;
+}
+
+.scene-05-gear-stream #fishing-instructions {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.scene-05-gear-stream #fish-caught-display {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.scene-05-gear-stream #fish-area {
+    position: relative;
+    width: 100%;
+    height: 150px; /* Adjust as needed */
+    background-color: rgba(70, 130, 180, 0.7); /* Darker water for fish area */
+    border-radius: 10px;
+    overflow: hidden; /* Fish will move within this */
+}
+
+.scene-05-gear-stream .fish-item {
+    position: absolute;
+    width: 50px; /* Adjust size */
+    height: 30px;
+    background-image: url('../images/Fish.png'); /* Path to your fish image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+}
+
+.scene-05-gear-stream .fish-item:hover {
+    transform: scale(1.1);
+}

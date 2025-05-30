@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - Ch 5: Starling's Nest</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container" class="scene-05-gear-nest">
+        <div id="scene-background" style="opacity:0;"></div>
+        <div id="nest-scene-background" style="opacity:0; background-image: url('images/Lv4_TheStarling’sNest.png'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+
+        <div id="animation-layer">
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
+            <img id="fluffy-dog-sprite" src="images/FluffyDog.png" alt="Fluffy Dog" style="opacity:0; display:none;">
+            <img id="starling-sprite" src="images/Starling.png" alt="Starling" style="opacity:0; display:none;">
+            <img id="gear-sprite" src="images/Gear.png" alt="Gear" style="opacity:0; display:none;">
+        </div>
+
+        <!-- Riddle UI Container -->
+        <div id="riddle-container" style="opacity:0; display:none;">
+            <div id="riddle-text-display"></div>
+            <div id="answer-choices-container">
+                <!-- Answer buttons will be added here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Dialogue Box -->
+        <div id="dialogue-box-container" style="opacity:0;">
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+        </div>
+
+        <button id="scene-sound-toggle">🔇</button>
+
+        <div id="navigation">
+            <button id="next-scene-button" style="display:none;" data-nextscene="scene05_gear_stream.html">To the Stream</button>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bg-music-scene5" src="audio/peaceful_intro.mp3" loop></audio>
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="meow-curious-sound" src="audio/kitten_meow_surprise.mp3"></audio>
+    <audio id="meow-thinking-sound" src="audio/kitten_meow_surprise.mp3"></audio> <!-- For thinking about riddle -->
+    <audio id="meow-excited-sound" src="audio/kitten_meow_surprise.mp3"></audio>
+    <audio id="fluffy-dog-support-sound" src="audio/dog_bark_friendly.mp3"></audio>
+    <audio id="starling-chirp-sound" src="audio/frog-85649.mp3"></audio>
+    <audio id="gear-drop-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="correct-answer-sound" src="audio/ui_click.mp3"></audio> <!-- Sound for correct answer -->
+    <audio id="wrong-answer-sound" src="audio/ui_click.mp3"></audio> <!-- Sound for wrong answer -->
+    <audio id="success-sound" src="audio/ui_click.mp3"></audio>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-dialogue.js"></script>
+    <script src="js/game-animations.js"></script>
+    <script src="js/game-navigation.js"></script>
+    <script src="js/game-main.js"></script>
+
+    <script src="js/scene05_gear_nest.js"></script>
+</body>
+</html>
