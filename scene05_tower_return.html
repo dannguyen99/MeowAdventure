@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - Ch 5: Challenge Complete</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container" class="scene-05-tower-return">
+        <div id="scene-background" style="opacity:0; background-image: url('images/Lv4.jpeg'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+
+        <div id="animation-layer">
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
+            <img id="fluffy-dog-sprite" src="images/FluffyDog.png" alt="Fluffy Dog" style="opacity:0; display:none;">
+            <img id="old-owl-sprite" src="images/Owl.png" alt="Old Owl" style="opacity:0; display:none;">
+
+            <!-- Clock elements -->
+            <div id="clock-mechanism" style="opacity:0; display:none;">
+                <img id="gear-slot-1" class="gear-slot" src="images/Gear.png" alt="Gear Slot 1" data-gear-id="1" style="opacity:0.3;">
+                <img id="gear-slot-2" class="gear-slot" src="images/Gear.png" alt="Gear Slot 2" data-gear-id="2" style="opacity:0.3;">
+                <img id="gear-slot-3" class="gear-slot" src="images/Gear.png" alt="Gear Slot 3" data-gear-id="3" style="opacity:0.3;">
+                <img id="collected-gear-1" class="collected-gear" src="images/Gear.png" alt="Collected Gear 1" style="display:none;">
+                <img id="collected-gear-2" class="collected-gear" src="images/Gear.png" alt="Collected Gear 2" style="display:none;">
+                <img id="collected-gear-3" class="collected-gear" src="images/Gear.png" alt="Collected Gear 3" style="display:none;">
+                <img id="clock-face" src="images/TheClock.png" alt="Clock Face" style="cursor:pointer; opacity:0;">
+            </div>
+            
+            <div id="tower-door-opened" style="opacity:0; display:none; background-image: url('images/OpenDoorwayPath.jpeg'); background-size:cover; background-position:center;">
+            </div>
+        </div>
+
+        <!-- Dialogue Box -->
+        <div id="dialogue-box-container" style="opacity:0;">
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+        </div>
+
+        <button id="scene-sound-toggle">🔇</button>
+
+        <div id="navigation">
+            <button id="next-scene-button" style="display:none;" data-nextscene="chapter_end_05.html">To Be Continued...</button>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bg-music-tower-final" src="audio/peaceful_intro.mp3" loop></audio> <!-- Using available file -->
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="gear-place-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="clock-tick-sound" src="audio/ui_click.mp3"></audio> <!-- Using available file -->
+    <audio id="clock-turn-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="door-creak-sound" src="audio/ui_click.mp3"></audio> <!-- Using available file -->
+    <audio id="meow-joyful-sound" src="audio/kitten_meow_surprise.mp3"></audio> <!-- Using available file -->
+    <audio id="fluffy-dog-happy-sound" src="audio/dog_bark_friendly.mp3"></audio>
+    <audio id="owl-wise-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="success-fanfare-sound" src="audio/ui_click.mp3"></audio> <!-- Using available file -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-dialogue.js"></script>
+    <script src="js/game-animations.js"></script>
+    <script src="js/game-navigation.js"></script>
+    <script src="js/game-main.js"></script>
+
+    <script src="js/scene05_tower_return.js"></script>
+</body>
+</html>

@@ -692,7 +692,8 @@ body {
 }
 
 .scene-05-gear-stream #gear-sprite {
-    width: 6%;
+    width: 20%;
+    bottom: 15%;
     z-index: 4;
     /* Position set by JS */
 }
@@ -747,4 +748,83 @@ body {
 
 .scene-05-gear-stream .fish-item:hover {
     transform: scale(1.1);
+}
+
+
+
+.scene-05-tower-return #kitten-sprite {
+    width: 18%;
+    left: 35%;
+    bottom: 10%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.scene-05-tower-return #fluffy-dog-sprite {
+    width: 25%;
+    left: 50%;
+    bottom: 8%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.scene-05-tower-return #old-owl-sprite {
+    width: 20%;
+    left: 70%;
+    bottom: 40%; /* Or perched higher */
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.scene-05-tower-return #clock-mechanism {
+    position: absolute;
+    /* These will depend heavily on your TowerInteriorWithClock.png image */
+    /* Example positioning for a clock centered on screen */
+    width: 300px; /* Adjust to clock size in background */
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%); /* Adjust vertical alignment */
+    z-index: 1; /* Behind characters if they interact, or above if just visual */
+}
+
+.scene-05-tower-return .gear-slot {
+    position: absolute;
+    width: 50px; /* Adjust to your gear placeholder size */
+    height: 50px;
+    /* Position these precisely over the clock's gear locations in the background image */
+}
+.scene-05-tower-return #gear-slot-1 { top: 20px; left: 20px; }
+.scene-05-tower-return #gear-slot-2 { top: 20px; right: 20px; }
+.scene-05-tower-return #gear-slot-3 { bottom: 20px; left: 50%; transform: translateX(-50%);}
+
+.scene-05-tower-return .collected-gear {
+    position: absolute; /* Used for animation */
+    width: 45px;
+    height: 45px;
+    z-index: 5; /* Above slots during animation */
+}
+
+
+.scene-05-tower-return #clock-hands {
+    position: absolute;
+    width: 150px; /* Adjust to your clock hands image */
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg); /* Initial rotation */
+    transform-origin: center center;
+    z-index: 4; /* Above gears */
+}
+
+.scene-05-tower-return #tower-door-opened {
+    position: absolute;      /* ensure it layers correctly */
+    width: 40%;              /* adjust to taste */
+    height: 60%;             /* adjust to taste */
+    top: 20%;                /* reposition if needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-size: contain;/* or “cover” */
+    background-repeat: no-repeat;
+    z-index: 1;              /* above background but behind characters */
 }
