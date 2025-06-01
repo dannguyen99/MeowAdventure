@@ -828,3 +828,33 @@ body {
     background-repeat: no-repeat;
     z-index: 1;              /* above background but behind characters */
 }
+
+/* Scene 06 - Homecoming */
+.scene-06-homecoming #kitten-sprite {
+    width: 18%; /* Adjust as needed */
+    left: 30%;
+    bottom: 20%;
+    transform: translateX(-50%);
+}
+
+.scene-06-homecoming #fluffy-dog-sprite {
+    width: 25%; /* Adjust as needed */
+    left: 50%;
+    bottom: 20%;
+    transform: translateX(-50%);
+}
+
+.scene-06-homecoming #teddy-bear-sprite {
+    width: 8%; /* Adjust as needed */
+    /* Position will be updated by JS relative to Kitten/FluffyDog or standalone */
+    position: absolute; /* Ensure it can be positioned freely */
+    z-index: 5; /* Above characters if needed */
+}
+
+.scene-06-homecoming #tree-sprite {
+    width: 30%; 
+    left: 70%; 
+    bottom: 10%;
+    transform: translateX(-50%);
+    z-index: 1; /* Behind characters if they stand in front */
+}

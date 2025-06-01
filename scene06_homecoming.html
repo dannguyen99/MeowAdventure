@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - The End: A Lasting Friendship</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container" class="scene-06-homecoming">
+        <img id="scene-background" src="images/Back1.png" alt="Kitten's Home Garden" style="opacity:0;">
+        
+        <div id="animation-layer">
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
+            <img id="fluffy-dog-sprite" src="images/FluffyDog.png" alt="Fluffy Dog" style="opacity:0; display:none;">
+            <img id="teddy-bear-sprite" src="images/Teddy.png" alt="Teddy Bear" style="opacity:0; display:none; width: 10%; z-index: 5;">
+            <!-- Optional Tree -->
+            <img id="tree-sprite" src="images/Lv4_OakTree.png" alt="Tree in Garden" style="opacity:0; display:none; width: 25%; left: 60%; bottom: 10%; z-index: -1;">
+        </div>
+
+        <div id="dialogue-box-container" style="opacity:0;">
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+        </div>
+
+        <button id="scene-sound-toggle">🔇</button>
+
+        <div id="navigation">
+            <!-- This button's text and destination will be updated by JS or could be a new page -->
+            <button id="next-scene-button" style="display:none;" data-nextscene="index.html">The End</button> 
+        </div>
+    </div>
+
+    <audio id="bg-music-scene6" src="audio/peaceful_intro.mp3" loop></audio> <!-- Placeholder, choose suitable music -->
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio>
+    <audio id="meow-joyful-sound" src="audio/kitten_meow_surprise.mp3"></audio>
+    <audio id="dog-happy-bark-sound" src="audio/dog_bark_friendly.mp3"></audio>
+    <audio id="dashing-sound" src="audio/ui_click.mp3"></audio> <!-- Placeholder SFX -->
+    <audio id="gift-sound" src="audio/item_found.mp3"></audio> <!-- Placeholder SFX -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-dialogue.js"></script>
+    <script src="js/game-animations.js"></script>
+    <script src="js/game-navigation.js"></script>
+    <script src="js/game-main.js"></script>
+    <script src="js/scene06_homecoming.js"></script>
+</body>
+</html>
