@@ -727,14 +727,16 @@ body {
     width: 18%;
     left: 30%;
     bottom: 20%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 0);
+    z-index: 2;
 }
 
 .scene-06-homecoming #fluffy-dog-sprite {
-    width: 25%;
-    left: 50%;
+    width: 22%;
+    left: 55%;
     bottom: 20%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 0);
+    z-index: 2;
 }
 
 .scene-06-homecoming #teddy-bear-sprite {
@@ -749,4 +751,148 @@ body {
     bottom: 10%;
     transform: translateX(-50%);
     z-index: 1; /* Behind characters if they stand in front */
+}
+
+/* Thank You Scene Styles */
+.thank-you-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.thank-you-scene #scene-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.thank-you-scene #animation-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.thank-you-scene #kitten-sprite {
+    position: absolute;
+    width: 20%;
+    left: 15%;
+    bottom: 15%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.thank-you-scene #fluffy-dog-sprite {
+    position: absolute;
+    width: 24%;
+    right: 15%;
+    bottom: 15%;
+    transform: translateX(50%);
+    z-index: 2;
+}
+
+/* Remove game-logo styles since we're not using it anymore */
+
+#thank-you-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 243, 224, 0.95));
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    max-width: 70%;
+    min-width: 500px;
+    text-align: center;
+    border: 3px solid #6d4c41;
+}
+
+#thank-you-text-container h1 {
+    font-family: 'Sour Gummy', cursive;
+    font-size: 3.2em;
+    color: #3b9c81;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: titlePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes titlePulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+#thank-you-text-container p {
+    font-family: 'Sour Gummy', cursive;
+    font-size: 1.2em;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+#thank-you-text-container p:hover {
+    transform: translateY(-2px);
+    color: #2c7a67;
+}
+
+#thank-you-text-container strong {
+    color: #2c7a67;
+    font-weight: 700;
+}
+
+/* Button now positioned inside the text container */
+.thank-you-scene #navigation {
+    position: relative; /* Changed from absolute */
+    z-index: 4;
+    /* Removed bottom and left positioning */
+}
+
+.thank-you-scene #play-again-button {
+    padding: 15px 30px;
+    font-size: 1.3em;
+    font-family: 'Sour Gummy', cursive;
+    font-weight: 600;
+    background: linear-gradient(135deg, #5cb85c, #4cae4c);
+    color: white;
+    border: 3px solid #2e7d32;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    animation: buttonGlow 3s ease-in-out infinite;
+    margin: 0 auto; /* Center the button */
+    display: block; /* Make it a block element for centering */
+}
+
+@keyframes buttonGlow {
+    0%, 100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+    50% { box-shadow: 0 6px 20px rgba(76, 174, 76, 0.4); }
+}
+
+.thank-you-scene #play-again-button:hover {
+    background: linear-gradient(135deg, #66bb6a, #5cb85c);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 174, 76, 0.4);
+}
+
+.thank-you-scene #play-again-button:active {
+    transform: translateY(-1px);
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
 }

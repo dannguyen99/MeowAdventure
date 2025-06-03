@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Adventure - Thank You!</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container" class="thank-you-scene">
+        <img id="scene-background" src="images/Back1.png" alt="Kitten's Home Garden" style="opacity:0;">
+        
+        <div id="animation-layer">
+            <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
+            <img id="fluffy-dog-sprite" src="images/FluffyDog.png" alt="Fluffy Dog" style="opacity:0; display:none;">
+        </div>
+
+        <div id="thank-you-text-container" style="opacity:0;">
+            <h1>🎉 Thank You! 🎉</h1>
+            <p id="thank-you-line-1" style="opacity:0;">Kitten and Fluffy Dog would like to send a big thank you to:</p>
+            <p id="thank-you-line-2" style="opacity:0;">🎓 <strong>Convenor:</strong> Dr Steve Collins</p>
+            <p id="thank-you-line-3" style="opacity:0;">📚 <strong>Course:</strong> MMCC3045 Interactive Storytelling</p>
+            <p id="thank-you-line-4" style="opacity:0;">🏫 Macquarie University</p>
+            <p id="thank-you-line-5" style="opacity:0;">And a special thanks to the creator of their adventure:</p>
+            <p id="thank-you-line-6" style="opacity:0;">✨ <strong>Author:</strong> Mai Huong Nguyen ✨</p>
+            <p id="thank-you-line-7" style="opacity:0;">🐱🐶 Thanks for playing Meow Adventure! 🐾</p>
+            
+            <!-- Move button inside the text container -->
+            <div id="navigation" style="opacity:0; margin-top: 25px;">
+                <button id="play-again-button" data-nextscene="index.html">🎮 Play Again? 🎮</button> 
+            </div>
+        </div>
+    </div>
+
+    <audio id="bg-music-thank-you" src="audio/peaceful_intro.mp3" loop></audio>
+    <audio id="meow-happy-sound" src="audio/kitten_meow_surprise.mp3"></audio>
+    <audio id="dog-happy-sound" src="audio/dog_bark_friendly.mp3"></audio>
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-navigation.js"></script> 
+    <script src="js/thank_you.js"></script>
+</body>
+</html>
