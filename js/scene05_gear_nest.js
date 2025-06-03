@@ -1,4 +1,4 @@
-// js/scene05_gear_nest.js
+
 $(document).ready(function() {
     const $nestSceneBackground = $('#nest-scene-background');
     const $kittenSprite = $('#kitten-sprite');
@@ -6,11 +6,11 @@ $(document).ready(function() {
     const $starlingSprite = $('#starling-sprite');
     const $gearSprite = $('#gear-sprite');
 
-    // Riddle UI Elements
+    
     const $riddleContainer = $('#riddle-container');
     const $riddleTextDisplay = $('#riddle-text-display');
     const $answerChoicesContainer = $('#answer-choices-container');
-    const $dialogueText = $('#dialogue-text'); // For temporary feedback
+    const $dialogueText = $('#dialogue-text'); 
 
     const audioSelectors = {
         bgMusic: '#bg-music-scene5',
@@ -36,7 +36,7 @@ $(document).ready(function() {
     const wrongAnswerSound = $(audioSelectors.wrongAnswer)[0];
     const successSound = $(audioSelectors.success)[0];
 
-    // Riddle Data
+    
     const starlingRiddle = {
         question: "I can fly without wings, and I can cry without eyes. What am I?",
         options: [
@@ -45,10 +45,10 @@ $(document).ready(function() {
             { text: "A Ghost", correct: false },
             { text: "Smoke", correct: false }
         ],
-        correctAnswerText: "A cloud!" // Kitten's exclamation
+        correctAnswerText: "A cloud!" 
     };
     let canAnswerRiddle = false;
-    let onRiddleSolvedCallback = null; // To continue dialogue after solving
+    let onRiddleSolvedCallback = null; 
 
     function showRiddleUI() {
         $riddleTextDisplay.text(starlingRiddle.question);
@@ -60,12 +60,12 @@ $(document).ready(function() {
             $answerChoicesContainer.append($button);
         });
         gsap.to($riddleContainer, { autoAlpha: 1, duration: 0.5, display: 'block', delay: 0.3 });
-        // canAnswerRiddle will be set to true by the dialogue item that follows riddle presentation
+        
     }
 
     function handleAnswerClick(event) {
         if (!canAnswerRiddle) return;
-        canAnswerRiddle = false; // Prevent multiple clicks
+        canAnswerRiddle = false; 
 
         const $button = $(event.currentTarget);
         const isCorrect = $button.data('correct');
@@ -80,28 +80,28 @@ $(document).ready(function() {
             gsap.to($riddleContainer, { autoAlpha: 0, duration: 0.3, delay: 0.8, onComplete: () => {
                 $riddleContainer.css('display', 'none');
                 if (onRiddleSolvedCallback) {
-                    onRiddleSolvedCallback(); // This will advance the main dialogue
+                    onRiddleSolvedCallback(); 
                     onRiddleSolvedCallback = null;
                 }
             }});
-        } else { // Incorrect Answer
+        } else { 
             if (typeof playGameSfx === 'function') { playGameSfx(wrongAnswerSound); }
-            $button.addClass('incorrect disabled').prop('disabled', true); // Disable only this wrong button
+            $button.addClass('incorrect disabled').prop('disabled', true); 
 
-            // Show feedback directly in dialogue box (optional, or use a game message system)
+            
             const tempFeedbackText = "Starling: Chirp! That's not it. Think harder!";
             if ($dialogueText && $dialogueText.length) {
-                const originalDialogue = $dialogueText.html(); // Save original to restore
-                $dialogueText.html(tempFeedbackText); // No strong tag needed if character is in text
+                const originalDialogue = $dialogueText.html(); 
+                $dialogueText.html(tempFeedbackText); 
                 if (starlingChirpSound && typeof playGameSfx === 'function') { playGameSfx(starlingChirpSound); }
                 gsap.fromTo($dialogueText, {autoAlpha:0, y:10},{autoAlpha:1, y:0, duration:0.3});
-                gsap.delayedCall(2, () => { // Restore original dialogue after 2s
+                gsap.delayedCall(2, () => { 
                     $dialogueText.html(originalDialogue);
                      gsap.fromTo($dialogueText, {autoAlpha:0, y:10},{autoAlpha:1, y:0, duration:0.3});
                 });
             }
             gsap.delayedCall(1.5, () => {
-                canAnswerRiddle = true; // Allow trying other options for the same question
+                canAnswerRiddle = true; 
             });
         }
     }
@@ -150,38 +150,38 @@ $(document).ready(function() {
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { x: kittenX - dogOriginalX - $fluffyDogSprite.width()/2 + $kittenSprite.width()/2 , duration: 0.3, ease: "power1.inOut"})
                     .to($fluffyDogSprite, { y: "-=5px", yoyo: true, repeat: 1, duration: 0.2 })
-                    .to($fluffyDogSprite, { x: 0, duration: 0.3, ease: "power1.inOut"}); // Relative x:0 to return to original spot in its flow
+                    .to($fluffyDogSprite, { x: 0, duration: 0.3, ease: "power1.inOut"}); 
             }
         },
-        { // Starling presents the riddle
+        { 
             text: "I can fly without wings, and I can cry without eyes. What am I?",
             character: "Starling",
             sfx: starlingChirpSound,
             action: function(cb) {
                 showRiddleUI();
-                gsap.timeline({ onComplete: cb }) // Starling animation while presenting
+                gsap.timeline({ onComplete: cb }) 
                     .to($starlingSprite, { y: "-=15px", scaleY: 1.2, duration: 0.3, ease: "power2.out" })
                     .to($starlingSprite, { y: "0px", scaleY: 1.0, duration: 0.4, ease: "bounce.out" });
             }
         },
-        { // Kitten thinks, enables answering
+        { 
             text: "Hmm… let me think about that...",
             character: "Kitten",
             sfx: meowThinkingSound,
             action: function(cb) {
-                onRiddleSolvedCallback = cb; // Store callback to be called when riddle is solved
-                canAnswerRiddle = true;      // Allow clicking on answers
-                // Kitten 'thinking' animation
-                gsap.timeline() // Don't pass cb here, it's handled by onRiddleSolvedCallback
+                onRiddleSolvedCallback = cb; 
+                canAnswerRiddle = true;      
+                
+                gsap.timeline() 
                     .to($kittenSprite, { rotation: -5, duration: 0.3 })
                     .to($kittenSprite, { rotation: 5, duration: 0.3 })
                     .to($kittenSprite, { rotation: 0, duration: 0.3 });
-                // Dialogue pauses here until onRiddleSolvedCallback is called
+                
             }
         },
-        // This dialogue is now triggered AFTER the riddle is solved correctly
+        
         {
-            text: "A cloud!", // Kitten exclaims the correct answer (text can be dynamic if needed)
+            text: "A cloud!", 
             character: "Kitten",
             sfx: meowExcitedSound,
             action: function(cb) {
@@ -199,7 +199,7 @@ $(document).ready(function() {
                 const starlingPos = $starlingSprite.position();
                 const kittenPos = $kittenSprite.position();
 
-                // Adjust for potential parent offset if sprites are not direct children of #animation-layer
+                
                 const animLayerOffset = $('#animation-layer').offset();
                 const starlingOffset = $starlingSprite.offset();
                 const kittenOffset = $kittenSprite.offset();
@@ -266,9 +266,9 @@ $(document).ready(function() {
 
             gsap.set([$kittenSprite, $fluffyDogSprite, $starlingSprite, $gearSprite, $riddleContainer], {
                 autoAlpha: 0,
-                display: 'block' // Set to block for GSAP to manage, riddle container display none initially
+                display: 'block' 
             });
-            gsap.set($riddleContainer, {display: 'none'}); // Explicitly none
+            gsap.set($riddleContainer, {display: 'none'}); 
         }
     };
 

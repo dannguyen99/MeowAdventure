@@ -1,4 +1,4 @@
-/* css/gem-match.css */
+
 
 #gem-match-game-area {
     position: absolute;
@@ -14,7 +14,7 @@
 }
 
 #fierce-dog-strength-ui {
-    width: 300px; /* Increased for 5x5 */
+    width: 300px; 
     margin-bottom: 15px;
     text-align: center;
     color: #fff;
@@ -42,11 +42,11 @@
 }
 
 #gem-grid-container {
-    display: none; /* Hide by default */
-    opacity: 0;    /* Start fully transparent */
-    grid-template-columns: repeat(5, var(--gem-cell-size, 60px)); /* Changed to 5x5 with smaller cells */
+    display: none; 
+    opacity: 0;    
+    grid-template-columns: repeat(5, var(--gem-cell-size, 60px)); 
     grid-template-rows: repeat(5, var(--gem-cell-size, 60px));
-    gap: var(--gem-gap, 4px); /* Slightly smaller gap */
+    gap: var(--gem-gap, 4px); 
     background-color: rgba(10, 80, 90, 0.6);
     border: 3px solid #0c4a52;
     border-radius: 8px;
@@ -98,7 +98,7 @@
     animation: pulseHint 1s infinite ease-in-out;
 }
 
-/* Temporary dialogue for in-game messages */
+
 .temp-ingame-dialogue {
     position: absolute;
     top: 20%;
@@ -125,7 +125,7 @@
     50% { transform: scale(1.1); }
 }
 
-/* Character positions adjusted for 5x5 grid */
+
 .scene-04-gem-challenge #fierce-dog-sprite {
     width: 35%;
     left: 20%;

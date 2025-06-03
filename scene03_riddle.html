@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="game-container" class="scene-03-stream-riddle"> <!-- Scene specific class -->
+    <div id="game-container" class="scene-03-stream-riddle"> 
         <img id="scene-background" src="images/Lv2.png" alt="Wide Rushing Stream">
 
         <div id="animation-layer">
@@ -20,11 +20,11 @@
             <img id="frog-sprite" src="images/Frog.png" alt="Frog" style="opacity:0; display:none;">
         </div>
 
-        <!-- Riddle UI Elements -->
+        
         <div id="riddle-container" style="opacity:0; display:none; text-align: center; position:absolute; top:20%; left:50%; transform:translateX(-50%); z-index:15;">
             <p id="riddle-text-display" style="font-size: 1.3em; color: #3A2E39; background-color: rgba(255,240,210,0.85); padding:15px; border-radius:8px; border: 3px solid #6d4c41;"></p>
             <div id="answer-choices-container" style="margin-top: 20px;">
-                <!-- Answer buttons will be added by JS or predefined -->
+                
             </div>
         </div>
 
@@ -37,14 +37,14 @@
         <button id="scene-sound-toggle">🔇</button>
 
         <div id="navigation">
-            <!-- Next scene button is triggered by JS after correct answer -->
+            
             <button id="next-scene-button" style="display:none;" data-nextscene="scene03_crossing.html">Let's Cross!</button>
         </div>
     </div>
 
     <audio id="bg-music-scene3" src="audio/golden-forest-with-birds-and-running-stream-sounds-171319.mp3" loop></audio>
     <audio id="click-sound" src="audio/ui_click.mp3"></audio>
-    <audio id="meow-thinking-sound" src="audio/kitten_meow_surprise.mp3"></audio> <!-- For when kitten is thinking -->
+    <audio id="meow-thinking-sound" src="audio/kitten_meow_surprise.mp3"></audio> 
     <audio id="frog-croak-sound" src="audio/frog-85649.mp3"></audio>
     <audio id="correct-answer-sound" src="audio/item_found.mp3"></audio>
     <audio id="wrong-answer-sound" src="audio/crow-sfx.mp3"></audio>
@@ -61,6 +61,6 @@
 
     <script src="js/scene03_riddle.js"></script>
 
-    <!-- Source Attribution -->
+    
 </body>
 </html>

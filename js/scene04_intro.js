@@ -1,4 +1,4 @@
-// js/scene04_intro.js
+
 $(document).ready(function() {
     const $kittenSprite = $('#kitten-sprite');
     const $fluffyDogSprite = $('#fluffy-dog-sprite');
@@ -14,7 +14,7 @@ $(document).ready(function() {
         fierceGrowl: '#fierce-dog-growl-sound',
         furShake: '#fur-shake-sound'
     };
-    // Get actual audio elements
+    
     const meowSurprisedSound = $(audioSelectors.meowSurprised)[0];
     const meowScaredSound = $(audioSelectors.meowScared)[0];
     const fluffyBarkSound = $(audioSelectors.fluffyBark)[0];
@@ -28,12 +28,12 @@ $(document).ready(function() {
             action: function(callback) {
                 gsap.to($kittenSprite, { autoAlpha: 1, duration: 0.5, display: 'block' });
                 if(furShakeSound && typeof playGameSfx === 'function') playGameSfx(furShakeSound);
-                // Kitten shake animation for drying off
+                
                 gsap.fromTo($kittenSprite,
                     { rotation: -3 },
                     { rotation: 3, duration: 0.1, repeat: 6, yoyo: true, ease: "sine.inOut",
                     onComplete: () => {
-                        gsap.set($kittenSprite, { rotation: 0, scaleX: -1 }); // Reset rotation
+                        gsap.set($kittenSprite, { rotation: 0, scaleX: -1 }); 
                         callback(); 
                     }
                 });
@@ -46,14 +46,14 @@ $(document).ready(function() {
             text: "???: Woof! Hey, little one! Where are you going? You look worried!",
             sfx: fluffyBarkSound,
             action: function(callback) {
-                // Kitten turns around startled
+                
                 gsap.to($kittenSprite, {
-                    scaleX: 1, // Turn around to face the fluffy dog
+                    scaleX: 1, 
                     duration: 0.3,
                     ease: "power2.inOut"
                 });
                 
-                // Fluffy Dog appears from behind
+                
                 $fluffyDogSprite.css('display', 'block');
                 gsap.fromTo($fluffyDogSprite,
                     { autoAlpha: 0, x: "+=100px" },
@@ -64,9 +64,9 @@ $(document).ready(function() {
         { 
             text: "Startled, the kitten quickly turned around. A fluffy golden dog stood on the small path; its bright eyes filled with friendliness.",
             action: function(callback) {
-                // Kitten steps back slightly (cautious)
+                
                 gsap.to($kittenSprite, {
-                    x: "+=20px", // Step back slightly
+                    x: "+=20px", 
                     duration: 0.4,
                     ease: "power1.out",
                     onComplete: callback
@@ -80,7 +80,7 @@ $(document).ready(function() {
         { 
             text: "Overjoyed, the kitten trotted after the fluffy dog. The two walked along the narrow path, with wildflowers swaying gently in the wind. The atmosphere became much lighter and more pleasant.",
             action: function(callback) {
-                // Both characters move forward together
+                
                 const tl = gsap.timeline({ onComplete: callback });
                 
                 tl.to($kittenSprite, { 
@@ -92,7 +92,7 @@ $(document).ready(function() {
                     x: "+=50px", 
                     duration: 2.0, 
                     ease: "power1.inOut" 
-                }, 0); // Start at the same time
+                }, 0); 
             }
         },
         { text: "Do you live here?", character: "Kitten", sfx: meowSurprisedSound },
@@ -106,24 +106,24 @@ $(document).ready(function() {
             text: "???: Stop right there!",
             sfx: fierceBarkSound,
             action: function(callback) {
-                // Kitten freezes in fear
+                
                 gsap.to($kittenSprite, {
-                    scale: 0.95, // Slightly smaller to show fear
+                    scale: 0.95, 
                     duration: 0.2,
                     ease: "power2.out"
                 });
                 
-                // Fierce Dog emerges from behind bush
+                
                 $fierceDogSprite.css('display', 'block');
                 gsap.fromTo($fierceDogSprite,
                     { autoAlpha: 0, y: "+=50px", scale: 0.8 },
                     { autoAlpha: 1, y: "0px", scale: 1, duration: 0.8, ease: "back.out(1.2)" }
                 );
                 
-                // Kitten turns to face the fierce dog
+                
                 gsap.to($kittenSprite, {
-                    scaleX: -1, // Turn to face left (towards fierce dog)
-                    scale: 1, // Reset scale
+                    scaleX: -1, 
+                    scale: 1, 
                     duration: 0.3,
                     ease: "power2.inOut",
                     delay: 0.3,
@@ -140,10 +140,10 @@ $(document).ready(function() {
             character: "Kitten", 
             sfx: meowScaredSound,
             action: function(callback) {
-                // Kitten steps back in terror
+                
                 gsap.to($kittenSprite, {
-                    x: "+=30px", // Step back
-                    scale: 0.9, // Shrink slightly in fear
+                    x: "+=30px", 
+                    scale: 0.9, 
                     duration: 0.4,
                     ease: "power1.out",
                     onComplete: callback
@@ -155,9 +155,9 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyBarkSound,
             action: function(callback) {
-                // Fluffy dog steps forward to shield the kitten
+                
                 gsap.to($fluffyDogSprite, {
-                    x: "-=40px", // Move closer to fierce dog
+                    x: "-=40px", 
                     duration: 0.5,
                     ease: "power2.out",
                     onComplete: callback
@@ -185,7 +185,7 @@ $(document).ready(function() {
         audioSelectors: audioSelectors,
         onSceneReady: function() {
             console.log("Scene 04 Intro is ready!");
-            // Initial kitten visibility and shake is handled by the first dialogue action.
+            
         }
     };
 

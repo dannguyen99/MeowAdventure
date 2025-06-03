@@ -10,19 +10,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/gem-match.css"> <!-- NEW CSS file for minigame -->
+    <link rel="stylesheet" href="css/gem-match.css"> 
 </head>
 <body>
     <div id="game-container" class="scene-04-gem-challenge">
         <img id="scene-background" src="images/Gem_background.jpeg" alt="Meadow Path for Gem Challenge">
 
         <div id="animation-layer">
-            <!-- Characters positioned around the grid -->
+            
             <img id="fierce-dog-sprite" src="images/FierceDog.png" alt="Fierce Dog" style="opacity:0; display:none;">
             <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
             <img id="fluffy-dog-sprite" src="images/FluffyDog.png" alt="Fluffy Dog" style="opacity:0; display:none;">
 
-            <!-- Gem Matching Game Area -->
+            
             <div id="gem-match-game-area">
                 <div id="fierce-dog-strength-ui" style="display:none;">
                     <p>Fierce Dog's Resolve:</p>
@@ -32,12 +32,12 @@
                 </div>
 
                 <div id="gem-grid-container">
-                    <!-- Grid cells will be populated by JS -->
+                    
                 </div>
             </div>
         </div>
 
-        <div id="dialogue-box-container" style="opacity:0;"> <!-- For pre/post game dialogue -->
+        <div id="dialogue-box-container" style="opacity:0;"> 
             <div id="dialogue-box">
                 <p id="dialogue-text"></p>
             </div>
@@ -46,21 +46,21 @@
         <button id="scene-sound-toggle">🔇</button>
 
         <div id="navigation">
-            <!-- Next scene button triggered by JS after winning -->
+            
             <button id="next-scene-button" style="display:none;" data-nextscene="scene04_victory.html">Victory!</button>
         </div>
     </div>
 
-    <!-- Audio -->
+    
     <audio id="bg-music-scene4-challenge" src="audio/best-game-console-301284.mp3" loop></audio>
-    <audio id="click-sound" src="audio/ui_click.mp3"></audio> <!-- General UI -->
+    <audio id="click-sound" src="audio/ui_click.mp3"></audio> 
     <audio id="gem-swap-sound" src="audio/woosh-230554.mp3"></audio>
     <audio id="gem-match-sound" src="audio/item_found.mp3"></audio>
     <audio id="gem-no-match-sound" src="audio/crow-sfx.mp3"></audio>
     <audio id="gem-fall-sound" src="audio/crow-sfx.mp3"></audio>
     <audio id="dog-weaken-sound" src="audio/dog_bark_aggressive.mp3"></audio>
     <audio id="kitten-win-sound" src="audio/item_found.mp3"></audio>
-    <!-- Dialogue sounds for characters (re-use existing or add new) -->
+    
     <audio id="meow-determined-sound" src="audio/kitten_meow_surprise.mp3"></audio>
     <audio id="fluffy-dog-cheer-sound" src="audio/dog_bark_friendly.mp3"></audio>
     <audio id="fierce-dog-frustrated-sound" src="audio/dog_bark_aggressive.mp3"></audio>
@@ -75,9 +75,9 @@
     <script src="js/game-navigation.js"></script>
     <script src="js/game-main.js"></script>
 
-    <script src="js/gem-match-logic.js"></script> <!-- NEW JS for game logic -->
-    <script src="js/scene04_challenge.js"></script> <!-- Scene setup and integration -->
+    <script src="js/gem-match-logic.js"></script> 
+    <script src="js/scene04_challenge.js"></script> 
 
-    <!-- Source Attribution -->
+    
 </body>
 </html>

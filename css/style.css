@@ -1,4 +1,4 @@
-/* css/style.css */
+
 body {
     font-family: "Sour Gummy", sans-serif;
     font-optical-sizing: auto;
@@ -27,8 +27,8 @@ body {
     box-sizing: border-box;
 }
 
-/* Background image for scenes (if used as a separate element) */
-/* This image would sit *inside* the border and padding (if any) of #game-container */
+
+
 #scene-background, #scene-image {
     position: absolute;
     top: 0;
@@ -38,7 +38,7 @@ body {
     object-fit: cover;
 }
 
-#scene-background { /* Specific to the main background */
+#scene-background { 
     z-index: 0; 
     pointer-events: none;
 }
@@ -49,7 +49,7 @@ body {
     object-fit: contain;
 }
 
-/* Default positioning for Scene 1 Part 1 sprites */
+
 #kitten-sprite {
     width: 22%;
     left: 38%;
@@ -64,7 +64,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-/* Dialogue Box Area */
+
 #dialogue-box-container {
     position: absolute;
     bottom: 20px;
@@ -92,13 +92,13 @@ body {
     line-height: 1.7;
 }
 
-#dialogue-text strong { /* Character names */
+#dialogue-text strong { 
     font-weight: 700;
     color: #f6e58d;
     margin-right: 8px;
 }
 
-/* Acorn Hunt UI */
+
 #acorn-ui-container {
     position: absolute;
     top: 10px;
@@ -166,9 +166,9 @@ body {
     transition: transform 1s ease-out, opacity 1s ease-out, filter 1s ease-out;
 }
 
-/* --- SCENE SPECIFIC STYLES --- */
 
-/* Scene 01 Part 3 */
+
+
 .scene-01-part3-lost #kitten-sprite {
     width: 20%;
     left: 40%;
@@ -176,7 +176,7 @@ body {
     transform: translateX(-50%);
 }
 
-/* Scene 02 Common Sprite Styles */
+
 .scene-02-forest-intro #kitten-sprite,
 .scene-02-minigame-acorn-hunt #kitten-sprite,
 .scene-02-forest-outro #kitten-sprite {
@@ -194,7 +194,7 @@ body {
     left: 45%;
 }
 
-/* Scene 02 Minigame: Acorn Hunt */
+
 .scene-02-minigame-acorn-hunt #hint-arrow {
     width: 80px;
     height: auto;
@@ -220,7 +220,7 @@ body {
     position: absolute; 
 }
 
-/* Scene 03 Common Sprite Styles */
+
 .scene-03-stream-riddle #kitten-sprite,
 .scene-03-stream-intro #kitten-sprite,
 .scene-03-stream-crossing #kitten-sprite {
@@ -239,7 +239,7 @@ body {
     transform: scaleX(-1);
 }
 
-/* Scene 03 Riddle UI */
+
 .scene-03-stream-riddle #riddle-container {
     width: 70%;
     max-width: 550px;
@@ -283,7 +283,7 @@ body {
     opacity: 0.7;
 }
 
-/* Scene 04 Meadow Intro */
+
 .scene-04-meadow-intro #kitten-sprite {
     width: 18%;
     left: 55%;
@@ -305,7 +305,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-/* Scene 04 Meadow Victory */
+
 .scene-04-meadow-victory #fierce-dog-sprite {
     width: 35%;
     left: 20%;
@@ -330,7 +330,7 @@ body {
     z-index: 0;
 }
 
-/* Scene 05 Tower Intro */
+
 .scene-05-tower-intro {
     background-image: url('../images/Lv4.jpeg');
     background-size: cover;
@@ -369,29 +369,17 @@ body {
     z-index: 3;
 }
 
-/*
-.scene-05-tower-intro #kitten-running-frames img,
-.scene-05-tower-intro #dog-running-frames img {
-    position: absolute;
-    width: 18%;
-    left: 25%;
-    bottom: 25%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    z-index: 1;
-}
-*/
 
-.scene-05-tower-intro #dog-running-frames img { /* Assuming kitten frames are similar and might be added */
+
+.scene-05-tower-intro #dog-running-frames img { 
     width: 25%;
     left: 35%;
     bottom: 20%;
-    /* Shared properties with kitten-running-frames would be:
-    position: absolute; transform: translate(-50%, -50%); opacity: 0; z-index: 1; */
+    
 }
 
 
-/* Scene 05 Oak Tree Gear Hunt */
+
 .scene-05-gear-oak {
     background-size: cover;
     background-position: center;
@@ -480,7 +468,7 @@ body {
     color: #ffeb3b;
 }
 
-/* Scene 05 Gear Nest */
+
 .scene-05-gear-nest #kitten-sprite {
     width: 18%;
     left: 30%;
@@ -566,7 +554,7 @@ body {
     background-color: #ef5350;
 }
 
-/* Scene 05 Gear Stream */
+
 .scene-05-gear-stream #kitten-sprite {
     width: 17%;
     left: 25%;
@@ -648,7 +636,7 @@ body {
     transform: scale(1.1);
 }
 
-/* Scene 05 Tower Return */
+
 .scene-05-tower-return #kitten-sprite {
     width: 18%;
     left: 35%;
@@ -722,7 +710,7 @@ body {
     z-index: 1;
 }
 
-/* Scene 06 - Homecoming */
+
 .scene-06-homecoming #kitten-sprite {
     width: 18%;
     left: 30%;
@@ -750,10 +738,10 @@ body {
     left: 70%; 
     bottom: 10%;
     transform: translateX(-50%);
-    z-index: 1; /* Behind characters if they stand in front */
+    z-index: 1; 
 }
 
-/* Thank You Scene Styles */
+
 .thank-you-scene {
     position: relative;
     width: 100%;
@@ -796,7 +784,7 @@ body {
     z-index: 2;
 }
 
-/* Remove game-logo styles since we're not using it anymore */
+
 
 #thank-you-text-container {
     position: absolute;
@@ -847,11 +835,11 @@ body {
     font-weight: 700;
 }
 
-/* Button now positioned inside the text container */
+
 .thank-you-scene #navigation {
-    position: relative; /* Changed from absolute */
+    position: relative; 
     z-index: 4;
-    /* Removed bottom and left positioning */
+    
 }
 
 .thank-you-scene #play-again-button {
@@ -868,8 +856,8 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     animation: buttonGlow 3s ease-in-out infinite;
-    margin: 0 auto; /* Center the button */
-    display: block; /* Make it a block element for centering */
+    margin: 0 auto; 
+    display: block; 
 }
 
 @keyframes buttonGlow {
@@ -887,7 +875,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* Floating animation for decorative elements */
+
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }

@@ -36,13 +36,13 @@ $(document).ready(function() {
     {
       text: "The two friends rushed back to the tower and placed the three gears inside the massive clock.",
       action(cb) {
-        // first fade in all characters & mechanism
+        
         $sceneBg.fadeTo(600,1);
         $kitten .fadeTo(600,1);
         $fluffy .fadeTo(600,1);
         $owl    .fadeTo(600,1);
         $clockMech.fadeTo(600,1, function() {
-          // then place the gears one by one
+          
           placeGear(1, ()=>
             placeGear(2, ()=>
               placeGear(3, cb)
@@ -63,13 +63,13 @@ $(document).ready(function() {
     {
       text: "Kitten and Fluffy Dog pushed the hands of the clock together.",
       action(cb) {
-        // simulate push by sliding left, play turn sounds, then slide back
+        
         $kitten .animate({ left: '-=20px' },300);
         $fluffy .animate({ left: '-=20px' },300, function() {
           audio.turn.play();
           audio.tick.loop = true;
           audio.tick.play();
-          // skip real rotation—just wait 1s
+          
           setTimeout(() => {
             audio.tick.pause();
             audio.tick.currentTime = 0;
@@ -119,7 +119,7 @@ $(document).ready(function() {
     {
       text: "The two friends looked at each other, smiling, before stepping through the door—one step closer to their beloved home…",
       action(cb) {
-        // step through door by fading out and moving down
+        
         $kitten .animate({ top: '+=50px', opacity: 0 },800);
         $fluffy .animate({ top: '+=50px', opacity: 0 },800, cb);
       },
@@ -142,7 +142,7 @@ $(document).ready(function() {
     imagesToPreload: imagesForThisScene,
     audioSelectors: audio,
     onSceneReady() {
-      // set initial CSS
+      
       $sceneBg.css({ opacity:0 });
       $kitten.add($fluffy).add($owl).add($clockMech).add($doorOpened).css({ opacity:0, display:'block' });
     }

@@ -1,6 +1,6 @@
-// js/scene05_tower_intro.js
+
 $(document).ready(function() {
-    const $clockSprite = $('#clock-sprite'); // Changed from $towerSprite
+    const $clockSprite = $('#clock-sprite'); 
     const $kittenSprite = $('#kitten-sprite');
     const $fluffyDogSprite = $('#fluffy-dog-sprite');
     const $owlSprite = $('#owl-sprite');
@@ -29,12 +29,12 @@ $(document).ready(function() {
     const owlHootSound = $(audioSelectors.owlHoot)[0];
     const owlMysteriousSound = $(audioSelectors.owlMysterious)[0];
 
-    // Animation helper functions
+    
     function animateKittenRunning(duration = 2.0) {
         $kittenSprite.hide();
         
         const runTL = gsap.timeline({
-            repeat: Math.floor(duration * 8), // ~8 FPS
+            repeat: Math.floor(duration * 8), 
             onComplete: () => {
                 $kittenRunFrames.hide();
                 $kittenSprite.show();
@@ -59,7 +59,7 @@ $(document).ready(function() {
         $fluffyDogSprite.hide();
         
         const runTL = gsap.timeline({
-            repeat: Math.floor(duration * 6), // ~6 FPS for dog
+            repeat: Math.floor(duration * 6), 
             onComplete: () => {
                 $dogRunFrames.hide();
                 $fluffyDogSprite.show();
@@ -86,7 +86,7 @@ $(document).ready(function() {
             character: "Kitten", 
             sfx: meowTiredSound,
             action: function(cb) {
-                // Kitten stretching, looking tired
+                
                 gsap.timeline({ onComplete: cb })
                     .to($kittenSprite, { 
                         scaleY: 1.2, 
@@ -113,7 +113,7 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyWagSound,
             action: function(cb) {
-                // Fluffy dog wagging tail enthusiastically
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { 
                         rotation: 3, 
@@ -150,7 +150,7 @@ $(document).ready(function() {
         {
             text: "*Just then, they noticed an old stone tower with a massive clock...*", 
             action: function(cb) {
-                // Clock appears dramatically
+                
                 gsap.timeline({ onComplete: cb })
                     .to($clockSprite, { 
                         autoAlpha: 1, 
@@ -167,7 +167,7 @@ $(document).ready(function() {
                         duration: 0.3, 
                         ease: "bounce.out" 
                     })
-                    // Both characters react to seeing the clock
+                    
                     .to([$kittenSprite, $fluffyDogSprite], { 
                         x: "-=10px", 
                         duration: 0.2, 
@@ -183,7 +183,7 @@ $(document).ready(function() {
         {
             text: "*The clock's hands were frozen in place...*", 
             action: function(cb) {
-                // Focus on the clock (subtle zoom/highlight effect)
+                
                 gsap.timeline({ onComplete: cb })
                     .to($clockSprite, { 
                         scale: 1.05, 
@@ -202,7 +202,7 @@ $(document).ready(function() {
             character: "Kitten", 
             sfx: meowCuriousSound,
             action: function(cb) {
-                // Kitten reading aloud, frowning
+                
                 gsap.timeline({ onComplete: cb })
                     .to($kittenSprite, { 
                         x: "+=15px", 
@@ -229,7 +229,7 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyThinkingSound,
             action: function(cb) {
-                // Fluffy dog tilting head, thinking
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { 
                         rotation: -15, 
@@ -249,7 +249,7 @@ $(document).ready(function() {
         {
             text: "*Suddenly, an old owl swooped down from above...*", 
             action: function(cb) {
-                // Owl dramatic entrance
+                
                 gsap.timeline({ onComplete: cb })
                     .set($owlSprite, { 
                         y: "-200px", 
@@ -264,7 +264,7 @@ $(document).ready(function() {
                         duration: 0.8, 
                         ease: "power2.out" 
                     })
-                    // Characters react with surprise
+                    
                     .to([$kittenSprite, $fluffyDogSprite], { 
                         y: "-=5px", 
                         duration: 0.1, 
@@ -282,7 +282,7 @@ $(document).ready(function() {
             character: "Old Owl", 
             sfx: owlHootSound,
             action: function(cb) {
-                // Owl wise gesture
+                
                 gsap.timeline({ onComplete: cb })
                     .to($owlSprite, { 
                         y: "-=10px", 
@@ -301,7 +301,7 @@ $(document).ready(function() {
             character: "Kitten", 
             sfx: meowDeterminedSound,
             action: function(cb) {
-                // Kitten nodding determinedly
+                
                 gsap.timeline({ onComplete: cb })
                     .to($kittenSprite, { 
                         y: "-=8px", 
@@ -329,7 +329,7 @@ $(document).ready(function() {
             character: "Old Owl", 
             sfx: owlMysteriousSound,
             action: function(cb) {
-                // Owl mysterious gesture
+                
                 gsap.timeline({ onComplete: cb })
                     .to($owlSprite, { 
                         rotation: -5, 
@@ -350,7 +350,7 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyExcitedSound,
             action: function(cb) {
-                // Fluffy dog excited
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { 
                         y: "-=12px", 
@@ -371,7 +371,7 @@ $(document).ready(function() {
             character: "Old Owl", 
             sfx: owlHootSound,
             action: function(cb) {
-                // Owl explaining with wing gestures (simulate with movements)
+                
                 gsap.timeline({ onComplete: cb })
                     .to($owlSprite, { 
                         x: "-=10px", 
@@ -397,7 +397,7 @@ $(document).ready(function() {
             character: "Kitten", 
             sfx: meowDeterminedSound,
             action: function(cb) {
-                // Kitten determined despite concern
+                
                 gsap.timeline({ onComplete: cb })
                     .to($kittenSprite, { 
                         rotation: -8, 
@@ -421,10 +421,10 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyExcitedSound,
             action: function(cb) {
-                // Both characters prepare to leave with running animation
+                
                 const mainTL = gsap.timeline({ onComplete: cb });
                 
-                // First, excited reaction
+                
                 mainTL.to($fluffyDogSprite, { 
                     y: "-=12px", 
                     scale: 1.05,
@@ -438,30 +438,30 @@ $(document).ready(function() {
                     ease: "bounce.out" 
                 })
                 
-                // Then run animation for both
+                
                 .add(() => {
                     animateKittenRunning(1.5);
                     animateDogRunning(1.5);
                 }, "+=0.2")
                 
-                // Move them slightly during running
+                
                 .to([$kittenSprite, $fluffyDogSprite], { 
                     x: "+=20px", 
                     duration: 1.5, 
                     ease: "power2.inOut" 
                 }, "-=1.5");
             },
-            endScene: true // Shows "Begin Quest" button
+            endScene: true 
         }
     ];
 
     const imagesForThisScene = [
-        'images/Lv4.jpeg', // Background
-        'images/TheClock.png', // The actual clock image
+        'images/Lv4.jpeg', 
+        'images/TheClock.png', 
         'images/Kitten.png', 
         'images/FluffyDog.png',
         'images/Owl.png',
-        // Preload animation frames
+        
         'images/Kitten Animation 2/Kitten Animation 1.png',
         'images/Kitten Animation 2/Kitten Animation 2.png',
         'images/Kitten Animation 2/Kitten Animation 3.png',
@@ -485,7 +485,7 @@ $(document).ready(function() {
         onSceneReady: function() {
             console.log("Scene 05 Tower Intro is ready!");
             
-            // Initialize character positions
+            
             gsap.set($kittenSprite, { 
                 autoAlpha: 1, 
                 display: 'block'
@@ -496,7 +496,7 @@ $(document).ready(function() {
                 display: 'block'
             });
             
-            gsap.set($clockSprite, { // Changed from $towerSprite
+            gsap.set($clockSprite, { 
                 autoAlpha: 0, 
                 display: 'block'
             });
@@ -506,7 +506,7 @@ $(document).ready(function() {
                 display: 'block'
             });
 
-            // Initialize animation frames
+            
             gsap.set($kittenRunFrames, { 
                 autoAlpha: 0, 
                 display: 'block'

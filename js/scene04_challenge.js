@@ -1,4 +1,4 @@
-// js/scene04_challenge.js
+
 $(document).ready(function() {
     const $fierceDogSprite = $('#fierce-dog-sprite');
     const $kittenSprite = $('#kitten-sprite');
@@ -36,18 +36,18 @@ $(document).ready(function() {
         { text: "I can do this! I just need to think carefully about each move.", character: "Kitten", sfx: meowDeterminedSound },
         { text: "Good luck! You'll need it!", character: "Fierce Dog", sfx: fierceFrustratedSound,
             action: function(callback) {
-                // Show strength UI
+                
                 if ($strengthUiContainer.length) {
-                    $strengthUiContainer.css('display', 'block'); // Set display before animating
-                    gsap.to($strengthUiContainer, {autoAlpha: 1, y: 0, duration: 0.5}); // Changed from 'from' to 'to'
+                    $strengthUiContainer.css('display', 'block'); 
+                    gsap.to($strengthUiContainer, {autoAlpha: 1, y: 0, duration: 0.5}); 
                 }
 
-                // Show the gem grid container (placeholders)
+                
                 if ($gemGridContainer.length) {
-                    // Set display to 'grid' (as defined in gem-match.css) before animating opacity
+                    
                     $gemGridContainer.css('display', 'grid'); 
                     gsap.to($gemGridContainer, { autoAlpha: 1, duration: 0.5, delay: 0.2, onComplete: function() {
-                        // Initialize the gem match logic AFTER the grid is visible
+                        
                         initializeGemMatch('#gem-grid-container', handleGemMatches, handlePlayerMove);
                         
                         if (window.gameDialogueSystem && typeof $dialogueBoxElement !== 'undefined' && $dialogueBoxElement && $dialogueBoxElement.length && $dialogueBoxElement.css('opacity') !== '0') {
@@ -71,10 +71,10 @@ $(document).ready(function() {
     function handleGemMatches(numMatchSets) {
         console.log(`Player made ${numMatchSets} match sets!`);
         
-        // More strategic scoring - bigger matches are worth more
+        
         let damage = numMatchSets;
-        if (numMatchSets >= 2) damage += 1; // Bonus for multiple matches
-        if (numMatchSets >= 3) damage += 1; // Extra bonus for cascades
+        if (numMatchSets >= 2) damage += 1; 
+        if (numMatchSets >= 3) damage += 1; 
         
         currentDogStrength -= damage;
         if (currentDogStrength < 0) currentDogStrength = 0;
@@ -82,7 +82,7 @@ $(document).ready(function() {
         
         if (typeof playGameSfx === 'function' && dogWeakenSound) playGameSfx(dogWeakenSound);
 
-        // Dog reaction animation
+        
         const intensity = Math.min(damage * 2, 8);
         gsap.fromTo($fierceDogSprite, 
             {x: -intensity}, 
@@ -92,7 +92,7 @@ $(document).ready(function() {
         if (currentDogStrength <= 0) {
             winGame();
         } else {
-            // Encourage player based on progress
+            
             const progressPercent = (MAX_DOG_STRENGTH - currentDogStrength) / MAX_DOG_STRENGTH;
             if (progressPercent >= 0.5 && progressPercent < 0.6 && Math.random() < 0.4) {
                 showTemporaryDialogue("Fluffy Dog: You're halfway there! Keep going!", fluffyCheerSound);
@@ -105,8 +105,8 @@ $(document).ready(function() {
     function handlePlayerMove(wasMatch) {
         console.log("Player made a move. Match result:", wasMatch);
         
-        // Optional: Add move counter or other game mechanics here
-        if (!wasMatch && Math.random() < 0.1) { // Occasional encouragement on failed moves
+        
+        if (!wasMatch && Math.random() < 0.1) { 
             showTemporaryDialogue("Fluffy Dog: Think about which gems to match next!", fluffyCheerSound);
         }
     }
@@ -182,11 +182,11 @@ $(document).ready(function() {
             if ($fierceDogSprite.length && $kittenSprite.length && $fluffyDogSprite.length) {
                 gsap.set([$fierceDogSprite, $kittenSprite, $fluffyDogSprite], { autoAlpha: 1, display: 'block' });
             }
-            // No need to hide $gemGridContainer here anymore, CSS handles it.
+            
             
             if ($strengthUiContainer.length) {
-                // Ensure strength UI is hidden by default if it's revealed by dialogue
-                // and not already hidden by its own CSS.
+                
+                
                 $strengthUiContainer.css({ display: 'none', opacity: 0});
             }
             updateStrengthBar();

@@ -1,7 +1,7 @@
-// js/scene05_gear_oak.js
+
 $(document).ready(function() {
     const $oakTreeBackground = $('#oak-tree-background');
-    const $sceneBackground = $('#scene-background'); // General scene background
+    const $sceneBackground = $('#scene-background'); 
     const $kittenSprite = $('#kitten-sprite');
     const $fluffyDogSprite = $('#fluffy-dog-sprite');
     const $gearSprite = $('#gear-sprite');
@@ -9,14 +9,14 @@ $(document).ready(function() {
     const $gameUI = $('#game-ui');
     const $attemptCount = $('#attempt-count');
 
-    // Game state
+    
     let currentAttempts = 0;
     const maxAttempts = 3;
-    const correctSpot = Math.floor(Math.random() * 6) + 1; // Random spot 1-6
+    const correctSpot = Math.floor(Math.random() * 6) + 1; 
     let gameActive = false;
-    // let gameCompleted = false; // This flag can be removed if using the callback correctly
+    
 
-    // To store the callback for advancing dialogue after game completion
+    
     let onGameCompleteCallback = null;
 
     const audioSelectors = {
@@ -35,13 +35,13 @@ $(document).ready(function() {
     const digSound = $(audioSelectors.digSound)[0];
     const successSound = $(audioSelectors.successSound)[0];
 
-    // Digging game functions
+    
     function startDiggingGame() {
         gameActive = true;
-        currentAttempts = 0; // Reset attempts when game starts
+        currentAttempts = 0; 
         $attemptCount.text(currentAttempts);
         
-        // Show UI and make spots clickable
+        
         gsap.to($gameUI, { autoAlpha: 1, duration: 0.5 });
         gsap.to($diggingSpots, { 
             autoAlpha: 0.8, 
@@ -49,10 +49,10 @@ $(document).ready(function() {
             stagger: 0.1 
         });
         
-        // Add glow effect to spots
+        
         $diggingSpots.addClass('glowing');
         
-        // Add click handlers
+        
         $diggingSpots.on('click.digging', handleDigClick);
     }
 
@@ -62,12 +62,12 @@ $(document).ready(function() {
         const $spot = $(event.currentTarget);
         const spotNumber = parseInt($spot.data('spot'));
         
-        // Play dig sound
+        
         if (typeof playGameSfx === 'function') {
             playGameSfx('#dig-sound');
         }
         
-        // Visual feedback
+        
         gsap.timeline()
             .to($spot, { scale: 1.2, duration: 0.1 })
             .to($spot, { scale: 0.8, duration: 0.2 })
@@ -76,18 +76,18 @@ $(document).ready(function() {
         currentAttempts++;
         $attemptCount.text(currentAttempts);
         
-        $spot.off('click.digging').removeClass('glowing'); // Prevent further clicks on this spot
+        $spot.off('click.digging').removeClass('glowing'); 
         
         if (spotNumber === correctSpot) {
-            // Success!
+            
             foundGear($spot);
         } else {
-            // Wrong spot
+            
             if (currentAttempts >= maxAttempts) {
-                // Game over - reveal correct spot
+                
                 gameOver();
             } else {
-                // Try again
+                
                 wrongSpotFeedback();
             }
         }
@@ -95,19 +95,19 @@ $(document).ready(function() {
 
     function foundGear($spot) {
         gameActive = false;
-        $diggingSpots.off('click.digging').removeClass('glowing'); // Disable all spots
+        $diggingSpots.off('click.digging').removeClass('glowing'); 
         
-        // Hide UI
+        
         gsap.to($gameUI, { autoAlpha: 0, duration: 0.3 });
         
-        // Success sound
+        
         if (typeof playGameSfx === 'function') {
             playGameSfx('#success-sound');
         }
         
-        // Show gear appearing from the spot
+        
         gsap.set($gearSprite, {
-            // Ensure positioning is relative to game-container if $spot is deeply nested
+            
             left: $spot.position().left + $spot.width() / 2 - $gearSprite.width() / 2,
             top: $spot.position().top + $spot.height() / 2 - $gearSprite.height() / 2,
             scale: 0.1,
@@ -135,17 +135,17 @@ $(document).ready(function() {
                 ease: "bounce.out"
             });
     
-        // Continue to success dialogue after a delay
+        
         setTimeout(() => {
             if (onGameCompleteCallback) {
-                onGameCompleteCallback(); // This will advance the dialogue
-                onGameCompleteCallback = null; // Clear callback
+                onGameCompleteCallback(); 
+                onGameCompleteCallback = null; 
             }
         }, 1500);
     }
 
     function wrongSpotFeedback() {
-        // Characters react with disappointment
+        
         gsap.timeline()
             .to($kittenSprite, { 
                 rotation: -10, 
@@ -169,14 +169,14 @@ $(document).ready(function() {
         }
     }
 
-    function gameOver() { // Called when max attempts are reached without finding the gear
+    function gameOver() { 
         gameActive = false;
         $diggingSpots.off('click.digging').removeClass('glowing');
         
-        // Hide UI
+        
         gsap.to($gameUI, { autoAlpha: 0, duration: 0.3 });
         
-        // Reveal the correct spot and show gear
+        
         const $correctSpotElement = $(`.dig-spot[data-spot="${correctSpot}"]`);
         
         gsap.timeline()
@@ -184,9 +184,9 @@ $(document).ready(function() {
                 autoAlpha: 1, 
                 scale: 1.3, 
                 duration: 0.5,
-                borderColor: 'gold' // Highlight the correct spot
+                borderColor: 'gold' 
             })
-            .call(() => foundGear($correctSpotElement)); // Then proceed as if it was found
+            .call(() => foundGear($correctSpotElement)); 
     }
 
     const sceneDialogues = [
@@ -195,7 +195,7 @@ $(document).ready(function() {
             character: "Kitten",
             sfx: meowExcitedSound,
             action: function(cb) {
-                // Background is already set by onSceneReady, characters just react or appear
+                
                 gsap.timeline({ onComplete: cb })
                     .fromTo([$kittenSprite, $fluffyDogSprite], {y: "+=20", autoAlpha: 0}, {y: "0", autoAlpha: 1, duration: 0.5, stagger: 0.2});
             }
@@ -205,7 +205,7 @@ $(document).ready(function() {
             character: "Fluffy Dog",
             sfx: fluffyExcitedSound,
             action: function(cb) {
-                // Dog sniffing animation
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { 
                         scaleX: 1.1, 
@@ -229,20 +229,20 @@ $(document).ready(function() {
             text: "Look! There are some soft spots in the ground. Maybe we should try digging in different places?",
             character: "Kitten", 
             action: function(cb) {
-                // Store the callback to be called when the game is complete
+                
                 onGameCompleteCallback = cb;
-                // Show digging spots and start the game
+                
                 startDiggingGame();
-                // IMPORTANT: Don't call cb() here; it will be called by foundGear() or gameOver()
+                
             }
-            // Remove 'waitForGame' or 'skipAdvance' if they were used; the callback handles pausing.
+            
         },
         {
             text: "We found it! The first gear!", 
             character: "Kitten",
             sfx: meowExcitedSound,
             action: function(cb) {
-                // Celebration animation
+                
                 gsap.timeline({ onComplete: cb })
                     .to($kittenSprite, { 
                         y: "-=15px", 
@@ -275,7 +275,7 @@ $(document).ready(function() {
             character: "Fluffy Dog",
             sfx: fluffyExcitedSound,
             action: function(cb) {
-                // Final celebration
+                
                 gsap.timeline({ onComplete: cb })
                     .to([$kittenSprite, $fluffyDogSprite], {
                         y: "-=8px",
@@ -293,8 +293,8 @@ $(document).ready(function() {
     ];
 
     const imagesForThisScene = [
-        // 'images/Lv4.jpeg', // No longer needed if oak tree is direct background
-        'images/Lv4_OakTree.png', // Oak tree background
+        
+        'images/Lv4_OakTree.png', 
         'images/Kitten.png', 
         'images/FluffyDog.png',
         'images/Gear.png'
@@ -307,19 +307,19 @@ $(document).ready(function() {
         onSceneReady: function() {
             console.log("Scene 05 Oak Tree Gear Hunt is ready!");
             
-            // Set general background to hidden and oak tree background to visible
+            
             gsap.set($sceneBackground, { 
                 autoAlpha: 0, 
-                display: 'block' // Keep display block for layout
+                display: 'block' 
             });
             gsap.set($oakTreeBackground, { 
                 autoAlpha: 1, 
                 display: 'block' 
             });
             
-            // Initialize character positions (they will be animated in by the first dialogue)
+            
             gsap.set([$kittenSprite, $fluffyDogSprite], { 
-                autoAlpha: 0, // Start hidden, first dialogue action will reveal them
+                autoAlpha: 0, 
                 display: 'block'
             });
             
@@ -330,11 +330,11 @@ $(document).ready(function() {
 
             gsap.set($diggingSpots, { 
                 autoAlpha: 0 
-                // display: 'block' // display will be handled by startDiggingGame
+                
             });
             gsap.set($gameUI, {
                 autoAlpha: 0,
-                display: 'none' // Ensure UI is hidden and not taking space
+                display: 'none' 
             });
         }
     };

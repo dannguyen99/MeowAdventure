@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meow Adventure - Ch 1, Part 3: Lost Kitten</title> <!-- Updated Title -->
+    <title>Meow Adventure - Ch 1, Part 3: Lost Kitten</title> 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +13,14 @@
 </head>
 <body class="scene-01-part3-lost">
     <div id="game-container">
-        <!-- NEW Background Image for this part -->
+        
         <img id="scene-background" src="images/Lv1.jpg" alt="Edge of a forest, unfamiliar area">
 
         <div id="animation-layer">
-            <!-- Kitten Sprite - will reappear, looking confused -->
-            <!-- Use a suitable pose: Kitten.png (sitting) or first frame of Kitten Animation 1 -->
+            
+            
             <img id="kitten-sprite" src="images/Kitten Animation 1/Kitten 1.png" alt="Lost Kitten" style="opacity:0; display:none;">
-            <!-- Butterfly Sprite is NOT needed in this part -->
+            
         </div>
 
         <div id="dialogue-box-container" style="opacity:0;">
@@ -32,29 +32,29 @@
         <button id="scene-sound-toggle">🔇</button>
 
         <div id="navigation">
-            <!-- This button now navigates to Scene 2 (Forest Maze) -->
+            
             <button id="next-scene-button" style="display:none;" data-nextscene="scene02_intro.html">Enter the Forest</button>
         </div>
     </div>
 
-    <!-- Audio: Consider a more somber or anxious background track -->
+    
     <audio id="bg-music-scene1_part3" src="audio/anxious_theme_short.mp3" loop></audio>
     <audio id="click-sound" src="audio/ui_click.mp3"></audio>
-    <audio id="meow-sad-sound" src="audio/kitten_meow_surprise.mp3"></audio> <!-- New sad meow -->
+    <audio id="meow-sad-sound" src="audio/kitten_meow_surprise.mp3"></audio> 
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-    <!-- COMMON GAME SCRIPTS (Ensure paths are correct) -->
+    
     <script src="js/game-audio.js"></script>
     <script src="js/game-dialogue.js"></script>
     <script src="js/game-animations.js"></script>
     <script src="js/game-navigation.js"></script>
     <script src="js/game-main.js"></script>
 
-    <script src="js/scene01_part3.js"></script> <!-- NEW JS FILE -->
+    <script src="js/scene01_part3.js"></script> 
 
-    <!-- Source Attribution -->
+    
 </body>
 </html>

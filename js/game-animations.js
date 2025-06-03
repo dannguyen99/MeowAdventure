@@ -1,4 +1,4 @@
-// js/game-animations.js
+
 function animateGameSprite(element, frames, frameDuration, repeat = -1) {
     if (element.data('animationTween')) element.data('animationTween').kill();
     let currentFrameIndex = 0;

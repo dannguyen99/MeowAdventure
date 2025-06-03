@@ -1,4 +1,4 @@
-// js/scene04_victory.js
+
 $(document).ready(function() {
     const $kittenSprite = $('#kitten-sprite');
     const $fluffyDogSprite = $('#fluffy-dog-sprite');
@@ -30,7 +30,7 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyCheerSound,
             action: function(cb) {
-                // Fluffy dog cheering enthusiastically
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { y: "-=10px", duration: 0.2, ease: "power2.out" })
                     .to($fluffyDogSprite, { y: "+=10px", duration: 0.2, ease: "bounce.out" })
@@ -41,7 +41,7 @@ $(document).ready(function() {
             character: "Fierce Dog", 
             sfx: fierceDogDefeatSound,
             action: function(cb) {
-                // Fierce dog shaking head, stepping back
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fierceDogSprite, { 
                         rotation: -10, 
@@ -74,7 +74,7 @@ $(document).ready(function() {
             character: "Fierce Dog", 
             sfx: fierceDogFrustratedSound,
             action: function(cb) {
-                // Fierce dog gritting teeth, frustrated
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fierceDogSprite, { 
                         rotation: -15, 
@@ -94,10 +94,10 @@ $(document).ready(function() {
             text: "*The fierce dog turns and disappears into the bushes...*", 
             character: "Narrator",
             action: function(cb) {
-                // Fierce dog turns and disappears into bushes
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fierceDogSprite, { 
-                        scaleX: -1, // Turn around
+                        scaleX: -1, 
                         duration: 0.3 
                     })
                     .to($fierceDogSprite, { 
@@ -113,7 +113,7 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyLaughSound,
             action: function(cb) {
-                // Fluffy dog "pats kitten" - move closer and bounce
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { 
                         x: "-=15px", 
@@ -141,7 +141,7 @@ $(document).ready(function() {
             character: "Fluffy Dog", 
             sfx: fluffyBarkSound,
             action: function(cb) {
-                // Both characters prepare to continue journey
+                
                 gsap.timeline({ onComplete: cb })
                     .to($fluffyDogSprite, { 
                         x: "+=10px", 
@@ -152,7 +152,7 @@ $(document).ready(function() {
                         duration: 0.3 
                     }, "-=0.1");
             },
-            endScene: true // Triggers "Keep Moving" button
+            endScene: true 
         }
     ];
 
@@ -170,7 +170,7 @@ $(document).ready(function() {
         onSceneReady: function() {
             console.log("Scene 04 Victory is ready!");
             
-            // Show all three characters initially - fierce dog looks weakened
+            
             gsap.set($fierceDogSprite, { autoAlpha: 1, scale: 0.9, x: "-20px" });
             gsap.set([$kittenSprite, $fluffyDogSprite, $fierceDogSprite], { 
                 autoAlpha: 1, 

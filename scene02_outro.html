@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meow Adventure - Ch 2, Outro: A Helping Paw</title> <!-- Updated Title -->
+    <title>Meow Adventure - Ch 2, Outro: A Helping Paw</title> 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="game-container" class="scene-02-forest-outro"> <!-- Scene specific class -->
-        <img id="scene-background" src="images/Lv1.jpg" alt="Forest Path"> <!-- Same forest background -->
+    <div id="game-container" class="scene-02-forest-outro"> 
+        <img id="scene-background" src="images/Lv1.jpg" alt="Forest Path"> 
 
         <div id="animation-layer">
             <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
             <img id="squirrel-sprite" src="images/Squirrel.png" alt="Squirrel" style="opacity:0; display:none;">
-            <!-- No acorns or hint arrows needed here -->
+            
         </div>
 
         <div id="dialogue-box-container" style="opacity:0;">
@@ -30,12 +30,12 @@
         <button id="scene-sound-toggle">🔇</button>
 
         <div id="navigation">
-            <!-- This button now navigates to Scene 3 (Stream Crossing) -->
+            
             <button id="next-scene-button" style="display:none;" data-nextscene="scene03_intro.html">Follow Squirrel</button>
         </div>
     </div>
 
-    <!-- Audio: Continue forest ambiance or a slightly more resolved/positive theme -->
+    
     <audio id="bg-music-scene2" src="audio/magic_forest.mp3" loop></audio>
     <audio id="click-sound" src="audio/ui_click.mp3"></audio>
     <audio id="squirrel-chatter-sound" src="audio/squirrel.mp3"></audio>
@@ -45,15 +45,15 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-    <!-- COMMON GAME SCRIPTS -->
+    
     <script src="js/game-audio.js"></script>
     <script src="js/game-dialogue.js"></script>
     <script src="js/game-animations.js"></script>
     <script src="js/game-navigation.js"></script>
     <script src="js/game-main.js"></script>
 
-    <script src="js/scene02_outro.js"></script> <!-- NEW JS FILE -->
+    <script src="js/scene02_outro.js"></script> 
 
-    <!-- Source Attribution -->
+    
 </body>
 </html>

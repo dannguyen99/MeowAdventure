@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meow Adventure - Ch 1, Part 2: The Chase</title> <!-- Updated Title -->
+    <title>Meow Adventure - Ch 1, Part 2: The Chase</title> 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,17 +14,17 @@
 </head>
 <body>
     <div id="game-container">
-        <!-- Background Image - starts with house only -->
+        
         <img id="scene-background" src="images/Back1.png" alt="House Porch">
 
         <div id="animation-layer">
-            <!-- Kitten Sprite - starts as images/Kitten.png, then animates -->
+            
             <img id="kitten-sprite" src="images/Kitten.png" alt="Kitten" style="opacity:0; display:none;">
-            <!-- Butterfly Sprite - animates -->
+            
             <img id="butterfly-sprite" src="images/Butterfly Animation/Butterfly 1.png" alt="Butterfly" style="opacity:0; display:none;">
         </div>
 
-        <div id="dialogue-box-container" style="opacity:0;"> <!-- Start dialogue box hidden -->
+        <div id="dialogue-box-container" style="opacity:0;"> 
             <div id="dialogue-box">
                 <p id="dialogue-text"></p>
             </div>
@@ -37,11 +37,11 @@
         </div>
     </div>
 
-    <audio id="bg-music-scene1" src="audio/peaceful_intro.mp3" loop></audio> <!-- Or a more chase-y music? -->
+    <audio id="bg-music-scene1" src="audio/peaceful_intro.mp3" loop></audio> 
     <audio id="click-sound" src="audio/ui_click.mp3"></audio>
-    <audio id="meow-sound" src="audio/kitten_meow_surprise.mp3"></audio> <!-- Potentially a different meow -->
+    <audio id="meow-sound" src="audio/kitten_meow_surprise.mp3"></audio> 
     <audio id="butterfly-flutter-sound" src="audio/butterfly_flutter.mp3" loop></audio>
-    <audio id="run-sound" src="audio/kitten_run_short.mp3" loop></audio> <!-- Optional running sound -->
+    <audio id="run-sound" src="audio/kitten_run_short.mp3" loop></audio> 
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -51,9 +51,9 @@
     <script src="js/game-navigation.js"></script>
     <script src="js/game-main.js"></script>
 
-    <!-- SCENE-SPECIFIC SCRIPT -->
-    <script src="js/scene01_part2.js"></script> <!-- Example -->
+    
+    <script src="js/scene01_part2.js"></script> 
 
-    <!-- Source Attribution -->
+    
 </body>
 </html>

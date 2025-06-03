@@ -1,11 +1,11 @@
-// js/scene03_riddle.js
+
 $(document).ready(function() {
     const $kittenSprite = $('#kitten-sprite');
     const $frogSprite = $('#frog-sprite');
     const $riddleContainer = $('#riddle-container');
     const $riddleTextDisplay = $('#riddle-text-display');
     const $answerChoicesContainer = $('#answer-choices-container');
-    const $dialogueText = $('#dialogue-text'); // Add this line
+    const $dialogueText = $('#dialogue-text'); 
 
     const audioSelectors = {
         bgMusic: '#bg-music-scene3',
@@ -15,7 +15,7 @@ $(document).ready(function() {
         correctAnswer: '#correct-answer-sound',
         wrongAnswer: '#wrong-answer-sound'
     };
-    // Get actual audio elements
+    
     const meowThinkingSound = $(audioSelectors.meowThinking)[0];
     const frogCroakSound = $(audioSelectors.frogCroak)[0];
     const correctAnswerSound = $(audioSelectors.correctAnswer)[0];
@@ -50,7 +50,7 @@ $(document).ready(function() {
             ]
         }
     ];
-    let currentRiddleIndex = 0; // Index for the riddles array
+    let currentRiddleIndex = 0; 
     let canAnswerRiddle = false;
 
     const sceneDialogues = [
@@ -63,10 +63,10 @@ $(document).ready(function() {
         },
         {
             
-            text: "Here’s your first riddle:", // Updated to reflect first riddle
+            text: "Here’s your first riddle:", 
             character: "Frog", sfx: frogCroakSound,
             action: function(callback) {
-                showRiddleUI(); // This will now show riddles[currentRiddleIndex]
+                showRiddleUI(); 
                 callback();
             }
         },
@@ -74,13 +74,13 @@ $(document).ready(function() {
             text: "Hmm… What could it be?", character: "Kitten", sfx: meowThinkingSound,
             action: function(callback){
                 canAnswerRiddle = true;
-                // No automatic callback, player clicks answer
+                
             }
         }
     ];
 
     function showRiddleUI() {
-        if (currentRiddleIndex >= riddles.length) { // Should not happen if logic is correct
+        if (currentRiddleIndex >= riddles.length) { 
             console.error("Tried to show riddle beyond available count.");
             return;
         }
@@ -94,8 +94,8 @@ $(document).ready(function() {
             $answerChoicesContainer.append($button);
         });
         gsap.to($riddleContainer, { autoAlpha: 1, duration: 0.5, display: 'block', delay:0.3 });
-        canAnswerRiddle = false; // Disable answering until kitten "thinks" or explicitly enabled
-                                 // The "Hmm... What could it be?" dialogue sets this to true
+        canAnswerRiddle = false; 
+                                 
     }
 
     function handleAnswerClick(event) {
@@ -104,41 +104,41 @@ $(document).ready(function() {
 
         const $button = $(event.currentTarget);
         const isCorrect = $button.data('correct');
-        playGameSfx($(audioSelectors.click)[0]); // MODIFIED HERE
+        playGameSfx($(audioSelectors.click)[0]); 
 
         if (isCorrect) {
-            playGameSfx(correctAnswerSound); // MODIFIED HERE
+            playGameSfx(correctAnswerSound); 
             $button.css('background-color', '#a5d6a7');
-            $('#answer-choices-container button').addClass('disabled').prop('disabled', true); // Disable all for this question
+            $('#answer-choices-container button').addClass('disabled').prop('disabled', true); 
 
-            currentRiddleIndex++; // Move to next question
+            currentRiddleIndex++; 
 
             if (currentRiddleIndex < riddles.length) {
-                // There's another question
+                
                 gsap.to($riddleContainer, {autoAlpha:0, duration:0.3, delay: 0.8, onComplete: () => {
-                    $riddleContainer.css('display', 'none'); // Hide old riddle before showing new one
+                    $riddleContainer.css('display', 'none'); 
                     gsap.delayedCall(0.5, () => {
-                        showRiddleUI(); // Show the next riddle
-                        // Ensure the dialogue system re-shows its current dialogue item
-                        // (which should be "Hmm... What could it be?").
-                        // This overwrites temporary feedback from any previous incorrect answer
-                        // and also triggers the action associated with the "Hmm..." dialogue,
-                        // which sets canAnswerRiddle = true.
+                        showRiddleUI(); 
+                        
+                        
+                        
+                        
+                        
                         if (window.gameDialogueSystem && typeof window.gameDialogueSystem.showNext === 'function') {
                             window.gameDialogueSystem.showNext(); 
                         } else {
                             console.error("gameDialogueSystem.showNext() not found for refreshing dialogue.");
-                            // If gameDialogueSystem.showNext() is unavailable, the action to set canAnswerRiddle might not run.
-                            // This would be a fallback, but the primary solution relies on showNext().
+                            
+                            
                             canAnswerRiddle = true; 
                         }
                     });
                 }});
             } else {
-                // All riddles answered correctly!
+                
                 gsap.to($riddleContainer, {autoAlpha:0, duration:0.3, delay: 0.8, onComplete: () => {
                     $riddleContainer.css('display', 'none');
-                    // Use the global dialogue system to add and play success dialogues
+                    
                     if (window.gameDialogueSystem && typeof window.gameDialogueSystem.addDialogueItems === 'function') {
                         const successDialogues = [
                             { text: "Hooray! You’re really smart! You got them all right!", character: "Frog", sfx: frogCroakSound },
@@ -147,11 +147,11 @@ $(document).ready(function() {
                         ];
                         window.gameDialogueSystem.addDialogueItems(successDialogues);
 
-                        // Set the dialogue system's current index to the first of the newly added dialogues.
-                        // The new items are at the end of the gameDialogueSystem.items array.
+                        
+                        
                         window.gameDialogueSystem.currentIndex = window.gameDialogueSystem.items.length - successDialogues.length;
 
-                        // Now, tell the dialogue system to show this "next" (newly current) dialogue.
+                        
                         if (typeof window.gameDialogueSystem.showNext === 'function') {
                             window.gameDialogueSystem.showNext();
                         } else { console.error("gameDialogueSystem.showNext() not found."); }
@@ -159,21 +159,21 @@ $(document).ready(function() {
                     } else { console.error("gameDialogueSystem not properly set up for adding dialogues."); }
                 }});
             }
-        } else { // Incorrect Answer
-            playGameSfx(wrongAnswerSound); // MODIFIED HERE
-            $button.addClass('disabled').prop('disabled', true); // Disable only this wrong button
+        } else { 
+            playGameSfx(wrongAnswerSound); 
+            $button.addClass('disabled').prop('disabled', true); 
 
-            // Show feedback directly in dialogue box
+            
             const tempFeedbackText = "Hmm, not quite! That's not it, try again!";
-            if ($dialogueText && $dialogueText.length) { // Ensure $dialogueText is valid
+            if ($dialogueText && $dialogueText.length) { 
                 $dialogueText.html(`<strong>Frog:</strong> ${tempFeedbackText}`);
                 gsap.fromTo($dialogueText, {autoAlpha:0, y:10},{autoAlpha:1, y:0, duration:0.3});
-                if (frogCroakSound) playGameSfx(frogCroakSound); // MODIFIED HERE
+                if (frogCroakSound) playGameSfx(frogCroakSound); 
             } else { console.error("$dialogueText not found for incorrect feedback."); }
 
 
             gsap.delayedCall(1.5, () => {
-                canAnswerRiddle = true; // Allow trying other options for the *same* question
+                canAnswerRiddle = true; 
             });
         }
     }

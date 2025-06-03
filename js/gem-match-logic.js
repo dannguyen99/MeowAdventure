@@ -1,4 +1,4 @@
-// js/gem-match-logic.js
+
 
 const GEM_TYPES = [
     "Gem1.png", "Gem2.png", "Gem3.png",
@@ -44,7 +44,7 @@ function populateGrid() {
     console.log("Populating grid...");
     isProcessing = true;
 
-    // Clear grid first
+    
     for (let r = 0; r < GRID_SIZE; r++) {
         for (let c = 0; c < GRID_SIZE; c++) {
             gemGrid[r][c] = null;
@@ -53,7 +53,7 @@ function populateGrid() {
         }
     }
 
-    // Fill grid ensuring no initial matches
+    
     for (let r = 0; r < GRID_SIZE; r++) {
         for (let c = 0; c < GRID_SIZE; c++) {
             let randomGemType;
@@ -67,7 +67,7 @@ function populateGrid() {
         }
     }
     
-    // Reset state and check for valid moves
+    
     isProcessing = false;
     firstSelectedGem = null;
     
@@ -80,13 +80,13 @@ function populateGrid() {
 }
 
 function createsInitialMatch(row, col, gemType) {
-    // Check horizontal
+    
     let hCount = 1;
     for (let c = col - 1; c >= 0 && gemGrid[row][c] === gemType; c--) hCount++;
     for (let c = col + 1; c < GRID_SIZE && gemGrid[row][c] === gemType; c++) hCount++;
     if (hCount >= 3) return true;
 
-    // Check vertical
+    
     let vCount = 1;
     for (let r = row - 1; r >= 0 && gemGrid[r][col] === gemType; r--) vCount++;
     for (let r = row + 1; r < GRID_SIZE && gemGrid[r][col] === gemType; r++) vCount++;
@@ -107,7 +107,7 @@ function addGemToCell(row, col, gemType, isFalling = false) {
         .css('background-image', `url('images/Gems/${gemType}')`)
         .data({ row: row, col: col, type: gemType });
 
-    // Attach click handler and mark it
+    
     attachGemClickHandler($gem);
     
     gemGrid[row][col] = gemType;
@@ -122,11 +122,11 @@ function addGemToCell(row, col, gemType, isFalling = false) {
     console.log("Added gem to", row, col, "type:", gemType);
 }
 
-// Centralized click handler attachment with tracking
+
 function attachGemClickHandler($gem) {
-    $gem.off('click.gemMatch'); // Remove any existing handlers with namespace
-    $gem.on('click.gemMatch', handleGemClick); // Add with namespace for easier tracking
-    $gem.attr('data-clickable', 'true'); // Add attribute for reliable detection
+    $gem.off('click.gemMatch'); 
+    $gem.on('click.gemMatch', handleGemClick); 
+    $gem.attr('data-clickable', 'true'); 
 }
 
 function handleGemClick(event) {
@@ -155,14 +155,14 @@ function handleGemClick(event) {
     }
 
     if (!firstSelectedGem) {
-        // Select first gem
+        
         firstSelectedGem = gemData;
         firstSelectedGem.element.addClass('selected');
         if (typeof playGameSfx === 'function') playGameSfx('#gem-select-sound');
         console.log("First gem selected:", gemData.row, gemData.col);
     } else {
         if (firstSelectedGem.element[0] === $clickedGem[0]) {
-            // Deselect same gem
+            
             firstSelectedGem.element.removeClass('selected');
             firstSelectedGem = null;
             if (typeof playGameSfx === 'function') playGameSfx('#gem-deselect-sound');
@@ -171,13 +171,13 @@ function handleGemClick(event) {
         }
 
         if (areAdjacent(firstSelectedGem, gemData)) {
-            // Valid swap
+            
             console.log("Valid swap attempt");
             isProcessing = true;
             firstSelectedGem.element.removeClass('selected');
             swapGems(firstSelectedGem, gemData);
         } else {
-            // Select new gem
+            
             console.log("Selecting new gem instead");
             firstSelectedGem.element.removeClass('selected');
             firstSelectedGem = gemData;
@@ -199,7 +199,7 @@ function swapGems(gem1, gem2) {
     
     if (typeof playGameSfx === 'function') playGameSfx('#gem-swap-sound');
 
-    // Animate swap
+    
     const gem1Pos = gem1.element.position();
     const gem2Pos = gem2.element.position();
 
@@ -220,12 +220,12 @@ function swapGems(gem1, gem2) {
 function completeSwap(gem1, gem2) {
     console.log("Completing swap");
     
-    // Update logical grid
+    
     const tempType = gemGrid[gem1.row][gem1.col];
     gemGrid[gem1.row][gem1.col] = gemGrid[gem2.row][gem2.col];
     gemGrid[gem2.row][gem2.col] = tempType;
 
-    // Move DOM elements
+    
     const $cell1 = $gridContainerElement.find(`.gem-cell[data-row='${gem1.row}'][data-col='${gem1.col}']`);
     const $cell2 = $gridContainerElement.find(`.gem-cell[data-row='${gem2.row}'][data-col='${gem2.col}']`);
     
@@ -233,15 +233,15 @@ function completeSwap(gem1, gem2) {
     $cell1.empty().append(gem2.element);
     $cell2.empty().append(gem1.element);
 
-    // Update data
+    
     gem1.element.data({ row: gem2.row, col: gem2.col, type: gem2.type });
     gem2.element.data({ row: gem1.row, col: gem1.col, type: gem1.type });
     
-    // CRITICAL FIX: Re-attach click handlers after DOM manipulation
+    
     attachGemClickHandler(gem1.element);
     attachGemClickHandler(gem2.element);
 
-    // Check for matches
+    
     const matches = findAllMatches();
     if (matches.length > 0) {
         console.log("Match found, processing");
@@ -255,12 +255,12 @@ function completeSwap(gem1, gem2) {
 function revertSwap(gem1, gem2) {
     if (typeof playGameSfx === 'function') playGameSfx('#gem-no-match-sound');
     
-    // Revert logical grid
+    
     const tempType = gemGrid[gem1.row][gem1.col];
     gemGrid[gem1.row][gem1.col] = gemGrid[gem2.row][gem2.col];
     gemGrid[gem2.row][gem2.col] = tempType;
 
-    // Animate back
+    
     const gem1Pos = gem1.element.position();
     const gem2Pos = gem2.element.position();
 
@@ -275,7 +275,7 @@ function revertSwap(gem1, gem2) {
         y: gem1Pos.top - gem2Pos.top,
         duration: 0.3, ease: "power2.inOut",
         onComplete: () => {
-            // Move DOM elements back
+            
             const $cell1 = $gridContainerElement.find(`.gem-cell[data-row='${gem1.row}'][data-col='${gem1.col}']`);
             const $cell2 = $gridContainerElement.find(`.gem-cell[data-row='${gem2.row}'][data-col='${gem2.col}']`);
             
@@ -283,19 +283,19 @@ function revertSwap(gem1, gem2) {
             $cell1.empty().append(gem1.element);
             $cell2.empty().append(gem2.element);
 
-            // Restore data
+            
             gem1.element.data({ row: gem1.row, col: gem1.col, type: gem1.type });
             gem2.element.data({ row: gem2.row, col: gem2.col, type: gem2.type });
             
-            // CRITICAL FIX: Re-attach click handlers after DOM manipulation
+            
             attachGemClickHandler(gem1.element);
             attachGemClickHandler(gem2.element);
             
-            // Reset state
+            
             console.log("Revert complete, resetting state");
             resetGameState();
             
-            // Call move callback for failed move
+            
             if (onMoveMadeCallback) onMoveMadeCallback(false);
         }
     });
@@ -306,13 +306,13 @@ function processMatches(matches, isFirstMatch = false) {
     
     if (typeof playGameSfx === 'function') playGameSfx('#gem-match-sound');
     
-    // Remove matched gems
+    
     matches.forEach(gem => {
         const $cell = $gridContainerElement.find(`.gem-cell[data-row='${gem.row}'][data-col='${gem.col}']`);
         const $gemEl = $cell.find('.gem-item');
         if ($gemEl.length) {
-            $gemEl.off('click.gemMatch'); // Remove click handler with namespace
-            $gemEl.removeAttr('data-clickable'); // Remove clickable marker
+            $gemEl.off('click.gemMatch'); 
+            $gemEl.removeAttr('data-clickable'); 
             gsap.to($gemEl, {
                 autoAlpha: 0, scale: 0.3, rotation: 180, 
                 duration: 0.5, ease: "power2.in",
@@ -324,7 +324,7 @@ function processMatches(matches, isFirstMatch = false) {
 
     if (onMatchCallback) onMatchCallback(Math.floor(matches.length / 3));
     
-    // Refill after animation
+    
     gsap.delayedCall(0.6, () => {
         refillGrid();
         if (isFirstMatch && onMoveMadeCallback) onMoveMadeCallback(true);
@@ -334,11 +334,11 @@ function processMatches(matches, isFirstMatch = false) {
 function refillGrid() {
     console.log("Refilling grid");
     
-    // Drop existing gems and fill empty spaces
+    
     for (let c = 0; c < GRID_SIZE; c++) {
         const gems = [];
         
-        // Collect existing gems from bottom up
+        
         for (let r = GRID_SIZE - 1; r >= 0; r--) {
             if (gemGrid[r][c] !== null) {
                 const $cell = $gridContainerElement.find(`.gem-cell[data-row='${r}'][data-col='${c}']`);
@@ -355,19 +355,19 @@ function refillGrid() {
             }
         }
 
-        // Place existing gems at bottom
+        
         let targetRow = GRID_SIZE - 1;
         gems.forEach(gemData => {
             const $targetCell = $gridContainerElement.find(`.gem-cell[data-row='${targetRow}'][data-col='${c}']`);
             gemGrid[targetRow][c] = gemData.type;
             
-            // Update gem data and ensure click handler is attached
+            
             gemData.element.data({ row: targetRow, col: c, type: gemData.type });
-            attachGemClickHandler(gemData.element); // Use centralized function
+            attachGemClickHandler(gemData.element); 
             
             $targetCell.append(gemData.element);
 
-            // Animate falling
+            
             const dropDistance = targetRow - gemData.originalRow;
             if (dropDistance > 0) {
                 gsap.fromTo(gemData.element,
@@ -378,7 +378,7 @@ function refillGrid() {
             targetRow--;
         });
 
-        // Fill empty spaces at top with NEW gems
+        
         for (let r = targetRow; r >= 0; r--) {
             const randomGemType = GEM_TYPES[Math.floor(Math.random() * GEM_TYPES.length)];
             addGemToCell(r, c, randomGemType, true);
@@ -387,17 +387,17 @@ function refillGrid() {
 
     if (typeof playGameSfx === 'function') playGameSfx('#gem-fall-sound');
     
-    // Check for cascading matches
+    
     gsap.delayedCall(0.8, () => {
         const newMatches = findAllMatches();
         if (newMatches.length > 0) {
             processMatches(newMatches);
         } else {
-            // Reset state after all cascades are done
+            
             console.log("All cascades complete, resetting state");
             resetGameState();
             
-            // Simple verification - no longer needed with reliable method
+            
             const unclickableGems = $gridContainerElement.find('.gem-item:not([data-clickable="true"])');
             if (unclickableGems.length > 0) {
                 console.warn(`Fixed ${unclickableGems.length} gems without click handlers`);
@@ -416,7 +416,7 @@ function refillGrid() {
     });
 }
 
-// Centralized state reset function
+
 function resetGameState() {
     isProcessing = false;
     firstSelectedGem = null;
@@ -426,7 +426,7 @@ function findAllMatches() {
     let matches = [];
     const visited = Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(false));
     
-    // Check horizontal matches
+    
     for (let r = 0; r < GRID_SIZE; r++) {
         let count = 1;
         let currentType = gemGrid[r][0];
@@ -457,7 +457,7 @@ function findAllMatches() {
         }
     }
     
-    // Check vertical matches
+    
     for (let c = 0; c < GRID_SIZE; c++) {
         let count = 1;
         let currentType = gemGrid[0][c];
@@ -496,11 +496,11 @@ function checkForValidMoves() {
         for (let c = 0; c < GRID_SIZE; c++) {
             if (!gemGrid[r][c]) continue;
 
-            // Check right swap
+            
             if (c < GRID_SIZE - 1 && gemGrid[r][c+1]) {
                 if (checkPotentialSwap(r, c, r, c + 1)) return true;
             }
-            // Check down swap
+            
             if (r < GRID_SIZE - 1 && gemGrid[r+1][c]) {
                 if (checkPotentialSwap(r, c, r + 1, c)) return true;
             }
@@ -528,13 +528,13 @@ function checkMatchAt(r, c) {
     const type = gemGrid[r][c];
     if (!type) return false;
 
-    // Check horizontal
+    
     let hCount = 1;
     for (let col = c - 1; col >= 0 && gemGrid[r][col] === type; col--) hCount++;
     for (let col = c + 1; col < GRID_SIZE && gemGrid[r][col] === type; col++) hCount++;
     if (hCount >= 3) return true;
 
-    // Check vertical
+    
     let vCount = 1;
     for (let row = r - 1; row >= 0 && gemGrid[row][c] === type; row--) vCount++;
     for (let row = r + 1; row < GRID_SIZE && gemGrid[row][c] === type; row++) vCount++;
@@ -555,8 +555,8 @@ function shuffleGrid() {
     if (typeof playGameSfx === 'function') playGameSfx('#shuffle-sound');
 
     const allGemElements = $gridContainerElement.find('.gem-item');
-    allGemElements.off('click.gemMatch'); // Use namespace
-    allGemElements.removeAttr('data-clickable'); // Remove markers
+    allGemElements.off('click.gemMatch'); 
+    allGemElements.removeAttr('data-clickable'); 
     
     gsap.to(allGemElements, {
         autoAlpha: 0, scale: 0.3, rotation: 360, duration: 0.4, stagger: 0.02,

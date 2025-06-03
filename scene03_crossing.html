@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="game-container" class="scene-03-stream-crossing"> <!-- Scene specific class -->
+    <div id="game-container" class="scene-03-stream-crossing"> 
         <img id="scene-background" src="images/Lv2.png" alt="Wide Rushing Stream">
 
         <div id="animation-layer">
@@ -20,7 +20,7 @@
             <img id="frog-sprite" src="images/Frog.png" alt="Frog Guiding" style="opacity:0; display:none;">
         </div>
 
-        <div id="dialogue-box-container" style="opacity:0;"> <!-- Starts hidden, managed by game-dialogue.js -->
+        <div id="dialogue-box-container" style="opacity:0;"> 
             <div id="dialogue-box">
                 <p id="dialogue-text"></p>
             </div>
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <!-- Audio -->
+    
     <audio id="bg-music-scene3" src="audio/golden-forest-with-birds-and-running-stream-sounds-171319.mp3" loop></audio>
     <audio id="click-sound" src="audio/ui_click.mp3"></audio>
     <audio id="meow-relieved-sound" src="audio/kitten_meow_surprise.mp3"></audio>
@@ -41,21 +41,21 @@
     <audio id="frog-hop-sound" src="audio/frog-85649.mp3"></audio>
     <audio id="kitten-step-sound" src="audio/soft_step.wav"></audio>
 
-    <!-- Scripts -->
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-    <!-- COMMON GAME SCRIPTS -->
+    
     <script src="js/game-audio.js"></script>
-    <script src="js/game-dialogue.js"></script> <!-- Ensure this is updated for isActionOnly -->
+    <script src="js/game-dialogue.js"></script> 
     <script src="js/game-animations.js"></script>
     <script src="js/game-navigation.js"></script>
     <script src="js/game-main.js"></script>
 
-    <!-- SCENE-SPECIFIC SCRIPT -->
+    
     <script src="js/scene03_crossing.js"></script>
 
-    <!-- Source Attribution: Remember to add if using external assets -->
-    <!-- e.g., Music by X from Y, Sound by Z from W -->
+    
+    
 </body>
 </html>

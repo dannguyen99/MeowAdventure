@@ -1,6 +1,6 @@
 $(document).ready(function() {
     const $sceneBackground = $('#scene-background');
-    // Remove $gameLogo reference
+    
     const $kittenSprite = $('#kitten-sprite');
     const $fluffyDogSprite = $('#fluffy-dog-sprite');
     const $thankYouContainer = $('#thank-you-text-container');
@@ -13,7 +13,7 @@ $(document).ready(function() {
     const clickSound = $('#click-sound')[0];
 
     function initScene() {
-        // Initialize audio
+        
         if (typeof initializeGameAudio === "function") {
             initializeGameAudio({ bgMusic: '#bg-music-thank-you', sfx: { click: '#click-sound'} });
         } else {
@@ -23,7 +23,7 @@ $(document).ready(function() {
             }
         }
         
-        // Initialize navigation
+        
         if (typeof initializeNavigation === "function") {
             initializeNavigation();
         } else {
@@ -38,7 +38,7 @@ $(document).ready(function() {
             });
         }
 
-        // Enhanced scene animations (removed logo animations)
+        
         const tl = gsap.timeline();
 
         tl.to($sceneBackground, { opacity: 1, duration: 1.2 })
@@ -51,7 +51,7 @@ $(document).ready(function() {
               ease: "elastic.out(1, 0.8)",
               onComplete: () => {
                   if (meowSound) meowSound.play();
-                  // Add floating animation
+                  
                   gsap.to($kittenSprite, { 
                       y: -8, 
                       duration: 2, 
@@ -69,7 +69,7 @@ $(document).ready(function() {
               ease: "elastic.out(1, 0.8)",
               onComplete: () => {
                   if (dogSound) dogSound.play();
-                  // Add floating animation (opposite phase)
+                  
                   gsap.to($fluffyDogSprite, { 
                       y: -8, 
                       duration: 2.5, 
@@ -79,21 +79,21 @@ $(document).ready(function() {
                   });
               }
             }, "-=0.8")
-          // Characters wave at each other
+          
           .to($kittenSprite, { rotation: -10, duration: 0.3, ease: "sine.inOut" }, ">0.2")
           .to($kittenSprite, { rotation: 10, duration: 0.3, ease: "sine.inOut" })
           .to($kittenSprite, { rotation: 0, duration: 0.3, ease: "sine.inOut" })
           .to($fluffyDogSprite, { rotation: 10, duration: 0.3, ease: "sine.inOut" }, "<")
           .to($fluffyDogSprite, { rotation: -10, duration: 0.3, ease: "sine.inOut" })
           .to($fluffyDogSprite, { rotation: 0, duration: 0.3, ease: "sine.inOut" })
-          // Thank you container appears
+          
           .to($thankYouContainer, { 
               opacity: 1, 
               scale: 1, 
               duration: 0.8, 
               ease: "back.out(1.7)" 
             }, ">0.3")
-          // Staggered text lines with bounce effect
+          
           .to("#thank-you-line-1", { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out" }, ">0.3")
           .to("#thank-you-line-2", { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out" }, ">0.15")
           .to("#thank-you-line-3", { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out" }, ">0.15")
@@ -101,16 +101,16 @@ $(document).ready(function() {
           .to("#thank-you-line-5", { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out" }, ">0.2")
           .to("#thank-you-line-6", { opacity: 1, y: 0, duration: 0.6, ease: "bounce.out" }, ">0.15")
           .to("#thank-you-line-7", { opacity: 1, y: 0, duration: 0.6, ease: "bounce.out" }, ">0.2")
-          // Button appears with glow effect (now part of the container)
+          
           .to($navContainer, { 
               opacity: 1, 
               scale: 1, 
               duration: 0.7, 
               ease: "back.out(1.7)" 
             }, ">0.3")
-          // Final celebration animations
+          
           .call(() => {
-              // Confetti-like effect with the characters
+              
               gsap.to($kittenSprite, { 
                   rotation: 360, 
                   duration: 1.5, 
@@ -127,7 +127,7 @@ $(document).ready(function() {
               });
           }, null, ">0.2");
 
-        // Set initial states for animated elements
+        
         gsap.set("#thank-you-line-1, #thank-you-line-2, #thank-you-line-3, #thank-you-line-4, #thank-you-line-5, #thank-you-line-6, #thank-you-line-7", { 
             y: 20, 
             opacity: 0 
@@ -138,10 +138,10 @@ $(document).ready(function() {
         gsap.set($navContainer, { 
             scale: 0.8 
         });
-        // Remove logo initial state setting
+        
     }
 
-    // Preload images (removed logo from list)
+    
     const imagesToPreload = [
         'images/Back1.png',
         'images/Kitten.png',
@@ -167,7 +167,7 @@ $(document).ready(function() {
         img.src = src;
     });
 
-    // Fallback timeout
+    
     setTimeout(() => {
         if (imagesLoaded < imagesToPreload.length) {
             console.warn("Image preloading timeout. Starting scene anyway.");

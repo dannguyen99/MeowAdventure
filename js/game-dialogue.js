@@ -1,19 +1,19 @@
-// js/game-dialogue.js
 
-// Make these jQuery objects accessible if needed by other functions within this file,
-// but the core logic will be in the gameDialogueSystem object.
+
+
+
 let $dialogueTextElement, $dialogueBoxElement, $navButtonElement;
 
 window.gameDialogueSystem = {
-    items: [],          // Array to hold all dialogue items for the current scene
-    currentIndex: 0,    // Index of the current dialogue item to be shown
-    clickEnabled: false, // Whether clicking the game container advances dialogue
+    items: [],          
+    currentIndex: 0,    
+    clickEnabled: false, 
 
-    // Call this from your scene-specific JS (via initializeSceneFramework in game-main.js)
+    
     init: function (dialoguesArray, textSelector, boxSelector, navButtonSelector) {
-        this.items = dialoguesArray ? [...dialoguesArray] : []; // Use a copy
+        this.items = dialoguesArray ? [...dialoguesArray] : []; 
         this.currentIndex = 0;
-        this.clickEnabled = false; // Start with clicks disabled
+        this.clickEnabled = false; 
 
         $dialogueTextElement = $(textSelector);
         $dialogueBoxElement = $(boxSelector);
@@ -24,7 +24,7 @@ window.gameDialogueSystem = {
             return;
         }
 
-        // Initial setup for dialogue box (e.g., start hidden)
+        
         gsap.set($dialogueBoxElement, { autoAlpha: 0 });
         if ($navButtonElement.length) {
             gsap.set($navButtonElement, { autoAlpha: 0, display: 'none' });
@@ -32,12 +32,12 @@ window.gameDialogueSystem = {
         console.log("Game Dialogue System Initialized with", this.items.length, "items.");
     },
 
-    // Call this to show the first dialogue or the next one after an advance
+    
     showNext: function () {
-        this.clickEnabled = false; // Disable clicks while new dialogue is appearing
+        this.clickEnabled = false; 
         if (this.currentIndex < this.items.length) {
             const currentItem = this.items[this.currentIndex];
-            this._animateTextAndProceed(currentItem); // Use a private helper
+            this._animateTextAndProceed(currentItem); 
 
             if (!currentItem.endPart && !currentItem.endScene) {
                 $dialogueBoxElement.css('cursor', 'pointer');
@@ -46,21 +46,21 @@ window.gameDialogueSystem = {
             }
         } else {
             console.log("No more dialogue items to show.");
-            this.clickEnabled = false; // No more items, no more clicks
+            this.clickEnabled = false; 
         }
     },
 
     _animateTextAndProceed: function (dialogueItem) {
         if (dialogueItem.isActionOnly) {
-            this.clickEnabled = false; // Disable clicks during action
+            this.clickEnabled = false; 
             if (dialogueItem.action) {
-                dialogueItem.action(() => { // Action's callback
-                    this.advance(); // Automatically advance to the next actual dialogue item
+                dialogueItem.action(() => { 
+                    this.advance(); 
                 });
             } else {
-                this.advance(); // No action, just advance
+                this.advance(); 
             }
-            return; // Skip text animation for action-only items
+            return; 
         }
         let fullText = (dialogueItem.character ? `<strong>${dialogueItem.character}:</strong> ` : "") + dialogueItem.text;
         $dialogueTextElement.html(fullText);
@@ -71,13 +71,13 @@ window.gameDialogueSystem = {
             autoAlpha: 1, duration: boxFadeDur, onComplete: () => {
                 gsap.fromTo($dialogueTextElement, { autoAlpha: 0, y: 10 }, {
                     autoAlpha: 1, y: 0, duration: 0.4, onComplete: () => {
-                        // Use global playGameSfx if available
-                        if (dialogueItem.sfx && typeof playGameSfx === 'function') { // MODIFIED HERE
-                            playGameSfx(dialogueItem.sfx);                         // MODIFIED HERE
+                        
+                        if (dialogueItem.sfx && typeof playGameSfx === 'function') { 
+                            playGameSfx(dialogueItem.sfx);                         
                         }
 
                         if (dialogueItem.action) {
-                            dialogueItem.action(() => { // Action's callback
+                            dialogueItem.action(() => { 
                                 this.clickEnabled = true;
                                 if (dialogueItem.endPart || dialogueItem.endScene) this.showNavButton();
                             });
@@ -98,23 +98,23 @@ window.gameDialogueSystem = {
         }
     },
 
-    // Call this when the game container is clicked
+    
     advance: function () {
         if (this.clickEnabled && $navButtonElement && !$navButtonElement.is(':visible')) {
-            if (this.currentIndex < this.items.length - 1) { // If there's a NEXT item
-                // Play click sound using global function
+            if (this.currentIndex < this.items.length - 1) { 
+                
                 if (typeof playGameSfx === 'function') {
                     playGameSfx('click-sound');
                 }
                 this.currentIndex++;
                 this.showNext();
             } else if (this.items[this.currentIndex] && (this.items[this.currentIndex].endPart || this.items[this.currentIndex].endScene)) {
-                // It's the last item that should show a button, do nothing on click here, button handles it
+                
             }
         }
     },
 
-    // Method for other scripts to add dialogues (e.g., riddle success)
+    
     addDialogueItems: function (newItemsArray) {
         if (Array.isArray(newItemsArray)) {
             this.items.push(...newItemsArray);
@@ -122,7 +122,7 @@ window.gameDialogueSystem = {
         }
     },
 
-    // Optional: if you need to jump to a specific dialogue (less common for linear stories)
+    
     setCurrentIndexAndShow: function (idx) {
         this.currentIndex = Math.max(0, Math.min(idx, this.items.length - 1));
         this.showNext();
