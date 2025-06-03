@@ -42,7 +42,8 @@
 }
 
 #gem-grid-container {
-    display: grid;
+    display: none; /* Hide by default */
+    opacity: 0;    /* Start fully transparent */
     grid-template-columns: repeat(5, var(--gem-cell-size, 60px)); /* Changed to 5x5 with smaller cells */
     grid-template-rows: repeat(5, var(--gem-cell-size, 60px));
     gap: var(--gem-gap, 4px); /* Slightly smaller gap */
@@ -56,7 +57,7 @@
 .gem-cell {
     width: var(--gem-cell-size, 60px);
     height: var(--gem-cell-size, 60px);
-    background-image: url('../images/Gem Boxes.png');
+    background-image: url('../images/Gem_Box.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

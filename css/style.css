@@ -214,9 +214,11 @@ body {
 .scene-02-minigame-acorn-hunt #spot-bush2 { top: 65%; width: 130px; left: 80%; height: 100px; }
 .scene-02-minigame-acorn-hunt #spot-log { top: 80%; width: 200px; left: 45%; height: 70px; }
 
-/* .found-acorn { */
-    /* Styles for found acorns if any are needed beyond JS positioning/visibility */
-/* } */
+.found-acorn {
+    width: 100px; 
+    height: auto;
+    position: absolute; 
+}
 
 /* Scene 03 Common Sprite Styles */
 .scene-03-stream-riddle #kitten-sprite,

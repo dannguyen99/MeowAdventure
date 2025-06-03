@@ -5,8 +5,9 @@ $(document).ready(function() {
     const $fluffyDogSprite = $('#fluffy-dog-sprite');
     const $strengthBarFill = $('#strength-bar-fill');
     const $strengthUiContainer = $('#fierce-dog-strength-ui');
+    const $gemGridContainer = $('#gem-grid-container');
 
-    const MAX_DOG_STRENGTH = 15; // Increased for 5x5 grid - more matches needed
+    const MAX_DOG_STRENGTH = 15;
     let currentDogStrength = MAX_DOG_STRENGTH;
 
     const audioSelectors = {
@@ -35,14 +36,31 @@ $(document).ready(function() {
         { text: "I can do this! I just need to think carefully about each move.", character: "Kitten", sfx: meowDeterminedSound },
         { text: "Good luck! You'll need it!", character: "Fierce Dog", sfx: fierceFrustratedSound,
             action: function(callback) {
-                $strengthUiContainer.css('display', 'block');
-                gsap.from($strengthUiContainer, {autoAlpha:0, y:-20, duration:0.5});
-                initializeGemMatch('#gem-grid-container', handleGemMatches, handlePlayerMove);
-                
-                if (window.gameDialogueSystem && $dialogueBoxElement && $dialogueBoxElement.css('opacity') !== '0') {
-                     gsap.to($dialogueBoxElement, {autoAlpha:0, duration:0.3});
+                // Show strength UI
+                if ($strengthUiContainer.length) {
+                    // Ensure strength UI is also hidden by default if not already
+                    // $strengthUiContainer.css({ display: 'none', opacity: 0 }); // If needed
+                    $strengthUiContainer.css('display', 'block'); // Set display before animating
+                    gsap.from($strengthUiContainer, {autoAlpha:0, y:-20, duration:0.5});
                 }
-                callback();
+
+                // Show the gem grid container (placeholders)
+                if ($gemGridContainer.length) {
+                    // Set display to 'grid' (as defined in gem-match.css) before animating opacity
+                    $gemGridContainer.css('display', 'grid'); 
+                    gsap.to($gemGridContainer, { autoAlpha: 1, duration: 0.5, delay: 0.2, onComplete: function() {
+                        // Initialize the gem match logic AFTER the grid is visible
+                        initializeGemMatch('#gem-grid-container', handleGemMatches, handlePlayerMove);
+                        
+                        if (window.gameDialogueSystem && typeof $dialogueBoxElement !== 'undefined' && $dialogueBoxElement && $dialogueBoxElement.length && $dialogueBoxElement.css('opacity') !== '0') {
+                             gsap.to($dialogueBoxElement, {autoAlpha:0, duration:0.3});
+                        }
+                        callback(); 
+                    }});
+                } else {
+                    initializeGemMatch('#gem-grid-container', handleGemMatches, handlePlayerMove);
+                    callback();
+                }
             }
         }
     ];
@@ -153,7 +171,7 @@ $(document).ready(function() {
 
     const imagesForThisScene = [
         'images/Gem_background.jpeg', 'images/Kitten.png', 'images/FluffyDog.png', 'images/FierceDog.png',
-        'images/Gem Boxes.png',
+        'images/Gem_Box.png',
         ...(window.GEM_TYPES || []).map(gemFile => `images/Gems/${gemFile}`)
     ].filter(Boolean);
 
@@ -163,7 +181,16 @@ $(document).ready(function() {
         audioSelectors: audioSelectors,
         onSceneReady: function() {
             console.log("Scene 04 Challenge (5x5) is ready!");
-            gsap.set([$fierceDogSprite, $kittenSprite, $fluffyDogSprite], { autoAlpha: 1, display: 'block' });
+            if ($fierceDogSprite.length && $kittenSprite.length && $fluffyDogSprite.length) {
+                gsap.set([$fierceDogSprite, $kittenSprite, $fluffyDogSprite], { autoAlpha: 1, display: 'block' });
+            }
+            // No need to hide $gemGridContainer here anymore, CSS handles it.
+            
+            if ($strengthUiContainer.length) {
+                // Ensure strength UI is hidden by default if it's revealed by dialogue
+                // and not already hidden by its own CSS.
+                $strengthUiContainer.css({ display: 'none', opacity: 0});
+            }
             updateStrengthBar();
         }
     };
