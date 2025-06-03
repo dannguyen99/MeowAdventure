@@ -69,6 +69,19 @@ All audio files are sourced from [Pixabay](https://pixabay.com/):
 - **ui_click.mp3** - [UI Click](https://pixabay.com/sound-effects/ui-click-192164/)
 - **woosh-230554.mp3** - [Whoosh Effect](https://pixabay.com/sound-effects/woosh-230554/)
 
+## 🤖 AI Assistance
+
+Portions of the code and some visual assets in this project were developed with the assistance of AI models:
+
+- **Code Development**: Assistance provided by [Google Gemini 2.5 Pro](https://deepmind.google/models/gemini/pro/).
+- **Image Generation**: The following images were generated using [Gemini Flash models](https://deepmind.google/models/gemini/flash/) (specifically a preview version for image generation):
+    - `images/Lv3.jfif`
+    - `images/Lv4.jpeg`
+    - `images/OpenDoorwayPath.jpeg`
+    - `images/Starling.png`
+    - `images/Otter.png`
+    - `images/Fish.png`
+
 ## 🎓 Credits
 
 **Convenor**: Dr Steve Collins  
