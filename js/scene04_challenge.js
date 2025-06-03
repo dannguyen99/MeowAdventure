@@ -38,10 +38,8 @@ $(document).ready(function() {
             action: function(callback) {
                 // Show strength UI
                 if ($strengthUiContainer.length) {
-                    // Ensure strength UI is also hidden by default if not already
-                    // $strengthUiContainer.css({ display: 'none', opacity: 0 }); // If needed
                     $strengthUiContainer.css('display', 'block'); // Set display before animating
-                    gsap.from($strengthUiContainer, {autoAlpha:0, y:-20, duration:0.5});
+                    gsap.to($strengthUiContainer, {autoAlpha: 1, y: 0, duration: 0.5}); // Changed from 'from' to 'to'
                 }
 
                 // Show the gem grid container (placeholders)
